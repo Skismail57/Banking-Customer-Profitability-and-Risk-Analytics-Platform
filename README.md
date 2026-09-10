@@ -10,8 +10,7 @@
   <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes"/>
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
   <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn"/>
-  <img src="https://img.shields.io/badge/MIT-License-000000?style=for-the-badge&logo=mit&logoColor=white" alt="MIT License"/>
-</div>
+ 
 
 <div align="center">
   <img src="Project Screenshots/Home tab Welcome to the Banking Customer Profitability and Risk Analytics Platform & core overview.png" alt="Platform Overview" width="1000"/>
