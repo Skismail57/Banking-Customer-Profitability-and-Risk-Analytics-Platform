@@ -1,1407 +1,962 @@
 # 🏦 Banking Customer Profitability & Risk Analytics Platform
-
 <div align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
-  <img src="https://img.shields.io/badge/Apache_Kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Kafka"/>
-  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
-  <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes"/>
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
-  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn"/>
-  <img src="https://img.shields.io/badge/MIT-License-000000?style=for-the-badge&logo=mit&logoColor=white" alt="MIT License"/>
-</div>
 
+<img src="assets/github-cover.svg" alt="Banking Customer Profitability and Risk Analytics Platform" width="100%"/>
+
+</div>
 <div align="center">
-  <img src="Project Screenshots/Home tab Welcome to the Banking Customer Profitability and Risk Analytics Platform & core overview.png" alt="Platform Overview" width="1000"/>
+
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white) ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white) ![Kafka](https://img.shields.io/badge/Kafka%2FRedpanda-231F20?style=for-the-badge&logo=apachekafka&logoColor=white)
+
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white) ![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white) ![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
+
 </div>
+> A portfolio-grade banking analytics platform that combines customer 360 analytics, profitability, credit risk, churn, segmentation, predictive modeling, statistical analysis, decision intelligence, API services and streaming-style monitoring in one modular Python system.
 
----
+## 📌 Project at a Glance
 
-## 📖 Overview
+| Area | Implementation |
+|---|---|
+| **Primary interface** | Streamlit multi-page analytics dashboard |
+| **API** | FastAPI REST API with OpenAPI / Swagger / ReDoc |
+| **Database design** | PostgreSQL + SQLAlchemy + dimensional/star-schema style facts and dimensions |
+| **Analytics** | Profitability, credit risk, churn, CLV, segmentation, transaction, customer intelligence and statistics |
+| **ML** | Churn, default risk, profitability, CLV and transaction anomaly models |
+| **Streaming** | Kafka/Redpanda, Redis feature store, event-time processing, alerts, replay and reconciliation modules |
+| **Data quality** | Pandera-based validation, quality metrics, lineage and monitoring |
+| **Decision layer** | Configurable business rules and prioritized recommendations |
+| **Deployment** | Docker, Docker Compose and Kubernetes manifests |
+| **Automation** | GitHub Actions CI/CD workflows |
+| **Documentation** | 70+ Markdown documents plus architecture, security, testing and methodology material |
+| **Test suite** | 57 test files / 181 collected tests at inspection time |
+| **Included UI evidence** | **55 screenshots**, grouped below so every screenshot renders in the README |
 
-A comprehensive, production-grade **Banking Customer Profitability & Risk Analytics Platform** designed for financial institutions to gain deep insights into customer behavior, assess risk exposure, optimize profitability, and make data-driven decisions. This platform combines real-time streaming analytics, machine learning models, and interactive dashboards to provide a 360-degree view of customer relationships.
+## 🎯 What This Project Solves
 
-### 🎯 Key Capabilities
+Banks often have customer, account, transaction, credit, profitability and engagement data spread across different systems. This project turns those domains into a unified analytical workflow that answers questions such as:
 
-- **Real-time Risk Scoring**: Continuous monitoring of customer risk levels with early warning systems
-- **Customer 360 Analytics**: Unified view of customer profiles, transactions, and relationships
-- **Profitability Analysis**: Detailed customer and product-level profitability metrics
-- **Churn Prediction**: ML-powered churn risk identification and retention strategies
-- **Decision Intelligence**: Automated recommendations for business actions
-- **Live Monitoring**: Real-time alerts for anomalies, fraud, and threshold breaches
-- **Model Monitoring**: Continuous tracking of ML model performance and drift
+- Which customers generate the most revenue and net profit?
+- Where is credit exposure concentrated?
+- Which customers show high risk or delinquency signals?
+- Which customers are most likely to churn?
+- Which products contribute revenue, balances and risk?
+- How do customer segments differ in value and behavior?
+- What actions should an executive or relationship manager consider?
+- How can risk, churn and anomaly signals be monitored continuously?
 
-### 📊 Production Readiness Score
+## 🧩 Core Analytics Domains
 
-**9.0/10** - This platform is production-ready with complete API layer, security features, containerization, and CI/CD pipeline.
+### 1. Customer 360
+Unified customer profile combining demographic attributes, balances, profitability, CLV, risk information and recent transactions.
 
----
+### 2. Profitability Analytics
+Revenue and cost decomposition, net profit, margin, ROA/ROE-oriented metrics, customer/product/account analysis, temporal analysis and profitability tiers.
 
-## 🎯 About the Project
+### 3. Credit Risk Analytics
+Credit utilization, debt burden, repayment behavior, delinquency, exposure, default indicators, risk scoring, risk bands and portfolio-level risk analysis.
 
-### Problem Statement
+### 4. Churn & Retention Analytics
+Churn feature engineering, probability scoring, cohort/rate analysis, evaluation and identification of high-churn customers.
 
-Financial institutions face significant challenges in managing customer relationships effectively:
-- **Fragmented Data**: Customer data scattered across multiple systems making holistic analysis difficult
-- **Reactive Risk Management**: Traditional risk assessment is often manual and delayed
-- **Profitability Blind Spots**: Inability to accurately measure customer and product profitability
-- **Churn Prediction Gaps**: Limited ability to identify customers at risk of leaving
-- **Manual Decision Making**: Lack of automated insights for strategic decisions
-- **Real-time Monitoring Needs**: Inability to detect anomalies and fraud in real-time
+### 5. Customer Lifetime Value
+Historical, estimated and predicted CLV, retention adjustments and sensitivity analysis around retention, revenue, costs and discount assumptions.
 
-### Solution Overview
+### 6. Customer Segmentation
+Business-rule segmentation plus K-Means, hierarchical and DBSCAN clustering, cluster evaluation, profiling and stability analysis.
 
-This platform addresses these challenges through:
-- **Unified Data Architecture**: Centralized data warehouse with real-time streaming capabilities
-- **Advanced Analytics**: Machine learning models for predictive insights
-- **Interactive Dashboards**: Streamlit-based visualizations for business users
-- **API-First Design**: RESTful API for system integration
-- **Production-Grade Infrastructure**: Docker, Kubernetes, and CI/CD ready
-- **Security & Compliance**: JWT authentication, rate limiting, and security headers
+### 7. Transaction Analytics
+Transaction KPIs, debit/credit flows, frequency, behavior, trends and anomaly detection.
 
-### Target Audience
+### 8. Statistical Analytics
+Descriptive statistics, correlation, confidence intervals, t-tests, chi-square, ANOVA, non-parametric tests and regression.
 
-- **Banks & Financial Institutions**: Commercial and retail banking operations
-- **Credit Unions**: Member profitability and risk assessment
-- **FinTech Companies**: Customer analytics and risk management
-- **Risk Management Teams**: Credit risk and operational risk monitoring
-- **Business Analysts**: Customer segmentation and profitability analysis
-- **Data Scientists**: Model development and monitoring
-- **Executive Management**: Strategic decision support
+### 9. Predictive Analytics
+Reusable preprocessing, splitting, baseline comparison, imbalance handling, cross-validation, hyperparameter tuning, evaluation and model persistence.
 
-### Business Value
+### 10. Decision Intelligence
+Rule-driven recommendations that combine profitability, risk, churn, CLV, exposure and segment signals into prioritized actions.
 
-#### 💰 Financial Benefits
-- **Increased Profitability**: Identify high-value customers and optimize product offerings
-- **Reduced Losses**: Early detection of high-risk customers and fraud
-- **Cost Optimization**: Efficient resource allocation based on customer value
-- **Revenue Growth**: Targeted cross-selling and up-selling opportunities
-
-#### ⚡ Operational Benefits
-- **Faster Decision Making**: Real-time insights enable quick responses
-- **Automated Monitoring**: Reduced manual oversight requirements
-- **Scalable Architecture**: Handles growth from thousands to millions of customers
-- **Improved Efficiency**: Streamlined workflows and automated reporting
-
-#### 🎯 Strategic Benefits
-- **Customer Retention**: Proactive churn prevention strategies
-- **Competitive Advantage**: Data-driven customer insights
-- **Regulatory Compliance**: Comprehensive audit trails and model governance
-- **Future-Ready**: Extensible architecture for new analytics use cases
-
----
-
-## 🏆 Key Advantages
-
-### 1. Real-Time Processing
-- **Streaming Architecture**: Apache Kafka for real-time event processing
-- **Low Latency**: Sub-second response times for critical alerts
-- **Live Dashboards**: Up-to-date metrics and KPIs
-- **Immediate Alerts**: Real-time notification of critical events
-
-### 2. Advanced Analytics
-- **Machine Learning**: Predictive models for churn, risk, and profitability
-- **Statistical Analysis**: Hypothesis testing and confidence intervals
-- **Feature Engineering**: Rolling windows and interaction features
-- **Model Explainability**: SHAP values for model interpretation
-
-### 3. Comprehensive Coverage
-- **Customer 360**: Complete view of customer relationships
-- **Multi-Dimensional Analysis**: Risk, profitability, churn, and behavior
-- **Product-Level Insights**: Performance metrics across all products
-- **Transaction Analytics**: Detailed transaction monitoring
-
-### 4. Production-Ready
-- **Security**: JWT authentication, rate limiting, security headers
-- **Scalability**: Kubernetes deployment with auto-scaling
-- **Monitoring**: Health checks, performance metrics, and logging
-- **CI/CD**: Automated testing and deployment pipelines
-
-### 5. User-Friendly
-- **Interactive Dashboards**: Streamlit-based intuitive UI
-- **API Documentation**: OpenAPI/Swagger and ReDoc
-- **Flexible Filtering**: Date ranges, regions, segments
-- **Export Options**: PDF export and screencast recording
-
-### 6. Extensible Architecture
-- **Modular Design**: Easy to add new analytics modules
-- **Plugin System**: Custom feature transformers and models
-- **API Integration**: RESTful API for external systems
-- **Data Quality**: Validation rules and monitoring
-
----
-
-## ✨ Features
-
-### 🎯 Core Analytics Modules
-
-#### **Customer 360**
-- Unified customer profiles with comprehensive metrics
-- Customer lifetime value (CLV) calculations
-- Revenue vs. Profit analysis
-- Risk score visualization
-- Recent transaction tracking
-
-#### **Credit Risk Analytics**
-- Real-time risk scoring with multiple risk levels
-- Risk migration matrix tracking
-- Early warning system for deteriorating customers
-- Exposure analysis by risk level
-- Delinquency monitoring
-
-#### **Profitability Analytics**
-- Customer-level profitability decomposition
-- Product profitability analysis
-- Revenue and profit distribution charts
-- Cost allocation tracking
-- Net interest margin calculations
-
-#### **Churn Analytics**
-- ML-powered churn probability prediction
-- High churn risk customer identification
-- Churn risk distribution analysis
-- Retention strategy recommendations
-- Customer behavior change detection
-
-#### **Product Analytics**
-- Product performance metrics
-- Non-performing loan (NPL) rate tracking
-- Average balance analysis
-- Customer distribution by product
-- Revenue contribution by product
-
-#### **Transaction Analytics**
-- Real-time transaction monitoring
-- Transaction volume analysis by type
-- Recent transaction feeds
-- Anomaly detection in transaction patterns
-- Product-wise transaction breakdown
-
-#### **Decision Intelligence**
-- Automated executive recommendations
-- Actionable insights for growth
-- Risk mitigation suggestions
-- Profitability optimization strategies
-- What-if scenario analysis
-
-#### **Live Monitor**
-- Real-time streaming analytics dashboard
-- Alert management (Critical, High, Medium, Low)
-- Payment failure monitoring
-- Suspicious activity detection
-- Risk threshold breach alerts
-
-#### **Model Monitoring**
-- ML model performance tracking
-- Feature distribution monitoring
-- Prediction accuracy metrics
-- Model drift detection
-- Performance degradation alerts
-
-#### **Data Quality Monitoring**
-- Data quality scoring
-- Completeness metrics
-- Freshness monitoring
-- Validation rule tracking
-- Quality trend analysis
-
-### 🔧 Technical Features
-
-- **RESTful API**: FastAPI-based REST API with OpenAPI/Swagger documentation
-- **Real-time Streaming**: Apache Kafka integration for real-time data processing
-- **Caching**: Redis-based feature store for high-performance queries
-- **Security**: JWT authentication, rate limiting, security headers
-- **Containerization**: Docker and Kubernetes deployment ready
-- **CI/CD**: Automated testing and deployment pipelines
-- **Database**: PostgreSQL with SQLAlchemy ORM
-- **Testing**: Comprehensive test suite with pytest
-
----
-
-## � Use Cases
-
-### 1. Customer Relationship Management
-- **Customer Segmentation**: Group customers based on behavior, profitability, and risk
-- **Lifetime Value Analysis**: Calculate and track customer lifetime value over time
-- **Churn Prevention**: Identify at-risk customers and implement retention strategies
-- **Cross-Selling**: Recommend products based on customer profiles and behavior
-
-### 2. Risk Management
-- **Credit Risk Assessment**: Real-time credit scoring and risk level assignment
-- **Early Warning System**: Detect deteriorating customers before default
-- **Portfolio Monitoring**: Track risk exposure across the entire portfolio
-- **Stress Testing**: Simulate economic scenarios and assess impact
-
-### 3. Profitability Optimization
-- **Customer Profitability**: Measure revenue, costs, and profit per customer
-- **Product Performance**: Analyze profitability by product and channel
-- **Cost Allocation**: Allocate costs accurately to customers and products
-- **Pricing Strategy**: Optimize pricing based on customer value and risk
-
-### 4. Operational Excellence
-- **Real-Time Monitoring**: Track transactions, anomalies, and alerts
-- **Data Quality**: Ensure data accuracy and completeness
-- **Model Governance**: Monitor model performance and detect drift
-- **Audit Compliance**: Maintain comprehensive audit trails
-
-### 5. Strategic Decision Making
-- **Executive Dashboards**: High-level KPIs and recommendations
-- **Scenario Analysis**: What-if analysis for strategic planning
-- **Trend Analysis**: Identify trends and patterns in customer behavior
-- **Performance Benchmarking**: Compare performance across segments and products
-
----
-
-## 🏗️ System Architecture
-
-### Architecture Principles
-
-The platform is built on the following architectural principles:
-
-1. **Microservices**: Modular, independently deployable services
-2. **Event-Driven**: Real-time event processing with Kafka
-3. **API-First**: RESTful API for all integrations
-4. **Cloud-Native**: Designed for containerization and orchestration
-5. **Security-First**: Authentication, authorization, and encryption
-6. **Scalability**: Horizontal scaling for high throughput
-7. **Observability**: Comprehensive monitoring and logging
-8. **Data Quality**: Validation and monitoring throughout pipelines
-
-### Data Flow
-
-```
-External Sources → Ingestion → Validation → Transformation → 
-Data Warehouse → Feature Store → ML Models → Analytics → 
-API → Dashboards → Users
-```
-
-### Component Overview
-
-#### **Data Layer**
-- **PostgreSQL**: Primary data warehouse with dimensional modeling
-- **Apache Kafka**: Event streaming for real-time data
-- **Redis**: Feature store and caching layer
-- **File Storage**: Raw data and model artifacts
-
-#### **Processing Layer**
-- **Streaming Pipeline**: Real-time event processing with Kafka
-- **Batch Processing**: Scheduled jobs for historical analysis
-- **Feature Engineering**: Rolling windows and transformations
-- **ML Inference**: Model scoring and predictions
-
-#### **Analytics Layer**
-- **Risk Analytics**: Credit risk and operational risk
-- **Profitability Analytics**: Customer and product profitability
-- **Churn Analytics**: Churn prediction and analysis
-- **Customer Intelligence**: Customer 360 and segmentation
-- **Decision Engine**: Recommendations and scenarios
-
-#### **Presentation Layer**
-- **FastAPI**: RESTful API with OpenAPI documentation
-- **Streamlit**: Interactive dashboards for business users
-- **Power BI**: Executive reporting and visualization
-
-#### **Infrastructure Layer**
-- **Docker**: Containerization for all services
-- **Kubernetes**: Orchestration and scaling
-- **GitHub Actions**: CI/CD automation
-- **Monitoring**: Health checks, metrics, and logging
-
----
-
-## 🔧 Implementation Details
-
-### Data Model
-
-The platform uses a **star schema** with the following key tables:
-
-#### **Dimension Tables**
-- **DimCustomer**: Customer profiles and demographics
-- **DimAccount**: Account information and types
-- **DimProduct**: Product catalog and attributes
-- **DimSegment**: Customer segment definitions
-- **DimRegion**: Geographic and regional data
-
-#### **Fact Tables**
-- **FactTransaction**: Transaction records
-- **FactLoan**: Loan details and status
-- **FactCustomerProfitability**: Profitability metrics
-- **FactCustomerRisk**: Risk scores and levels
-- **FactChurn**: Churn predictions and outcomes
-
-### Machine Learning Models
-
-#### **Churn Prediction Model**
-- **Algorithm**: Random Forest with class balancing
-- **Features**: Transaction patterns, account activity, demographics
-- **Output**: Churn probability (0-1)
-- **Performance**: AUC-ROC: 0.85, Precision: 0.78, Recall: 0.72
-
-#### **Credit Risk Model**
-- **Algorithm**: Gradient Boosting (XGBoost)
-- **Features**: Credit utilization, payment history, account age
-- **Output**: Risk score (0-100) and risk level (Low/Medium/High)
-- **Performance**: AUC-ROC: 0.89, Accuracy: 0.82
-
-#### **Profitability Model**
-- **Algorithm**: Linear Regression with regularization
-- **Features**: Revenue streams, cost components, product mix
-- **Output**: Net profit per customer
-- **Performance**: R²: 0.76, MAE: $125
-
-### Security Implementation
-
-#### **Authentication**
-- JWT token-based authentication
-- Token expiration: 30 minutes (configurable)
-- Refresh token support
-- Multi-factor authentication ready
-
-#### **Authorization**
-- Role-based access control (RBAC)
-- API endpoint permissions
-- Data-level access control
-- Audit logging for all actions
-
-#### **Rate Limiting**
-- Login endpoint: 5 requests/minute
-- API endpoints: 100 requests/minute
-- Per-user rate limits
-- Exponential backoff on violations
-
-#### **Security Headers**
-- X-Content-Type-Options: nosniff
-- X-Frame-Options: DENY
-- X-XSS-Protection: 1; mode=block
-- Content-Security-Policy: default-src 'self'
-- Referrer-Policy: strict-origin-when-cross-origin
-
----
-
-## �🛠️ Technology Stack
-
-### Backend
-- **Python 3.11+** - Core programming language
-- **FastAPI 0.109.0** - High-performance REST API framework
-- **SQLAlchemy 2.0.23** - SQL ORM and database toolkit
-- **Alembic 1.13.0** - Database migration tool
-
-### Data Processing
-- **Pandas 2.1.4** - Data manipulation and analysis
-- **Polars 0.20.6** - High-performance DataFrame library
-- **NumPy 1.26.2** - Numerical computing
-- **Pydantic 2.5.3** - Data validation using Python type annotations
-
-### Machine Learning
-- **scikit-learn 1.3.2** - Machine learning algorithms
-- **imbalanced-learn 0.11.0** - Handling imbalanced datasets
-- **SciPy 1.11.4** - Scientific computing
-- **Statsmodels 0.14.0** - Statistical modeling
-
-### Streaming & Caching
-- **Apache Kafka 2.0.2** - Distributed event streaming
-- **Redis 4.3.4** - In-memory data store and cache
-
-### Visualization & Dashboards
-- **Streamlit 1.31.0** - Interactive web applications
-- **Plotly 5.18.0** - Interactive visualization library
-
-### Security
-- **python-jose 3.3.0** - JWT token handling
-- **passlib 1.7.4** - Password hashing
-- **slowapi 0.1.9** - Rate limiting
-- **bandit 1.7.5** - Security linting
-
-### Testing
-- **pytest 7.4.4** - Testing framework
-- **pytest-cov 4.1.0** - Code coverage
-- **pytest-mock 3.12.0** - Mocking support
-- **pytest-asyncio 0.23.3** - Async testing
-
-### Deployment
-- **Docker** - Containerization
-- **Kubernetes** - Container orchestration
-- **GitHub Actions** - CI/CD automation
-
----
-
-## 📊 Performance Metrics
-
-### System Performance
-
-- **API Response Time**: < 200ms (p95)
-- **Dashboard Load Time**: < 2 seconds
-- **Streaming Latency**: < 500ms
-- **Database Query Time**: < 100ms (average)
-- **Throughput**: 10,000+ requests/second
-
-### Scalability
-
-- **Horizontal Scaling**: Supports multiple instances
-- **Vertical Scaling**: Up to 32 CPU cores, 128GB RAM
-- **Database**: PostgreSQL with connection pooling (100+ connections)
-- **Kafka**: Supports high-throughput event streaming
-- **Redis**: Distributed caching for high availability
-
-### Data Volume
-
-- **Customers**: Supports 1M+ customers
-- **Transactions**: 10M+ transactions per day
-- **Historical Data**: 5+ years of historical data
-- **Storage**: 100GB+ for production deployment
-- **Memory**: 16GB+ recommended for production
-
-### Model Performance
-
-| Model | Metric | Value |
-|-------|--------|-------|
-| Churn Prediction | AUC-ROC | 0.85 |
-| Churn Prediction | Precision | 0.78 |
-| Churn Prediction | Recall | 0.72 |
-| Credit Risk | AUC-ROC | 0.89 |
-| Credit Risk | Accuracy | 0.82 |
-| Profitability | R² | 0.76 |
-| Profitability | MAE | $125 |
-
----
-
-## 🚀 Deployment Architecture
-
-### Development Environment
-
-- **Local Development**: Docker Compose for local testing
-- **Database**: PostgreSQL 14 with sample data
-- **Streaming**: Local Kafka and Redis instances
-- **Monitoring**: Local logs and health checks
-
-### Staging Environment
-
-- **Infrastructure**: Kubernetes cluster (3 nodes)
-- **Database**: PostgreSQL 14 with production-like data
-- **Streaming**: Kafka cluster (3 brokers)
-- **Monitoring**: Prometheus + Grafana
-- **Load Testing**: Automated load testing before production
-
-### Production Environment
-
-- **Infrastructure**: Kubernetes cluster (5+ nodes)
-- **Database**: PostgreSQL 14 with replication
-- **Streaming**: Kafka cluster (5+ brokers)
-- **Caching**: Redis Cluster with persistence
-- **Monitoring**: Prometheus + Grafana + AlertManager
-- **Backup**: Daily backups with 30-day retention
-- **Disaster Recovery**: Multi-region deployment
-
----
-
-## 🗺️ Roadmap
-
-### Phase 1: Core Platform (Completed ✅)
-- [x] Data warehouse and dimensional modeling
-- [x] Core analytics modules (Risk, Profitability, Churn)
-- [x] ML models for prediction
-- [x] RESTful API with authentication
-- [x] Streamlit dashboards
-- [x] Real-time streaming pipeline
-- [x] Docker and Kubernetes deployment
-- [x] CI/CD pipeline
-
-### Phase 2: Advanced Features (In Progress 🚧)
-- [ ] Advanced ML models (Deep Learning)
-- [ ] Natural language processing for customer feedback
-- [ ] Advanced anomaly detection
-- [ ] Real-time fraud detection
-- [ ] Customer journey mapping
-- [ ] A/B testing framework
-- [ ] Advanced visualizations
-
-### Phase 3: Enterprise Features (Planned 📋)
-- [ ] Multi-tenant support
-- [ ] White-label customization
-- [ ] Advanced RBAC and permissions
-- [ ] Data encryption at rest
-- [ ] Compliance reporting (GDPR, CCPA)
-- [ ] Advanced audit trails
-- [ ] API rate limiting per customer
-- [ ] Custom model deployment
-
-### Phase 4: AI & Automation (Future 🔮)
-- [ ] Automated decision making
-- [ ] AI-powered recommendations
-- [ ] Predictive maintenance
-- [ ] Automated model retraining
-- [ ] Self-healing infrastructure
-- [ ] Advanced analytics with AI
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### How to Contribute
-
-1. **Fork the Repository**
-   ```bash
-   git clone https://github.com/Skismail57/Banking-Customer-Profitability-and-Risk-Analytics-Platform.git
-   ```
-
-2. **Create a Feature Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. **Make Your Changes**
-   - Follow the existing code style
-   - Write tests for new features
-   - Update documentation
-   - Ensure all tests pass
-
-4. **Commit Your Changes**
-   ```bash
-   git commit -m "feat: add your feature description"
-   ```
-
-5. **Push to Your Branch**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **Open a Pull Request**
-   - Describe your changes
-   - Reference related issues
-   - Ensure CI checks pass
-
-### Contribution Guidelines
-
-- **Code Style**: Follow PEP 8 and existing patterns
-- **Testing**: Write tests for all new features (target 80%+ coverage)
-- **Documentation**: Update README and code comments
-- **Commit Messages**: Use conventional commit format
-- **Pull Requests**: Keep PRs focused and small
-
-### Areas for Contribution
-
-- **New Analytics Modules**: Add new analytics capabilities
-- **ML Models**: Improve existing models or add new ones
-- **Dashboard Improvements**: Enhance Streamlit dashboards
-- **Documentation**: Improve documentation and examples
-- **Bug Fixes**: Fix reported bugs
-- **Performance**: Optimize performance bottlenecks
-- **Testing**: Add more test coverage
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### License Summary
-
-- ✅ Commercial use
-- ✅ Modification
-- ✅ Distribution
-- ✅ Private use
-- ❗ Liability limitation
-- ❗ Warranty disclaimer
-
----
-
-## 👨‍💻 Author
-
-**Sk Ismail**
-
-- **GitHub**: [@Skismail57](https://github.com/Skismail57)
-- **LinkedIn**: [Sk Ismail](https://linkedin.com/in/sk-ismail)
-- **Email**: [skismail57@gmail.com](mailto:skismail57@gmail.com)
-
-### About the Author
-
-Sk Ismail is a Data Engineer and Full Stack Developer specializing in building production-grade analytics platforms for financial institutions. With expertise in data engineering, machine learning, and cloud infrastructure, Sk Ismail delivers scalable solutions that drive business value.
-
----
-
-## 🙏 Acknowledgments
-
-This project was built with inspiration from:
-
-- **Industry Best Practices**: Banking analytics standards and regulations
-- **Open Source Community**: Libraries and frameworks that power this platform
-- **Financial Institutions**: Real-world use cases and requirements
-- **Data Science Community**: ML techniques and methodologies
-
-### Special Thanks
-
-- The Python and open-source community for excellent libraries
-- FastAPI team for the amazing web framework
-- Streamlit team for making data apps accessible
-- All contributors and users of this platform
-
----
-
-## 📞 Support & Community
-
-### Getting Help
-
-- **Documentation**: Check the [docs/](docs/) directory for detailed documentation
-- **Issues**: Open an issue on GitHub for bugs or feature requests
-- **Discussions**: Use GitHub Discussions for questions and ideas
-- **Email**: Contact [skismail57@gmail.com](mailto:skismail57@gmail.com) for direct support
-
-### Community
-
-- **Star the Repository**: If you find this project useful, please star it ⭐
-- **Fork and Contribute**: We welcome all contributions
-- **Share**: Share this project with your network
-- **Feedback**: Provide feedback and suggestions
-
-### Professional Services
-
-For enterprise deployment, custom development, or consulting:
-- **Custom Development**: Tailored solutions for your needs
-- **Deployment Support**: Help with production deployment
-- **Training**: Team training on platform usage
-- **Consulting**: Strategic advice on analytics implementation
-
-Contact: [skismail57@gmail.com](mailto:skismail57@gmail.com)
-
----
-
-## 🔗 Related Projects
-
-### Complementary Tools
-- **Apache Kafka**: Event streaming platform
-- **PostgreSQL**: Relational database
-- **Redis**: In-memory data store
-- **Streamlit**: Python app framework for data apps
-- **FastAPI**: Modern Python web framework
-
-### Similar Projects
-- **Apache Superset**: Business intelligence web application
-- **Metabase**: Open source business intelligence tool
-- **Grafana**: Open source analytics platform
-- **Kibana**: Data visualization dashboard
-
----
-
-## 📈 Project Statistics
-
-- **Lines of Code**: 50,000+
-- **Python Files**: 200+
-- **Test Coverage**: 80%+
-- **API Endpoints**: 15+
-- **Dashboards**: 10+
-- **ML Models**: 3+
-- **Documentation Pages**: 20+
-- **Contributors**: Open to contributions
-
----
-
-## 🎯 Success Stories
-
-### Use Case Examples
-
-#### Example 1: Regional Bank
-- **Challenge**: Manual risk assessment taking 2-3 days
-- **Solution**: Implemented real-time risk scoring
-- **Result**: Risk assessment time reduced to minutes, 30% reduction in defaults
-
-#### Example 2: Credit Union
-- **Challenge**: Limited visibility into customer profitability
-- **Solution**: Deployed profitability analytics module
-- **Result**: Identified top 20% profitable customers, optimized product offerings
-
-#### Example 3: FinTech Startup
-- **Challenge**: High customer churn rate (15%)
-- **Solution**: Implemented churn prediction and retention strategies
-- **Result**: Churn rate reduced to 8%, improved customer retention
-
----
-
-## 🌟 Features Highlights
-
-### Real-Time Capabilities
-- ⚡ Sub-second risk scoring
-- 📊 Live dashboard updates
-- 🔔 Instant alert notifications
-- 🔄 Real-time data streaming
-
-### Advanced Analytics
-- 🤖 Machine learning predictions
-- 📈 Statistical analysis
-- 🔍 Feature engineering
-- 📊 Model explainability
-
-### Enterprise-Grade
-- 🔒 Security and compliance
-- 📈 Scalability and performance
-- 🚀 CI/CD automation
-- 📝 Comprehensive documentation
-
-### User Experience
-- 🎨 Intuitive dashboards
-- 📱 Responsive design
-- 🔍 Flexible filtering
-- 📥 Export capabilities
-
----
+### 11. Streaming Intelligence
+Event-time processing, watermarks, late-event handling, schema validation, feature-store adapters, anomaly/risk engines, alerts, audit trails, replay and batch-stream reconciliation.
 
 ## 🏗️ Architecture
 
-<div align="center">
-  <img src="Project Screenshots/Home tab Quick Navigation and Data Source architecture description.png" alt="Architecture Overview" width="800"/>
-</div>
-
-### System Architecture
-
-The platform follows a **layered architecture** with clear separation of concerns:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Presentation Layer                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │  Streamlit   │  │  FastAPI     │  │  Power BI    │     │
-│  │  Dashboards  │  │  REST API    │  │  Reports     │     │
-│  └──────────────┘  └──────────────┘  └──────────────┘     │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    Analytics Layer                           │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │
-│  │  Risk    │ │Profit    │ │ Churn    │ │ Customer     │  │
-│  │ Analytics│ │Analytics │ │Prediction│ │ Intelligence │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    Processing Layer                          │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │
-│  │ Feature  │ │   ML     │ │ Streaming│ │ Data Quality │  │
-│  │ Engine   │ │ Models   │ │ Pipeline │ │ Validation   │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │
-└─────────────────────────────────────────────────────────────┘
-                              ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    Data Layer                                │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │
-│  │PostgreSQL│ │  Kafka   │ │  Redis   │ │ File Storage │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    A[Source Data / Events] --> B[Ingestion]
+    B --> C[Validation & Data Quality]
+    C --> D[Transformation / Feature Engineering]
+    D --> E[(PostgreSQL Data Warehouse)]
+    D --> F[Analytics Engines]
+    D --> G[Streaming Pipeline]
+    G --> H[(Redis Feature Store)]
+    G --> I[Risk / Anomaly / Alert Engines]
+    F --> J[Predictive Models]
+    J --> K[Decision Intelligence]
+    E --> L[FastAPI]
+    F --> L
+    K --> L
+    I --> L
+    L --> M[Streamlit Dashboard]
+    L --> N[External Consumers]
+    E --> O[Power BI Template]
 ```
 
-### Key Components
+### Architectural layers
 
-- **Streaming Infrastructure**: Real-time event processing with Kafka and Redis
-- **Feature Store**: High-performance feature serving for ML models
-- **Model Registry**: Centralized model versioning and deployment
-- **Alert Engine**: Real-time alert generation and notification
-- **Reconciliation**: Batch-stream data consistency validation
-- **Security Layer**: Authentication, authorization, and rate limiting
+| Layer | Main responsibilities | Key modules |
+|---|---|---|
+| **Ingestion** | Extract, clean and load source data | `src/ingestion/` |
+| **Data quality & governance** | Schema validation, quality metrics, lineage | `src/data_quality/`, `src/data_governance/` |
+| **Data platform** | Load customer, transaction, product and analytical datasets | `src/data_platform/` |
+| **Core analytics** | Business metrics and aggregations | `src/core_analytics/`, `src/analytics/` |
+| **Risk & profitability** | Credit risk and value analysis | `src/credit_risk_analytics/`, `src/profitability_analytics/` |
+| **Customer intelligence** | 360, segmentation, CLV and churn | `src/customer_intelligence/`, `src/customer_segmentation/`, `src/clv_analytics/`, `src/churn_analytics/` |
+| **Predictive ML** | Training, evaluation and persistence | `src/predictive_analytics/`, `src/ml/` |
+| **Decision layer** | Rule engine and recommendations | `src/decision_intelligence/` |
+| **Streaming** | Event processing and real-time decision signals | `src/streaming/` |
+| **API** | Authenticated service interface | `api/` |
+| **Presentation** | Interactive dashboards | `frontend/` |
+| **Deployment** | Containers, Kubernetes and CI/CD | `Dockerfile*`, `k8s/`, `.github/workflows/` |
 
----
+## 🗃️ Data Model
 
-## 📸 Project Screenshots
+The SQL schema defines dimension and fact tables including:
 
-### 🏠 Home & Getting Started
+**Dimensions**
+- `dim_date`
+- `dim_customer`
+- `dim_product`
+- `dim_channel`
+- customer/account/branch/segment dimensions in SQLAlchemy models
 
-<div align="center">
-  <img src="Project Screenshots/Home tab Welcome to the Banking Customer Profitability and Risk Analytics Platform & core overview.png" alt="Home Page" width="800"/>
-  <p><em>Welcome to the Platform</em></p>
-</div>
+**Facts**
+- `fact_customer_metrics`
+- `fact_transactions`
+- `fact_loan`
+- `fact_account`
+- `fact_payment`
+- `fact_customer_profitability`
+- `fact_recommendations`
+- `fact_model_performance`
+- `fact_data_quality`
+- streaming/event, prediction, anomaly, alert, audit, reconciliation and replay facts
 
-<div align="center">
-  <img src="Project Screenshots/Home tab Getting Started guide and Platform Statistics KPI cards (10,000+ customers, 1M+ data points)..png" alt="Getting Started" width="800"/>
-  <p><em>Getting Started Guide & Platform Statistics</em></p>
-</div>
+The repository also contains SQL analytical views for executive overview, customer 360, profitability trends, risk distribution, churn/retention, product analytics, transaction analytics, segmentation, decision intelligence and model monitoring.
 
-<div align="center">
-  <img src="Project Screenshots/Home tab Quick Navigation and Data Source architecture description.png" alt="Quick Navigation" width="800"/>
-  <p><em>Quick Navigation & Architecture Overview</em></p>
-</div>
+## 🤖 Machine Learning & Predictive Analytics
+
+The predictive layer is designed as a reusable framework rather than a single notebook. It contains:
+
+- **Churn prediction** — binary classification
+- **Default-risk prediction** — binary classification
+- **Profitability prediction** — regression
+- **CLV prediction** — regression
+- **Transaction anomaly detection** — anomaly detection
+- Baseline model comparison
+- Time-aware and train/validation/test splitting
+- Preprocessing pipelines
+- Class-imbalance handling
+- Cross-validation and hyperparameter tuning
+- Model evaluation and feature importance
+- Model persistence and metadata
+- Model monitoring and drift detection
+
+The repository documents these methods and their assumptions in `docs/PREDICTIVE_ANALYTICS_FRAMEWORK.md` and related methodology files.
+
+## 📡 Streaming & Real-Time Design
+
+The streaming subsystem is unusually broad for an analytics portfolio project. It includes:
+
+- Kafka/Redpanda producers, consumers, topics and consumer groups
+- Event schemas and schema-registry integration
+- Event-time processing and watermarks
+- Late-event handling
+- Stateful processing
+- Redis-backed feature-store components
+- Online model registry/inference components
+- Risk scoring and anomaly adapters
+- Early-warning and alert engines
+- Decision audit trail
+- Dead-letter queues and retry/backoff
+- Circuit-breaker/backpressure reliability components
+- Historical replay
+- Batch-stream reconciliation
+- Performance/load/stress testing
+- Chaos scenarios and recovery validation
+
+The streaming configuration defines topics for raw/validated events, customer/account features, risk and churn predictions, fraud anomalies, risk alerts, replay input/output and a dead-letter queue.
+
+## 🔐 API, Security & Governance
+
+The FastAPI layer exposes health, authentication, customer, profitability, risk, segmentation, churn, portfolio and realtime routes. Authentication is implemented with JWT-based security, while middleware includes security headers and correlation IDs; rate limiting is provided through `slowapi`.
+
+Security-oriented repository material also covers authentication, authorization, WebSocket security, attack-surface review, dependency scanning, audit trails and production security architecture.
+
+### Representative API surface
+
+| Route | Purpose |
+|---|---|
+| `GET /` | API root and service metadata |
+| `GET /api/v1/health` | Health check |
+| `GET /api/v1/health/ready` | Readiness check |
+| `GET /api/v1/health/live` | Liveness check |
+| `POST /api/v1/auth/login` | JWT login |
+| `GET /api/v1/auth/me` | Current-user information |
+| `GET /api/v1/customers` | Customer listing/search |
+| `GET /api/v1/customers/{id}` | Customer detail |
+| `GET /api/v1/profitability/aggregate` | Profitability KPIs |
+| `GET /api/v1/risk/aggregate` | Risk KPIs |
+| `GET /api/v1/churn/aggregate` | Churn KPIs |
+| `GET /api/v1/segments` | Customer segments |
+| `GET /api/v1/portfolio/summary` | Portfolio summary |
+| `GET /api/v1/realtime/alerts` | Realtime alerts |
+| `GET /api/v1/realtime/metrics` | Streaming metrics |
+
+Swagger and ReDoc screenshots are included later in this README.
+
+## 🖥️ Dashboard Experience
+
+The Streamlit application is organized into business-facing pages:
+
+1. Home
+2. Executive Overview
+3. Customer 360
+4. Credit Risk Analytics
+5. Profitability Analytics
+6. Churn Analytics
+7. Transaction Analytics
+8. Product Analytics
+9. Customer Segmentation
+10. Decision Intelligence
+11. Model Monitoring
+12. Data Quality Monitoring
+13. Live Monitor
+
+The UI uses interactive filters, KPI cards, Plotly charts, tables, recommendation panels and real-time-style monitoring views.
+
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|---|---|
+| **Language** | Python 3.11+ |
+| **Data processing** | Pandas, Polars, NumPy |
+| **Data validation** | Pandera |
+| **Statistics** | SciPy, Statsmodels |
+| **Machine learning** | Scikit-learn, imbalanced-learn |
+| **Database** | PostgreSQL, SQLAlchemy, Alembic |
+| **API** | FastAPI, Pydantic, Uvicorn |
+| **Authentication/security** | JWT, python-jose, Passlib/Bcrypt, SlowAPI, Bandit, pip-audit |
+| **Visualization** | Plotly |
+| **Dashboard** | Streamlit |
+| **Streaming** | Confluent Kafka client, Kafka/Redpanda |
+| **Feature store/cache** | Redis |
+| **Testing** | pytest, pytest-cov, pytest-mock, pytest-asyncio |
+| **Containerization** | Docker, Docker Compose |
+| **Orchestration** | Kubernetes |
+| **CI/CD** | GitHub Actions |
+| **BI** | Power BI template (`.pbit`) |
+
+## 📁 Repository Structure
+
+```text
+.
+├── api/                    # FastAPI application, auth, middleware and routers
+├── frontend/               # Streamlit application and dashboard pages
+├── src/                    # Analytics, ML, data platform and streaming modules
+├── sql/                    # Schema, analytical SQL, views and migrations
+├── config/                 # Environment and streaming configuration
+├── data/                   # Data pipeline directories
+├── models/                 # Model-related project assets
+├── power_bi/               # Power BI template and setup documentation
+├── k8s/                    # Kubernetes production manifests
+├── docs/                   # Methodologies, architecture, security and deployment docs
+├── tests/                  # Unit, integration, API, SQL, ML, security and load tests
+├── assets/screenshots/     # 55 UI/API screenshots
+├── Dockerfile*             # Container definitions
+├── docker-compose*.yml     # Compose configurations
+├── .github/workflows/      # CI/CD workflows
+├── DATA_DICTIONARY.md      # Data definitions and business fields
+├── ARCHITECTURE.md         # Architecture reference
+└── PROJECT_CONSTITUTION.md # Engineering principles
+```
+
+## 📸 Complete Project Screenshots
+
+**All 55 screenshots from the project archive are included below.** They have been copied to clean, GitHub-safe filenames under `assets/screenshots/` so filenames containing spaces or `#` characters do not break image rendering.
 
 ### 📊 Executive Overview
 
+Executive-level KPIs, filters, recommendations, customer summaries and portfolio analytics.
+
 <div align="center">
-  <img src="Project Screenshots/Executive Overview tab Key Performance Indicators (Total Customers, Revenue, Profit, High Risk) and top recommendations.png" alt="Executive Overview KPIs" width="800"/>
-  <p><em>Executive Overview - Key Performance Indicators</em></p>
+
+<img src="assets/screenshots/02-executive-overview/executive-overview-tab-customer-metrics-summary-data-table-view.png" alt="Executive Overview customer metrics summary table" width="100%"/>
+
+**1. Executive Overview customer metrics summary table**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Executive Overview tab Revenue by Customer line chart & Risk Score by Level bar chart..png" alt="Executive Overview Charts" width="800"/>
-  <p><em>Revenue & Risk Analytics</em></p>
+
+<img src="assets/screenshots/02-executive-overview/executive-overview-tab-date-range-region-and-segment-filter-options.png" alt="Executive Overview date, region and segment filters" width="100%"/>
+
+**2. Executive Overview date, region and segment filters**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Executive Overview tab Expanded Executive Recommendations (Profitability, Risk, Growth action items)..png" alt="Executive Recommendations" width="800"/>
-  <p><em>Executive Recommendations</em></p>
+
+<img src="assets/screenshots/02-executive-overview/executive-overview-tab-expanded-executive-recommendations-profitability-risk-growth-action-items.png" alt="Expanded executive recommendations: profitability, risk and growth" width="100%"/>
+
+**3. Expanded executive recommendations: profitability, risk and growth**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Executive Overview tab Date range, Region, and Segment filter options..png" alt="Executive Overview Filters" width="800"/>
-  <p><em>Executive Overview - Filter Options</em></p>
+
+<img src="assets/screenshots/02-executive-overview/executive-overview-tab-key-performance-indicators-total-customers-revenue-profit-high-risk-and-top-recommendations.png" alt="Executive Overview KPIs and top recommendations" width="100%"/>
+
+**4. Executive Overview KPIs and top recommendations**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Executive Overview tab Customer Metrics Summary data table view..png" alt="Executive Overview Table" width="800"/>
-  <p><em>Executive Overview - Customer Metrics Summary</em></p>
-</div>
 
-<div align="center">
-  <img src="Project Screenshots/Distribution & Revenue by Segment bar charts.png" alt="Distribution Charts" width="800"/>
-  <p><em>Executive Overview - Distribution & Revenue by Segment</em></p>
+<img src="assets/screenshots/02-executive-overview/executive-overview-tab-revenue-by-customer-line-chart-risk-score-by-level-bar-chart.png" alt="Revenue by customer and risk score by level charts" width="100%"/>
+
+**5. Revenue by customer and risk score by level charts**
+
 </div>
 
 ### 👤 Customer 360
 
+Unified customer profile, profitability, risk, CLV and recent transaction views.
+
 <div align="center">
-  <img src="Project Screenshots/Customer 360 tab Customer metrics cards (Revenue, Net Profit, Risk Score, CLV) and Risk Information..png" alt="Customer 360 Metrics" width="800"/>
-  <p><em>Customer 360 - Metrics & Risk Information</em></p>
+
+<img src="assets/screenshots/03-customer-360/customer-360-revenue-vs-profit-risk-vs-clv-charts.png" alt="Customer 360 revenue vs profit and risk vs CLV charts" width="100%"/>
+
+**1. Customer 360 revenue vs profit and risk vs CLV charts**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Customer 360 Revenue vs Profit & Risk vs CLV Charts.png" alt="Customer 360 Charts" width="800"/>
-  <p><em>Customer 360 - Revenue, Profit, Risk & CLV Analysis</em></p>
+
+<img src="assets/screenshots/03-customer-360/customer-360-risk-info-recent-transactions-table.png" alt="Customer 360 risk information and recent transactions" width="100%"/>
+
+**2. Customer 360 risk information and recent transactions**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Customer 360 Risk Info & Recent Transactions Table.png" alt="Customer 360 Transactions" width="800"/>
-  <p><em>Customer 360 - Recent Transactions</em></p>
+
+<img src="assets/screenshots/03-customer-360/customer-360-tab-customer-metrics-cards-revenue-net-profit-risk-score-clv-and-risk-information.png" alt="Customer 360 metrics cards and risk information" width="100%"/>
+
+**3. Customer 360 metrics cards and risk information**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Customer 360 tab Customer search bar and initial customer profile info (Nasir Khan)..png" alt="Customer 360 Search" width="800"/>
-  <p><em>Customer 360 - Customer Search & Profile</em></p>
+
+<img src="assets/screenshots/03-customer-360/customer-360-tab-customer-search-bar-and-initial-customer-profile-info-nasir-khan.png" alt="Customer search and initial customer profile" width="100%"/>
+
+**4. Customer search and initial customer profile**
+
 </div>
 
 ### ⚠️ Credit Risk Analytics
 
+Risk KPIs, risk bands, exposure, delinquency and detailed customer risk analysis.
+
 <div align="center">
-  <img src="Project Screenshots/Credit Risk Risk KPIs (High Risk Count, Avg Score, Total Exposure).png" alt="Credit Risk KPIs" width="800"/>
-  <p><em>Credit Risk - Key Performance Indicators</em></p>
+
+<img src="assets/screenshots/04-credit-risk/credit-risk-detailed-risk-analysis-delinquency-table.png" alt="Detailed credit-risk analysis and delinquency table" width="100%"/>
+
+**1. Detailed credit-risk analysis and delinquency table**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Credit Risk Risk Score by Level & Exposure Charts.png" alt="Credit Risk Charts" width="800"/>
-  <p><em>Credit Risk - Score Distribution & Exposure Analysis</em></p>
+
+<img src="assets/screenshots/04-credit-risk/credit-risk-header-filter-selection-panel.png" alt="Credit Risk header and filter selection panel" width="100%"/>
+
+**2. Credit Risk header and filter selection panel**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Credit Risk Detailed Risk Analysis & Delinquency Table.png" alt="Credit Risk Table" width="800"/>
-  <p><em>Credit Risk - Detailed Analysis & Delinquency</em></p>
+
+<img src="assets/screenshots/04-credit-risk/credit-risk-risk-kpis-high-risk-count-avg-score-total-exposure.png" alt="Credit Risk KPIs: high-risk count, average score and exposure" width="100%"/>
+
+**3. Credit Risk KPIs: high-risk count, average score and exposure**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Credit Risk Header & Filter Selection Panel.png" alt="Credit Risk Header" width="800"/>
-  <p><em>Credit Risk - Header & Filter Selection</em></p>
+
+<img src="assets/screenshots/04-credit-risk/credit-risk-risk-score-by-level-exposure-charts.png" alt="Risk score by level and exposure charts" width="100%"/>
+
+**4. Risk score by level and exposure charts**
+
 </div>
 
-### 📈 Profitability Analytics
+### 💰 Profitability Analytics
+
+Revenue, profit, customer profitability metrics and profitability distributions.
 
 <div align="center">
-  <img src="Project Screenshots/Profitability Key Performance Indicators (Revenue, Profit, Customers).png" alt="Profitability KPIs" width="800"/>
-  <p><em>Profitability - Key Performance Indicators</em></p>
-</div>
 
-<div align="center">
-  <img src="Project Screenshots/Profitability Revenue & Profit Distribution by Customer Charts.png" alt="Profitability Charts" width="800"/>
-  <p><em>Profitability - Revenue & Profit Distribution</em></p>
-</div>
+<img src="assets/screenshots/05-profitability/profitability-customer-profitability-metrics-data-table.png" alt="Customer profitability metrics table" width="100%"/>
 
-<div align="center">
-  <img src="Project Screenshots/Profitability Customer Profitability Metrics Data Table.png" alt="Profitability Table" width="800"/>
-  <p><em>Profitability - Customer Metrics Table</em></p>
+**1. Customer profitability metrics table**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Profitability Header, Filter Controls & Top Layout.png" alt="Profitability Header" width="800"/>
-  <p><em>Profitability - Header & Filter Controls</em></p>
+
+<img src="assets/screenshots/05-profitability/profitability-header-filter-controls-top-layout.png" alt="Profitability header, filters and top layout" width="100%"/>
+
+**2. Profitability header, filters and top layout**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/05-profitability/profitability-key-performance-indicators-revenue-profit-customers.png" alt="Profitability KPIs: revenue, profit and customers" width="100%"/>
+
+**3. Profitability KPIs: revenue, profit and customers**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/05-profitability/profitability-revenue-profit-distribution-by-customer-charts.png" alt="Revenue and profit distributions by customer" width="100%"/>
+
+**4. Revenue and profit distributions by customer**
+
 </div>
 
 ### 🔄 Churn Analytics
 
+Churn KPIs, probability distributions, customer predictions and high-risk retention lists.
+
 <div align="center">
-  <img src="Project Screenshots/Churn KPIs (High Churn Risk, Avg Churn Probability, Total Customers).png" alt="Churn KPIs" width="800"/>
-  <p><em>Churn Analytics - Key Performance Indicators</em></p>
+
+<img src="assets/screenshots/06-churn/churn-analytics-header-filter-options-kpi-preview.png" alt="Churn Analytics header, filters and KPI preview" width="100%"/>
+
+**1. Churn Analytics header, filters and KPI preview**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Churn Risk & Churn Probability distribution charts.png" alt="Churn Charts" width="800"/>
-  <p><em>Churn Analytics - Risk & Probability Distribution</em></p>
+
+<img src="assets/screenshots/06-churn/churn-kpis-high-churn-risk-avg-churn-probability-total-customers.png" alt="Churn KPIs: high-risk count, average probability and customers" width="100%"/>
+
+**2. Churn KPIs: high-risk count, average probability and customers**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Churn Predictions customer probability & risk table.png" alt="Churn Table" width="800"/>
-  <p><em>Churn Analytics - Customer Predictions</em></p>
+
+<img src="assets/screenshots/06-churn/churn-predictions-customer-probability-risk-table.png" alt="Customer churn predictions with probability and risk band" width="100%"/>
+
+**3. Customer churn predictions with probability and risk band**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Churn Analytics header, filter options, KPI preview.png" alt="Churn Header" width="800"/>
-  <p><em>Churn Analytics - Header & Filter Options</em></p>
+
+<img src="assets/screenshots/06-churn/churn-risk-churn-probability-distribution-charts.png" alt="Churn-risk and churn-probability distributions" width="100%"/>
+
+**4. Churn-risk and churn-probability distributions**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Filtered High Churn Risk Customers table.png" alt="Churn Filtered" width="800"/>
-  <p><em>Churn Analytics - High Churn Risk Customers</em></p>
+
+<img src="assets/screenshots/06-churn/filtered-high-churn-risk-customers-table.png" alt="Filtered high-churn-risk customer table" width="100%"/>
+
+**5. Filtered high-churn-risk customer table**
+
 </div>
 
 ### 📦 Product Analytics
 
+Product KPIs, revenue/customer distribution, balances and non-performing-loan monitoring.
+
 <div align="center">
-  <img src="Project Screenshots/Product Analytics KPIs & Product Performance breakdown table.png" alt="Product Analytics KPIs" width="800"/>
-  <p><em>Product Analytics - Performance Metrics</em></p>
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-average-balance-chart-view.png" alt="Product Analytics average-balance chart" width="100%"/>
+
+**1. Product Analytics average-balance chart**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Product Analytics Total Revenue & Customer Distribution charts.png" alt="Product Analytics Charts" width="800"/>
-  <p><em>Product Analytics - Revenue & Distribution</em></p>
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-filters-key-performance-indicators.png" alt="Product Analytics filters and KPIs" width="100%"/>
+
+**2. Product Analytics filters and KPIs**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Product Analytics Non-Performing Loan (NPL) Rate chart view.png" alt="Product Analytics NPL" width="800"/>
-  <p><em>Product Analytics - NPL Rate Tracking</em></p>
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-header-productsegment-filters.png" alt="Product Analytics header and product/segment filters" width="100%"/>
+
+**3. Product Analytics header and product/segment filters**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Product Analytics Header & productsegment filters.png" alt="Product Analytics Header" width="800"/>
-  <p><em>Product Analytics - Header & Filters</em></p>
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-kpis-product-performance-breakdown-table.png" alt="Product KPIs and product-performance breakdown" width="100%"/>
+
+**4. Product KPIs and product-performance breakdown**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Product Analytics Average Balance chart view.png" alt="Product Analytics Balance" width="800"/>
-  <p><em>Product Analytics - Average Balance Analysis</em></p>
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-non-performing-loan-npl-rate-chart-view.png" alt="Product Analytics NPL-rate chart" width="100%"/>
+
+**5. Product Analytics NPL-rate chart**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/07-product-analytics/product-analytics-total-revenue-customer-distribution-charts.png" alt="Product revenue and customer-distribution charts" width="100%"/>
+
+**6. Product revenue and customer-distribution charts**
+
 </div>
 
 ### 💳 Transaction Analytics
 
+Transaction KPIs, transaction-type/product breakdowns, filters and recent transaction data.
+
 <div align="center">
-  <img src="Project Screenshots/Transaction Analytics Key Performance Indicators (KPI cards).png" alt="Transaction Analytics KPIs" width="800"/>
-  <p><em>Transaction Analytics - Key Performance Indicators</em></p>
+
+<img src="assets/screenshots/08-transaction-analytics/transaction-analytics-header-description-filter-controls.png" alt="Transaction Analytics header, description and filters" width="100%"/>
+
+**1. Transaction Analytics header, description and filters**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Transaction Analytics Volume by type & product bar charts.png" alt="Transaction Analytics Charts" width="800"/>
-  <p><em>Transaction Analytics - Volume Analysis</em></p>
+
+<img src="assets/screenshots/08-transaction-analytics/transaction-analytics-key-performance-indicators-kpi-cards.png" alt="Transaction Analytics KPI cards" width="100%"/>
+
+**2. Transaction Analytics KPI cards**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Transaction Analytics Recent Transactions data table.png" alt="Transaction Analytics Table" width="800"/>
-  <p><em>Transaction Analytics - Recent Transactions</em></p>
+
+<img src="assets/screenshots/08-transaction-analytics/transaction-analytics-recent-transactions-data-table.png" alt="Recent transactions table" width="100%"/>
+
+**3. Recent transactions table**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Transaction Analytics Header, description & filter controls.png" alt="Transaction Analytics Header" width="800"/>
-  <p><em>Transaction Analytics - Header & Filter Controls</em></p>
+
+<img src="assets/screenshots/08-transaction-analytics/transaction-analytics-volume-by-type-product-bar-charts.png" alt="Transaction volume by type and product" width="100%"/>
+
+**4. Transaction volume by type and product**
+
 </div>
 
 ### 🧠 Decision Intelligence
 
+Decision KPIs, filtering and executive recommendations generated from business rules.
+
 <div align="center">
-  <img src="Project Screenshots/Decision Intelligence – KPI Metrics Overview.png" alt="Decision Intelligence KPIs" width="800"/>
-  <p><em>Decision Intelligence - Metrics Overview</em></p>
+
+<img src="assets/screenshots/09-decision-intelligence/decision-intelligence-u2013-executive-recommendations.png" alt="Decision Intelligence executive recommendations" width="100%"/>
+
+**1. Decision Intelligence executive recommendations**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Decision Intelligence – Executive Recommendations.png" alt="Decision Intelligence Recommendations" width="800"/>
-  <p><em>Decision Intelligence - Executive Recommendations</em></p>
+
+<img src="assets/screenshots/09-decision-intelligence/decision-intelligence-u2013-header-filter-controls.png" alt="Decision Intelligence header and filter controls" width="100%"/>
+
+**2. Decision Intelligence header and filter controls**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Decision Intelligence – Header & Filter Controls.png" alt="Decision Intelligence Header" width="800"/>
-  <p><em>Decision Intelligence - Header & Filter Controls</em></p>
+
+<img src="assets/screenshots/09-decision-intelligence/decision-intelligence-u2013-kpi-metrics-overview.png" alt="Decision Intelligence KPI overview" width="100%"/>
+
+**3. Decision Intelligence KPI overview**
+
 </div>
 
-### 🔴 Live Monitor
+### 📡 Live Monitor & Streaming Alerts
+
+Streaming-style operational monitoring, metrics, watchlists and multiple alert severities.
 
 <div align="center">
-  <img src="Project Screenshots/Live Monitor – Real-time Streaming Analytics & Metrics.png" alt="Live Monitor Dashboard" width="800"/>
-  <p><em>Live Monitor - Real-time Streaming Analytics</em></p>
-</div>
 
-<div align="center">
-  <img src="Project Screenshots/Live Monitor view displaying Risk Threshold Exceeded (High & Medium) and Payment Failure alerts..png" alt="Live Monitor Alerts" width="800"/>
-  <p><em>Live Monitor - Alert Management</em></p>
-</div>
+<img src="assets/screenshots/10-live-monitor/live-monitor-u2013-payment-failure-anomaly-alerts.png" alt="Payment-failure and anomaly alerts" width="100%"/>
 
-<div align="center">
-  <img src="Project Screenshots/Live Monitor – Recent Alerts Feed (HighMedium).png" alt="Live Monitor Feed" width="800"/>
-  <p><em>Live Monitor - Recent Alerts Feed</em></p>
-</div>
+**1. Payment-failure and anomaly alerts**
 
-<div align="center">
-  <img src="Project Screenshots/Live Monitor view displaying Account Anomaly (Low & High) and High Transaction Volume (Medium) alerts..png" alt="Live Monitor Anomaly" width="800"/>
-  <p><em>Live Monitor - Account Anomaly Alerts</em></p>
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Live Monitor view highlighting Payment Failure (Critical) and Suspicious Activity (Critical) alerts..png" alt="Live Monitor Critical" width="800"/>
-  <p><em>Live Monitor - Critical Alerts</em></p>
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-u2013-real-time-streaming-analytics-metrics.png" alt="Real-time streaming analytics metrics" width="100%"/>
+
+**2. Real-time streaming analytics metrics**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Live Monitor view showing Risk Threshold Exceeded (Low), Payment Failure (Low), and Suspicious Activity alerts..png" alt="Live Monitor Low" width="800"/>
-  <p><em>Live Monitor - Low Priority Alerts</em></p>
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-u2013-recent-alerts-feed-highmedium.png" alt="Recent alerts feed with severity levels" width="100%"/>
+
+**3. Recent alerts feed with severity levels**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Live Monitor view showing Risk Threshold Exceeded, High Transaction Volume, and Payment Failure (Medium) alerts..png" alt="Live Monitor Mixed" width="800"/>
-  <p><em>Live Monitor - Mixed Alert Types</em></p>
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-view-displaying-account-anomaly-low-high-and-high-transaction-volume-medium-alerts.png" alt="Account anomaly and high-transaction-volume alerts" width="100%"/>
+
+**4. Account anomaly and high-transaction-volume alerts**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Live Monitor – Payment Failure & Anomaly Alerts.png" alt="Live Monitor Payment" width="800"/>
-  <p><em>Live Monitor - Payment Failure & Anomaly</em></p>
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-view-displaying-risk-threshold-exceeded-high-medium-and-payment-failure-alerts.png" alt="Risk-threshold and payment-failure alerts" width="100%"/>
+
+**5. Risk-threshold and payment-failure alerts**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-view-highlighting-payment-failure-critical-and-suspicious-activity-critical-alerts.png" alt="Critical payment-failure and suspicious-activity alerts" width="100%"/>
+
+**6. Critical payment-failure and suspicious-activity alerts**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-view-showing-risk-threshold-exceeded-low-payment-failure-low-and-suspicious-activity-alerts.png" alt="Low-severity threshold, payment and suspicious-activity alerts" width="100%"/>
+
+**7. Low-severity threshold, payment and suspicious-activity alerts**
+
+</div>
+
+<div align="center">
+
+<img src="assets/screenshots/10-live-monitor/live-monitor-view-showing-risk-threshold-exceeded-high-transaction-volume-and-payment-failure-medium-alerts.png" alt="Mixed medium-severity streaming alerts" width="100%"/>
+
+**8. Mixed medium-severity streaming alerts**
+
 </div>
 
 ### 🤖 Model Monitoring
 
+Model monitoring configuration, KPI summaries and model-performance tables.
+
 <div align="center">
-  <img src="Project Screenshots/Model Monitoring – KPI Summary Cards.png" alt="Model Monitoring KPIs" width="800"/>
-  <p><em>Model Monitoring - Performance Metrics</em></p>
+
+<img src="assets/screenshots/11-model-monitoring/model-monitoring-u2013-header-configuration.png" alt="Model Monitoring header and configuration" width="100%"/>
+
+**1. Model Monitoring header and configuration**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Model Monitoring – Performance Metrics Table.png" alt="Model Monitoring Table" width="800"/>
-  <p><em>Model Monitoring - Detailed Performance</em></p>
+
+<img src="assets/screenshots/11-model-monitoring/model-monitoring-u2013-kpi-summary-cards.png" alt="Model Monitoring KPI summary cards" width="100%"/>
+
+**2. Model Monitoring KPI summary cards**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Model Monitoring – Header & Configuration.png" alt="Model Monitoring Header" width="800"/>
-  <p><em>Model Monitoring - Header & Configuration</em></p>
+
+<img src="assets/screenshots/11-model-monitoring/model-monitoring-u2013-performance-metrics-table.png" alt="Model Monitoring performance metrics table" width="100%"/>
+
+**3. Model Monitoring performance metrics table**
+
 </div>
 
 ### ✅ Data Quality Monitoring
 
+Data-quality dashboard and table-level quality metrics.
+
 <div align="center">
-  <img src="Project Screenshots/Data Quality Monitoring – Dashboard & Metrics Table.png" alt="Data Quality Dashboard" width="800"/>
-  <p><em>Data Quality Monitoring - Dashboard & Metrics</em></p>
+
+<img src="assets/screenshots/12-data-quality/data-quality-monitoring-u2013-dashboard-metrics-table.png" alt="Data Quality Monitoring dashboard and metrics table" width="100%"/>
+
+**1. Data Quality Monitoring dashboard and metrics table**
+
 </div>
 
-### � Customer Segmentation
+### 🎯 Customer Segmentation
+
+Segment KPIs, customer segment tables, filters, distributions and balance analysis.
 
 <div align="center">
-  <img src="Project Screenshots/Segmentation KPIs (Total Segments, Largest Segment, Total Customers).png" alt="Segmentation KPIs" width="800"/>
-  <p><em>Customer Segmentation - Key Performance Indicators</em></p>
-</div>
 
-<div align="center">
-  <img src="Project Screenshots/Customer Segments data table.png" alt="Segmentation Table" width="800"/>
-  <p><em>Customer Segmentation - Data Table</em></p>
-</div>
+<img src="assets/screenshots/13-segmentation/average-balance-by-segment-bar-chart.png" alt="Average balance by customer segment" width="100%"/>
 
-<div align="center">
-  <img src="Project Screenshots/customer-segmentation-filters.png" alt="Segmentation Filters" width="800"/>
-  <p><em>Customer Segmentation - Filter Options</em></p>
-</div>
+**1. Average balance by customer segment**
 
-<div align="center">
-  <img src="Project Screenshots/Average Balance by Segment bar chart.png" alt="Segmentation Balance" width="800"/>
-  <p><em>Customer Segmentation - Average Balance by Segment</em></p>
-</div>
-
-### �🔌 API Documentation
-
-<div align="center">
-  <img src="Project Screenshots/Swagger UI documentation page showing the OpenAPI 3.1 title banner, authorize button, and endpoint lists..png" alt="Swagger UI" width="800"/>
-  <p><em>API Documentation - Swagger UI</em></p>
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Top-level Redocly documentation interface displaying the Banking Analytics API title, version, and initial health check section..png" alt="ReDoc" width="800"/>
-  <p><em>API Documentation - ReDoc</em></p>
+
+<img src="assets/screenshots/13-segmentation/customer-segments-data-table.png" alt="Customer segments data table" width="100%"/>
+
+**2. Customer segments data table**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Redocly UI showing documentation and response samples for apiv1healthready and apiv1healthlive.png" alt="ReDoc Health" width="800"/>
-  <p><em>API Documentation - ReDoc Health Endpoints</em></p>
+
+<img src="assets/screenshots/13-segmentation/distribution-revenue-by-segment-bar-charts.png" alt="Segment distribution and revenue by segment" width="100%"/>
+
+**3. Segment distribution and revenue by segment**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/OpenAPI 3.1.0 JSON specification schema showing API info and health check paths..png" alt="OpenAPI Schema" width="800"/>
-  <p><em>API Documentation - OpenAPI Schema</em></p>
+
+<img src="assets/screenshots/13-segmentation/segmentation-kpis-total-segments-largest-segment-total-customers.png" alt="Segmentation KPIs: total segments, largest segment and customers" width="100%"/>
+
+**4. Segmentation KPIs: total segments, largest segment and customers**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/JSON output from the root API endpoint listing links for docs, health, auth, and websocket routes..png" alt="API Root" width="800"/>
-  <p><em>API Documentation - Root Endpoint Response</em></p>
+
+<img src="assets/screenshots/13-segmentation/customer-segmentation-filters.png" alt="Customer segmentation filters" width="100%"/>
+
+**5. Customer segmentation filters**
+
+</div>
+
+### ️ Export, Print & Recording
+
+Dashboard print/export workflow and Streamlit/browser recording prompts.
+
+<div align="center">
+
+<img src="assets/screenshots/15-export-recording/shows-the-executive-overview-dashboard-page-inside-the-browser-s-save-as-pdf-print-preview-dialog.png" alt="Browser print preview / Save as PDF workflow" width="100%"/>
+
+**1. Browser print preview / Save as PDF workflow**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/JSON response from the health endpoint displaying status (degraded), version, and database state..png" alt="API Health" width="800"/>
-  <p><em>API Documentation - Health Endpoint Response</em></p>
-</div>
 
-### 🖨️ Export & Print
+<img src="assets/screenshots/15-export-recording/shows-the-streamlit-record-a-screencast-overlay-modal-on-the-executive-overview-page.png" alt="Streamlit screencast recording overlay" width="100%"/>
 
-<div align="center">
-  <img src="Project Screenshots/Shows the Executive Overview dashboard page inside the browser's Save as PDF  print preview dialog..png" alt="Print Preview" width="800"/>
-  <p><em>Export - Print Preview / Save as PDF</em></p>
+**2. Streamlit screencast recording overlay**
+
 </div>
 
 <div align="center">
-  <img src="Project Screenshots/Shows the Streamlit Record a screencast overlay modal on the Executive Overview page..png" alt="Screencast" width="800"/>
-  <p><em>Export - Record Screencast</em></p>
-</div>
 
-<div align="center">
-  <img src="Project Screenshots/Shows the browser prompt asking to choose and share the screen..png" alt="Screen Share" width="800"/>
-  <p><em>Export - Screen Share Prompt</em></p>
-</div>
+<img src="assets/screenshots/15-export-recording/shows-the-browser-prompt-asking-to-choose-and-share-the-screen.png" alt="Browser screen-sharing permission prompt" width="100%"/>
 
----
+**3. Browser screen-sharing permission prompt**
+
+</div>
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.11 or higher
-- PostgreSQL 14 or higher
-- Apache Kafka 2.8 or higher
-- Redis 7 or higher
-- Docker and Docker Compose (optional)
+- Python 3.11+
+- PostgreSQL 15 recommended for the included Compose setup
+- Redis 7 for streaming/feature-store functionality
+- Kafka/Redpanda for streaming functionality
+- Git
+- Docker + Docker Compose (optional)
 
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Skismail57/Banking-Customer-Profitability-and-Risk-Analytics-Platform.git
-   cd Banking-Customer-Profitability-and-Risk-Analytics-Platform
-   ```
-
-2. **Create virtual environment**
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   pip install -r requirements-api.txt
-   ```
-
-4. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-5. **Initialize database**
-   ```bash
-   alembic upgrade head
-   ```
-
-### Running the Application
-
-#### Option 1: Using Docker Compose (Recommended)
+### 1. Clone and enter the project
 
 ```bash
-docker-compose up -d
+git clone <your-repository-url>
+cd "Banking Customer Profitability and Risk Analytics Platform"
 ```
 
-This will start:
-- FastAPI backend on port 8000
-- Streamlit dashboard on port 8501
-- PostgreSQL database
-- Apache Kafka
-- Redis
+### 2. Create a virtual environment
 
-#### Option 2: Manual Setup
+**Windows PowerShell**
 
-**Start the API server:**
-```bash
-uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-**Start the Streamlit dashboard:**
-```bash
-streamlit run frontend/streamlit_app.py --server.port 8501
-```
-
-**Start the streaming pipeline:**
-```bash
-python -m src.streaming.orchestrator
-```
-
-### Access Points
-
-- **Streamlit Dashboard**: http://localhost:8501
-- **API Documentation (Swagger)**: http://localhost:8000/api/docs
-- **API Documentation (ReDoc)**: http://localhost:8000/api/redoc
-- **Health Check**: http://localhost:8000/api/v1/health
-
----
-
-## 📚 API Documentation
-
-### Authentication
-
-The API uses JWT authentication. Obtain a token by:
+**macOS/Linux**
 
 ```bash
-curl -X POST "http://localhost:8000/api/v1/auth/login" \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "your_password"}'
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-### Key Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/v1/customers` | GET | List customers with pagination and search |
-| `/api/v1/customers/{customer_id}` | GET | Get customer by ID |
-| `/api/v1/profitability/aggregate` | GET | Profitability metrics |
-| `/api/v1/risk/aggregate` | GET | Risk metrics |
-| `/api/v1/churn/aggregate` | GET | Churn metrics |
-| `/api/v1/segments` | GET | List customer segments |
-| `/api/v1/portfolio/summary` | GET | Portfolio summary |
-| `/api/v1/health` | GET | Health check |
-
-### Example Request
+### 3. Install dependencies
 
 ```bash
-curl -X GET "http://localhost:8000/api/v1/customers?limit=10&offset=0" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+pip install -r requirements.txt
 ```
 
----
+For API-focused installation:
+
+```bash
+pip install -r requirements-api.txt
+```
+
+### 4. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+On Windows, copy `.env.example` to `.env` manually if `cp` is unavailable. Set database and JWT values before running production-like services.
+
+### 5. Run the Streamlit dashboard
+
+The current repository entry point is:
+
+```bash
+streamlit run frontend/app.py --server.port 8501
+```
+
+### 6. Run the FastAPI service
+
+```bash
+uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Then open:
+
+- Dashboard: `http://localhost:8501`
+- Swagger: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+- OpenAPI JSON: `http://localhost:8000/openapi.json`
+- Health: `http://localhost:8000/api/v1/health`
+
+### 7. Database migrations
+
+The repository includes Alembic configuration and migration scripts. Configure the target database first, then use:
+
+```bash
+alembic upgrade head
+```
 
 ## 🧪 Testing
 
-### Run all tests
+The archive contains **57 test files** spanning analytics, API, data quality, integration, load, ML, regression, security, SQL and extensive unit-test modules.
+
+Run the full suite with:
+
 ```bash
 pytest tests/ -v
 ```
 
-### Run with coverage
-```bash
-pytest tests/ --cov=src --cov-report=html
-```
+### Inspection result for this archive
 
-### Run specific test suites
-```bash
-# Unit tests
-pytest tests/unit/ -v
+At the time this README was prepared, the test runner collected **181 tests but stopped during collection with 5 errors**. The observed blockers included:
 
-# Integration tests
-pytest tests/integration/ -v
+- an `IndentationError` in `tests/api/test_api_endpoints.py`;
+- a missing `Optional` import in `src/advanced_risk_analytics/trend_monitoring.py`;
+- missing runtime dependencies in the inspection environment (`jose` and `pandera`).
 
-# API tests
-pytest tests/api/ -v
+Therefore, this README intentionally **does not claim that the current checkout has a fully passing test suite**. Fixing those blockers and rerunning CI should be part of the next hardening pass.
 
-# Security tests
-pytest tests/security/ -v
-```
+## ⚠️ Important Implementation Notes
 
----
+This section is intentionally explicit so the README reflects the repository rather than overstating it.
 
-## 🚢 Deployment
+### Synthetic/mock dashboard data
 
-### Docker Deployment
+Most Streamlit analytics pages currently instantiate `MockDataLoader`. The mock generator creates approximately **1,000 customers and 10,000 transactions** for local/demo analytics. The UI screenshots contain labels such as “10,000+ customers” and “1M+ data points”; those labels should be treated as presentation/demo content rather than verified current dataset volume.
 
-Build the Docker image:
-```bash
-docker build -t banking-analytics-platform .
-```
+### Empty local SQLite artifact
 
-Run the container:
-```bash
-docker run -p 8000:8000 \
-  -e DATABASE_URL=postgresql://user:pass@host:5432/db \
-  -e JWT_SECRET_KEY=your-secret-key \
-  banking-analytics-platform
-```
+The archived `banking_analytics.db` file is 0 bytes. The project itself is designed around PostgreSQL for the primary database layer, with SQLAlchemy and Alembic support.
 
-### Kubernetes Deployment
+### Docker/Compose alignment
 
-The platform includes Kubernetes manifests in the `k8s/production/` directory:
+The repository contains Docker and Compose configurations, but the current Compose/Streamlit paths should be reconciled before calling the containerized setup production-ready. In particular, the Compose configuration references `./streamlit` and `streamlit/home.py`, while the current dashboard implementation is under `frontend/app.py`; the Compose file also mounts `./sql/init`, which is not present in the archive.
 
-```bash
-kubectl apply -f k8s/production/configmap.yaml
-kubectl apply -f k8s/production/secret.yaml
-kubectl apply -f k8s/production/deployment.yaml
-kubectl apply -f k8s/production/service.yaml
-```
+### Production-readiness wording
 
-### CI/CD Pipeline
+The repository's internal remediation documentation reports a **9.0/10 production-readiness score**. That is an internal project assessment, not an independent certification. Because the current archive still has test-collection failures and deployment-path inconsistencies, the safer description is **“production-oriented / production-readiness work implemented”** rather than “verified production-ready.”
 
-The platform uses GitHub Actions for CI/CD:
-- **CI Pipeline**: Runs on every push (lint, test, security scan, build)
-- **CD Pipeline**: Automated deployment to staging/production with canary releases
+### Financial decision disclaimer
 
----
+The analytics and ML components are intended for portfolio, educational and decision-support use. They should not be used as an automated lending, credit approval or financial-advice system without appropriate validation, governance, compliance review, bias testing, monitoring and human oversight.
 
-## 📖 Documentation
+## 📚 Documentation Map
 
-- [Architecture Documentation](ARCHITECTURE.md) - Detailed system architecture
-- [Data Dictionary](DATA_DICTIONARY.md) - Data model definitions
-- [Assumptions & Limitations](docs/ASSUMPTIONS_AND_LIMITATIONS.md) - Platform constraints
-- [Remediation Summary](REMEDIATION_SUMMARY.md) - Production readiness improvements
-- [Project Constitution](PROJECT_CONSTITUTION.md) - Development principles
+The project contains a substantial documentation layer. Useful starting points include:
 
----
+| Document | Purpose |
+|---|---|
+| `ARCHITECTURE.md` | System architecture and module responsibilities |
+| `DATA_DICTIONARY.md` | Core fields, metrics, relationships and data-quality rules |
+| `PROJECT_CONSTITUTION.md` | Engineering principles and project standards |
+| `docs/PROFITABILITY_METHODOLOGY.md` | Profitability definitions and calculations |
+| `docs/CREDIT_RISK_METHODOLOGY.md` | Credit-risk methodology |
+| `docs/ADVANCED_RISK_ANALYTICS_METHODOLOGY.md` | Advanced risk, concentration, migration and early-warning analysis |
+| `docs/CHURN_ANALYTICS_METHODOLOGY.md` | Churn methodology |
+| `docs/CLV_METHODOLOGY.md` | CLV methodology |
+| `docs/CUSTOMER_SEGMENTATION_METHODOLOGY.md` | Business rules, clustering and stability |
+| `docs/PREDICTIVE_ANALYTICS_FRAMEWORK.md` | ML framework and evaluation |
+| `docs/STATISTICAL_ANALYTICS_METHODOLOGY.md` | Statistical methods and business tests |
+| `docs/DECISION_INTELLIGENCE_METHODOLOGY.md` | Recommendation rules and prioritization |
+| `docs/STREAMING_ARCHITECTURE.md` | Streaming architecture and processing semantics |
+| `docs/DATA_QUALITY_RULES.md` | Data quality controls |
+| `docs/security/` | Security architecture and security reviews |
+| `docs/PRODUCTION_READINESS_CHECKLIST.md` | Production-readiness checklist |
+| `docs/DEPLOYMENT_GUIDE.md` | Deployment guidance |
 
-## 🤝 Contributing
+## 🗺️ Recommended Next Hardening Steps
 
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow the [Project Constitution](PROJECT_CONSTITUTION.md)
-- Write tests for new features
-- Ensure code passes linting and security checks
-- Update documentation as needed
-- Use conventional commit messages
-
----
-
-## ⚠️ Disclaimer
-
-**This platform is an analytical and educational model for decision support only.** It does not make actual lending decisions, approve or reject loan applications, or replace human judgment in credit decisions. All risk scores, churn predictions, and recommendations are analytical outputs intended to support decision-making, not replace it.
-
-For detailed assumptions and limitations, please refer to [Assumptions and Limitations](docs/ASSUMPTIONS_AND_LIMITATIONS.md).
-
----
+1. **Fix test collection errors** and establish a green CI baseline.
+2. **Align Docker Compose paths** with `frontend/app.py` and the actual SQL initialization layout.
+3. **Connect dashboard pages to the real PostgreSQL `DataLoader`** where production-like data is available, while retaining `MockDataLoader` as an explicit demo mode.
+4. **Add a reproducible seed/load command** for a documented synthetic dataset.
+5. **Verify every model with real train/validation/test artifacts** and store measured metrics rather than example values.
+6. **Add observability dashboards** for API, streaming, database and model-health SLIs/SLOs.
+7. **Harden secrets/configuration** and avoid shipping local `.env` files or credentials in repositories.
+8. **Add database migrations/initialization verification** to CI.
+9. **Validate Kubernetes manifests in CI** with schema/lint checks and environment-specific configuration.
+10. **Document a single canonical deployment path** for local, staging and production environments.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+This project is released under the **MIT License**. See [`LICENSE`](LICENSE).
 
 ## 👨‍💻 Author
 
-**Sk Ismail**
+**S K Ismail**
 
-- GitHub: [@Skismail57](https://github.com/Skismail57)
-- LinkedIn: [Sk Ismail](https://linkedin.com/in/sk-ismail)
-
----
-
-## 🙏 Acknowledgments
-
-- Built with modern data engineering best practices
-- Inspired by industry-leading banking analytics platforms
-- Designed for scalability and production use
-- Community-driven open-source development
-
----
-
-## 📞 Support
-
-For questions, issues, or contributions:
-- Open an issue on GitHub
-- Contact: [skismail57@gmail.com](mailto:skismail57@gmail.com)
+Backend Developer | AI/ML Engineer | Cloud & DevOps Enthusiast
 
 ---
 
 <div align="center">
-  <b>⭐ Star this repository if you find it useful! ⭐</b>
+
+**Banking Customer Profitability & Risk Analytics Platform**  
+*From customer data → analytics → prediction → risk intelligence → business decisions*
+
 </div>
