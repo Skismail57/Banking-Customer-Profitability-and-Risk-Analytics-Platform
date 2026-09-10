@@ -1,0 +1,81 @@
+# Ingestion Configuration
+
+# Input source configurations
+sources:
+  customers:
+    type: csv
+    path: data/input/customers.csv
+    delimiter: ","
+    encoding: utf-8
+    has_header: true
+    target_table: dim_customer
+    natural_key: customer_id
+  
+  accounts:
+    type: csv
+    path: data/input/accounts.csv
+    delimiter: ","
+    encoding: utf-8
+    has_header: true
+    target_table: dim_account
+    natural_key: account_id
+  
+  transactions:
+    type: parquet
+    path: data/input/transactions.parquet
+    target_table: fact_transaction
+    natural_key: transaction_id
+  
+  loans:
+    type: csv
+    path: data/input/loans.csv
+    delimiter: ","
+    encoding: utf-8
+    has_header: true
+    target_table: fact_loan
+    natural_key: loan_id
+
+# Data quality rules
+data_quality:
+  # Minimum row count threshold
+  min_row_count: 1
+  
+  # Maximum null percentage per column (0-1)
+  max_null_percentage: 0.95
+  
+  # Duplicate handling
+  handle_duplicates: true
+  duplicate_strategy: keep_first  # keep_first, keep_last, drop_all
+  
+  # Schema validation
+  validate_schema: true
+  strict_schema: false  # If true, reject columns not in schema
+
+# Pipeline settings
+pipeline:
+  # Batch size for processing
+  batch_size: 10000
+  
+  # Number of parallel workers
+  parallel_workers: 4
+  
+  # Retry settings
+  max_retries: 3
+  retry_delay_seconds: 5
+  
+  # Compression for raw data
+  compress_raw: true
+  compression_type: gzip
+
+# Storage paths
+storage:
+  raw: data/raw
+  staging: data/staging
+  warehouse: data/warehouse
+  metadata: data/metadata
+
+# Logging
+logging:
+  level: INFO
+  log_file: logs/ingestion.log
+  log_to_console: true

@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "description": "Power BI Data Model for Banking Analytics Platform",
+  "tables": [
+    {
+      "name": "fact_recommendations",
+      "columns": [
+        {"name": "recommendation_key", "dataType": "string"},
+        {"name": "customer_key", "dataType": "string"},
+        {"name": "segment", "dataType": "string"},
+        {"name": "priority", "dataType": "string"},
+        {"name": "confidence_level", "dataType": "string"},
+        {"name": "recommended_action", "dataType": "string"},
+        {"name": "reason", "dataType": "string"},
+        {"name": "triggering_metrics", "dataType": "string"},
+        {"name": "generated_at", "dataType": "dateTime"},
+        {"name": "implementation_status", "dataType": "string"}
+      ],
+      "measures": [
+        {"name": "Total Recommendations", "expression": "COUNTROWS(fact_recommendations)"},
+        {"name": "High Priority Count", "expression": "CALCULATE(COUNTROWS(fact_recommendations), fact_recommendations[priority] = \"high\")"},
+        {"name": "Medium Priority Count", "expression": "CALCULATE(COUNTROWS(fact_recommendations), fact_recommendations[priority] = \"medium\")"},
+        {"name": "Low Priority Count", "expression": "CALCULATE(COUNTROWS(fact_recommendations), fact_recommendations[priority] = \"low\")"}
+      ]
+    },
+    {
+      "name": "fact_customer_metrics",
+      "columns": [
+        {"name": "customer_key", "dataType": "string"},
+        {"name": "as_of_date", "dataType": "dateTime"},
+        {"name": "net_profit", "dataType": "decimal"},
+        {"name": "revenue", "dataType": "decimal"},
+        {"name": "cost", "dataType": "decimal"},
+        {"name": "profit_margin", "dataType": "decimal"},
+        {"name": "risk_adjusted_profit", "dataType": "decimal"},
+        {"name": "risk_level", "dataType": "string"},
+        {"name": "risk_trend", "dataType": "string"},
+        {"name": "exposure_amount", "dataType": "decimal"},
+        {"name": "credit_utilization", "dataType": "decimal"},
+        {"name": "days_past_due", "dataType": "int"},
+        {"name": "credit_score", "dataType": "int"},
+        {"name": "churn_probability", "dataType": "decimal"},
+        {"name": "churn_risk_level", "dataType": "string"},
+        {"name": "clv", "dataType": "decimal"},
+        {"name": "segment", "dataType": "string"}
+      ],
+      "measures": [
+        {"name": "Total Customers", "expression": "DISTINCTCOUNT(fact_customer_metrics[customer_key])"},
+        {"name": "Total Net Profit", "expression": "SUM(fact_customer_metrics[net_profit])"},
+        {"name": "Avg Profit Per Customer", "expression": "DIVIDE([Total Net Profit], [Total Customers])"},
+        {"name": "Total CLV", "expression": "SUM(fact_customer_metrics[clv])"},
+        {"name": "Avg CLV", "expression": "DIVIDE([Total CLV], [Total Customers])"},
+        {"name": "Total Exposure", "expression": "SUM(fact_customer_metrics[exposure_amount])"},
+        {"name": "Avg Churn Probability", "expression": "AVERAGE(fact_customer_metrics[churn_probability])"},
+        {"name": "Critical Risk Customers", "expression": "CALCULATE(DISTINCTCOUNT(fact_customer_metrics[customer_key]), fact_customer_metrics[risk_level] = \"critical\")"},
+        {"name": "High Risk Customers", "expression": "CALCULATE(DISTINCTCOUNT(fact_customer_metrics[customer_key]), fact_customer_metrics[risk_level] = \"high\")"}
+      ]
+    },
+    {
+      "name": "dim_customer",
+      "columns": [
+        {"name": "customer_key", "dataType": "string"},
+        {"name": "customer_id", "dataType": "string"},
+        {"name": "customer_name", "dataType": "string"},
+        {"name": "customer_age", "dataType": "int"},
+        {"name": "gender", "dataType": "string"},
+        {"name": "income_level", "dataType": "string"},
+        {"name": "segment", "dataType": "string"},
+        {"name": "region", "dataType": "string"},
+        {"name": "branch", "dataType": "string"},
+        {"name": "customer_since", "dataType": "dateTime"},
+        {"name": "customer_status", "dataType": "string"}
+      ]
+    },
+    {
+      "name": "fact_transactions",
+      "columns": [
+        {"name": "transaction_id", "dataType": "string"},
+        {"name": "customer_key", "dataType": "string"},
+        {"name": "product_key", "dataType": "string"},
+        {"name": "transaction_date", "dataType": "dateTime"},
+        {"name": "transaction_type", "dataType": "string"},
+        {"name": "amount", "dataType": "decimal"},
+        {"name": "currency", "dataType": "string"},
+        {"name": "description", "dataType": "string"},
+        {"name": "merchant_category", "dataType": "string"}
+      ],
+      "measures": [
+        {"name": "Total Transactions", "expression": "COUNTROWS(fact_transactions)"},
+        {"name": "Total Transaction Volume", "expression": "SUM(fact_transactions[amount])"},
+        {"name": "Avg Transaction Value", "expression": "DIVIDE([Total Transaction Volume], [Total Transactions])"}
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "Customer_Metrics",
+      "fromTable": "dim_customer",
+      "fromColumn": "customer_key",
+      "toTable": "fact_customer_metrics",
+      "toColumn": "customer_key",
+      "crossFilteringBehavior": "singleDirection"
+    },
+    {
+      "name": "Customer_Transactions",
+      "fromTable": "dim_customer",
+      "fromColumn": "customer_key",
+      "toTable": "fact_transactions",
+      "toColumn": "customer_key",
+      "crossFilteringBehavior": "singleDirection"
+    },
+    {
+      "name": "Customer_Recommendations",
+      "fromTable": "dim_customer",
+      "fromColumn": "customer_key",
+      "toTable": "fact_recommendations",
+      "toColumn": "customer_key",
+      "crossFilteringBehavior": "singleDirection"
+    },
+    {
+      "name": "Metrics_Recommendations",
+      "fromTable": "fact_customer_metrics",
+      "fromColumn": "customer_key",
+      "toTable": "fact_recommendations",
+      "toColumn": "customer_key",
+      "crossFilteringBehavior": "bothDirections"
+    }
+  ]
+}

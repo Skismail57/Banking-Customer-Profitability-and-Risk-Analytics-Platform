@@ -1,0 +1,62 @@
+# Production Environment Configuration
+database:
+  host: ${DATABASE_HOST}
+  port: ${DATABASE_PORT}
+  name: ${DATABASE_NAME}
+  pool_size: 20
+  max_overflow: 40
+  pool_timeout: 30
+  pool_recycle: 3600
+  echo: false
+
+logging:
+  level: INFO
+
+# Streaming Production Overrides
+streaming:
+  broker:
+    bootstrap_servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    group_id: banking_analytics_prod_group
+    auto_offset_reset: latest
+    enable_auto_commit: false
+    session_timeout_ms: 30000
+    heartbeat_interval_ms: 3000
+    max_poll_records: 1000  # Higher for production
+    max_poll_interval_ms: 300000
+    security_protocol: ${KAFKA_SECURITY_PROTOCOL:-PLAINTEXT}
+    sasl_mechanism: ${KAFKA_SASL_MECHANISM}
+    sasl_username: ${KAFKA_SASL_USERNAME}
+    sasl_password: ${KAFKA_SASL_PASSWORD}
+  
+  schema_registry:
+    url: ${SCHEMA_REGISTRY_URL}
+    enable: true
+    api_key: ${SCHEMA_REGISTRY_API_KEY}
+    api_secret: ${SCHEMA_REGISTRY_API_SECRET}
+  
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    db: ${REDIS_DB:-0}
+    password: ${REDIS_PASSWORD}
+    max_connections: 100  # Higher for production
+    socket_timeout: 5
+    socket_connect_timeout: 5
+    retry_on_timeout: true
+    ssl: ${REDIS_SSL:-false}
+  
+  feature_store:
+    ttl_seconds: 86400  # 24 hours
+    snapshot_ttl_seconds: 220752000  # 7 years (regulatory)
+    key_prefix: banking_prod
+  
+  event_processing:
+    max_processing_time_seconds: 30  # Tighter SLA for production
+    idempotency_ttl_seconds: 86400  # 24 hours
+    late_event_window_seconds: 300  # 5 minutes
+    watermark_delay_seconds: 60  # 1 minute
+  
+  alerts:
+    enabled: true
+    deduplication_window_seconds: 3600  # 1 hour
+    max_alerts_per_customer_per_hour: 10

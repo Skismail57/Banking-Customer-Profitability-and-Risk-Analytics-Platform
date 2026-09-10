@@ -1,0 +1,1 @@
+"""Statistical Analytics tests package."""

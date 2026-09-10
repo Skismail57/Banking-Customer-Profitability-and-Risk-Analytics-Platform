@@ -1,0 +1,55 @@
+# Development Environment Configuration
+database:
+  host: localhost
+  port: 5432
+  name: banking_analytics_dev
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  pool_recycle: 3600
+  echo: true
+
+logging:
+  level: DEBUG
+
+# Streaming Development Overrides
+streaming:
+  broker:
+    bootstrap_servers: localhost:9092
+    group_id: banking_analytics_dev_group
+    auto_offset_reset: earliest
+    enable_auto_commit: false
+    session_timeout_ms: 30000
+    heartbeat_interval_ms: 3000
+    max_poll_records: 100  # Lower for development
+    max_poll_interval_ms: 300000
+  
+  schema_registry:
+    url: http://localhost:8081
+    enable: true
+  
+  redis:
+    host: localhost
+    port: 6379
+    db: 0
+    password: null
+    max_connections: 10  # Lower for development
+    socket_timeout: 5
+    socket_connect_timeout: 5
+    retry_on_timeout: true
+  
+  feature_store:
+    ttl_seconds: 3600  # 1 hour for development
+    snapshot_ttl_seconds: 86400  # 1 day for development
+    key_prefix: banking_dev
+  
+  event_processing:
+    max_processing_time_seconds: 120  # More time for development
+    idempotency_ttl_seconds: 3600  # 1 hour for development
+    late_event_window_seconds: 600  # 10 minutes for development
+    watermark_delay_seconds: 120  # 2 minutes for development
+  
+  alerts:
+    enabled: true
+    deduplication_window_seconds: 1800  # 30 minutes for development
+    max_alerts_per_customer_per_hour: 20  # Higher for development

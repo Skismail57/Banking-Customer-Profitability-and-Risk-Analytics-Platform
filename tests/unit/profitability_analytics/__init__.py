@@ -1,0 +1,1 @@
+"""Profitability Analytics tests package."""

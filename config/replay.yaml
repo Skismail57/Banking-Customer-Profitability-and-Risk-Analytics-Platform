@@ -1,0 +1,79 @@
+# Historical Replay Configuration
+
+# Default replay settings
+defaults:
+  speed_multiplier: 1.0  # 1x = real-time, 10x = 10x faster
+  target_environment: development  # development, staging, production
+  max_events_per_run: 100000  # Safety limit for replay runs
+  timeout_minutes: 60  # Maximum time for a replay run
+
+# Event selection criteria templates
+selection_templates:
+  all_events:
+    description: "Replay all events in time range"
+    criteria: {}
+  
+  specific_customer:
+    description: "Replay events for a specific customer"
+    criteria:
+      customer_key: null  # Set to customer key
+  
+  specific_event_type:
+    description: "Replay events of a specific type"
+    criteria:
+      event_type: null  # Set to event type (transaction, account_update, etc.)
+  
+  high_value_customers:
+    description: "Replay events for high-value customers"
+    criteria:
+      customer_segment: "high_value"
+  
+  risk_customers:
+    description: "Replay events for customers on watchlist"
+    criteria:
+      on_watchlist: true
+
+# Replay scenarios
+scenarios:
+  model_validation:
+    description: "Validate new model version against historical data"
+    speed_multiplier: 10.0  # Accelerated replay
+    selection_template: all_events
+    comparison: true  # Compare with original results
+  
+  feature_parity:
+    description: "Validate feature parity between batch and streaming"
+    speed_multiplier: 5.0
+    selection_template: all_events
+    comparison: true
+  
+  debugging:
+    description: "Debug specific customer issues"
+    speed_multiplier: 1.0  # Real-time for debugging
+    selection_template: specific_customer
+    comparison: false
+  
+  regression_testing:
+    description: "Test pipeline changes for regressions"
+    speed_multiplier: 10.0
+    selection_template: all_events
+    comparison: true
+
+# Replay result tracking
+tracking:
+  store_detailed_results: true
+  store_feature_snapshots: true
+  store_decision_records: true
+  retention_days: 90  # How long to keep replay results
+
+# Comparison settings
+comparison:
+  enabled: true
+  tolerance:
+    absolute: 0.01
+    relative: 0.05
+  compare_fields:
+    - risk_score
+    - anomaly_score
+    - prediction_value
+    - alert_severity

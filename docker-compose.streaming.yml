@@ -1,0 +1,87 @@
+version: '3.8'
+
+# Streaming Infrastructure for Banking Analytics Platform
+# This compose file defines Redpanda (Kafka-compatible) and Redis services
+# for real-time event processing and feature storage
+# 
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.streaming.yml up
+
+services:
+  # Redpanda - Kafka-compatible event broker
+  redpanda:
+    image: vectorized/redpanda:v23.2.15
+    container_name: banking_analytics_redpanda
+    ports:
+      # Kafka API port
+      - "${REDPANDA_PORT:-9092}:9092"
+      # Admin API port
+      - "${REDPANDA_ADMIN_PORT:-9644}:9644"
+      # Schema Registry port
+      - "${REDPANDA_SCHEMA_REGISTRY_PORT:-8081}:8081"
+    command:
+      - redpanda start
+      - --smp 1
+      - --overprovisioned
+      - --kafka-service auto
+      - --advertise-kafka-addr ${REDPANDA_ADVERTISED_ADDRESS:-localhost}:9092
+      - --set redpanda.auto_create_topics_enabled=false
+      - --set redpanda.default_topic_partitions=6
+      - --set redpanda.default_topic_replications=1
+    environment:
+      # Redpanda configuration
+      REDPANDA_AUTO_CREATE_TOPICS_ENABLED: "false"
+      REDPANDA_DEFAULT_TOPIC_PARTITIONS: "6"
+      REDPANDA_DEFAULT_TOPIC_REPLICATIONS: "1"
+      # Security configuration (for production)
+      # REDPANDA_ENABLE_SASL: "true"  # Enable SASL authentication in production
+      # REDPANDA_SASL_MECHANISM: "PLAIN"  # SASL mechanism
+    volumes:
+      - redpanda_data:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - banking_network
+    restart: unless-stopped
+
+  # Redis - Feature store and caching
+  redis:
+    image: redis:7-alpine
+    container_name: banking_analytics_redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory ${REDIS_MAX_MEMORY:-256mb}
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+      --requirepass ${REDIS_PASSWORD:-}
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - banking_network
+    restart: unless-stopped
+
+networks:
+  banking_network:
+    name: banking_network
+    driver: bridge
+
+volumes:
+  redpanda_data:
+    driver: local
+  redis_data:
+    driver: local

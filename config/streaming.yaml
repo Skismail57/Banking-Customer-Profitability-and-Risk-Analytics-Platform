@@ -1,0 +1,263 @@
+# Streaming-Specific Configuration
+# This file contains detailed configuration for streaming infrastructure
+
+# Topic Configuration
+topics:
+  # Raw banking events
+  banking_events_raw:
+    name: banking.events.raw
+    partitions: 12
+    replication_factor: 1
+    retention_ms: 604800000  # 7 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Validated events
+  banking_events_validated:
+    name: banking.events.validated
+    partitions: 12
+    replication_factor: 1
+    retention_ms: 604800000  # 7 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Customer features
+  banking_features_customer:
+    name: banking.features.customer
+    partitions: 6
+    replication_factor: 1
+    retention_ms: 172800000  # 2 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Account features
+  banking_features_account:
+    name: banking.features.account
+    partitions: 6
+    replication_factor: 1
+    retention_ms: 172800000  # 2 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Risk predictions
+  banking_predictions_risk:
+    name: banking.predictions.risk
+    partitions: 3
+    replication_factor: 1
+    retention_ms: 2592000000  # 30 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Churn predictions
+  banking_predictions_churn:
+    name: banking.predictions.churn
+    partitions: 3
+    replication_factor: 1
+    retention_ms: 2592000000  # 30 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Fraud anomalies
+  banking_anomalies_fraud:
+    name: banking.anomalies.fraud
+    partitions: 3
+    replication_factor: 1
+    retention_ms: 63072000000  # 2 years
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Risk alerts
+  banking_alerts_risk:
+    name: banking.alerts.risk
+    partitions: 3
+    replication_factor: 1
+    retention_ms: 7776000000  # 90 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Dead-letter queue
+  banking_dlq:
+    name: banking.dlq
+    partitions: 1
+    replication_factor: 1
+    retention_ms: 2592000000  # 30 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Replay input
+  banking_replay_input:
+    name: banking.replay.input
+    partitions: 6
+    replication_factor: 1
+    retention_ms: 604800000  # 7 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+  
+  # Replay output
+  banking_replay_output:
+    name: banking.replay.output
+    partitions: 6
+    replication_factor: 1
+    retention_ms: 604800000  # 7 days
+    config:
+      cleanup.policy: delete
+      compression.type: snappy
+
+# Consumer Group Configuration
+consumer_groups:
+  feature_processor:
+    group_id: banking.feature.processor
+    topics:
+      - banking.events.raw
+    config:
+      auto_offset_reset: earliest
+      enable_auto_commit: false
+      session_timeout_ms: 30000
+      heartbeat_interval_ms: 3000
+      max_poll_records: 500
+      max_poll_interval_ms: 300000
+  
+  prediction_processor:
+    group_id: banking.prediction.processor
+    topics:
+      - banking.features.customer
+      - banking.features.account
+    config:
+      auto_offset_reset: latest
+      enable_auto_commit: false
+      session_timeout_ms: 30000
+      heartbeat_interval_ms: 3000
+      max_poll_records: 500
+      max_poll_interval_ms: 300000
+  
+  anomaly_processor:
+    group_id: banking.anomaly.processor
+    topics:
+      - banking.events.validated
+      - banking.features.customer
+    config:
+      auto_offset_reset: latest
+      enable_auto_commit: false
+      session_timeout_ms: 30000
+      heartbeat_interval_ms: 3000
+      max_poll_records: 500
+      max_poll_interval_ms: 300000
+  
+  alert_processor:
+    group_id: banking.alert.processor
+    topics:
+      - banking.predictions.risk
+      - banking.predictions.churn
+      - banking.anomalies.fraud
+    config:
+      auto_offset_reset: latest
+      enable_auto_commit: false
+      session_timeout_ms: 30000
+      heartbeat_interval_ms: 3000
+      max_poll_records: 500
+      max_poll_interval_ms: 300000
+  
+  replay_processor:
+    group_id: banking.replay.processor
+    topics:
+      - banking.replay.input
+    config:
+      auto_offset_reset: earliest
+      enable_auto_commit: false
+      session_timeout_ms: 30000
+      heartbeat_interval_ms: 3000
+      max_poll_records: 1000
+      max_poll_interval_ms: 600000
+
+# Event Type Configuration
+event_types:
+  transaction:
+    topic: banking.events.raw
+    schema_version: v1
+    validation_required: true
+  
+  account_update:
+    topic: banking.events.raw
+    schema_version: v1
+    validation_required: true
+  
+  customer_update:
+    topic: banking.events.raw
+    schema_version: v1
+    validation_required: true
+  
+  loan_application:
+    topic: banking.events.raw
+    schema_version: v1
+    validation_required: true
+  
+  payment:
+    topic: banking.events.raw
+    schema_version: v1
+    validation_required: true
+
+# Retry Configuration
+retry:
+  max_attempts: 5
+  backoff_strategy: exponential
+  initial_delay_ms: 1000
+  max_delay_ms: 16000
+  jitter_ms: 1000
+
+# Dead-Letter Queue Configuration
+dlq:
+  enabled: true
+  max_retries_before_dlq: 5
+  dlq_topic: banking.dlq
+  include_original_headers: true
+  include_error_details: true
+
+# Schema Registry Configuration
+schema_registry:
+  compatibility_level: backward
+  enable_schema_validation: true
+  subject_name_strategy: topic_name
+
+# Watermark Configuration
+watermark:
+  default_delay_seconds: 60
+  max_out_of_order_seconds: 300
+  update_interval_seconds: 10
+
+# Feature Store Key Patterns
+feature_store:
+  key_patterns:
+    customer_features: "customer:{customer_key}:features"
+    account_features: "account:{account_key}:features"
+    feature_snapshot: "feature_snapshot:{snapshot_id}"
+    pit_features: "customer:{customer_key}:pit:{date}"
+    idempotency_key: "idempotency:{event_id}:{stage}"
+    watermark: "watermark:{consumer_group}"
+    late_events: "late_events:{consumer_group}"
+
+# Monitoring Configuration
+monitoring:
+  metrics:
+    enabled: true
+    export_interval_seconds: 60
+    metrics_port: 9090
+  
+  tracing:
+    enabled: true
+    sampling_rate: 0.1  # 10% sampling
+    jaeger_endpoint: ${JAEGER_ENDPOINT}
+  
+  logging:
+    structured: true
+    include_correlation_id: true
+    log_event_payloads: false  # Security: don't log full payloads
