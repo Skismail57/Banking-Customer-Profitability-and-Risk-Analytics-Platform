@@ -42,6 +42,26 @@ SECRET_KEY = settings.jwt_secret_key
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.jwt_access_token_expire_minutes
 REFRESH_TOKEN_EXPIRE_DAYS = settings.jwt_refresh_token_expire_days
 
+# bcrypt maximum password length
+BCRYPT_MAX_PASSWORD_LENGTH = 72
+
+
+def _truncate_password(password: str) -> str:
+    """Truncate password to bcrypt's maximum length.
+    
+    bcrypt has a hard limit of 72 bytes for passwords. This function
+    ensures passwords are truncated to comply with this limit.
+    
+    Args:
+        password: Plain text password
+        
+    Returns:
+        Password truncated to 72 bytes maximum
+    """
+    if len(password.encode('utf-8')) > BCRYPT_MAX_PASSWORD_LENGTH:
+        return password[:BCRYPT_MAX_PASSWORD_LENGTH]
+    return password
+
 
 def get_password_hash(password: str) -> str:
     """Hash a password using bcrypt.
@@ -52,7 +72,9 @@ def get_password_hash(password: str) -> str:
     Returns:
         Hashed password
     """
-    return pwd_context.hash(password)
+    # Truncate password to bcrypt's 72-byte limit
+    truncated_password = _truncate_password(password)
+    return pwd_context.hash(truncated_password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -65,7 +87,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     Returns:
         True if password matches, False otherwise
     """
-    return pwd_context.verify(plain_password, hashed_password)
+    # Truncate password to bcrypt's 72-byte limit before verification
+    truncated_password = _truncate_password(plain_password)
+    return pwd_context.verify(truncated_password, hashed_password)
 
 
 def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
