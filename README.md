@@ -13,30 +13,30 @@
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
 | # | Section | # | Section |
 |---|---------|---|---------|
-| 1 | [Project Overview](#1-project-overview) | 21 | [Environment Variables](#21-environment-variables) |
-| 2 | [Quick Start](#2-quick-start) | 22 | [Database Setup](#22-database-setup) |
-| 3 | [Platform at a Glance](#3-platform-at-a-glance) | 23 | [Running the Backend](#23-running-the-backend) |
-| 4 | [Why This Project Matters](#4-why-this-project-matters) | 24 | [Running the Frontend](#24-running-the-frontend) |
-| 5 | [Key Capabilities](#5-key-capabilities) | 25 | [Docker Setup](#25-docker-setup) |
-| 6 | [Business Problem](#6-business-problem) | 26 | [Testing](#26-testing) |
-| 7 | [Solution](#7-solution) | 27 | [Code Quality](#27-code-quality) |
-| 8 | [Key Highlights](#8-key-highlights) | 28 | [CI/CD](#28-cicd) |
-| 9 | [Features](#9-features) | 29 | [Deployment](#29-deployment) |
-| 10 | [Architecture](#10-architecture) | 30 | [Security](#30-security) |
-| 11 | [Project Screenshots](#11-project-screenshots) | 31 | [Performance & Scalability](#31-performance--scalability) |
-| 12 | [Technology Stack](#12-technology-stack) | 32 | [Advantages](#32-advantages) |
-| 13 | [Project Structure](#13-project-structure) | 33 | [Use Cases](#33-use-cases) |
-| 14 | [Data Architecture](#14-data-architecture) | 34 | [Troubleshooting](#34-troubleshooting) |
-| 15 | [Database](#15-database) | 35 | [Future Enhancements](#35-future-enhancements) |
-| 16 | [Analytics](#16-analytics) | 36 | [Contributing](#36-contributing) |
-| 17 | [Data Quality](#17-data-quality) | 37 | [Project Status](#37-project-status) |
-| 18 | [API Documentation](#18-api-documentation) | 38 | [Repository Resources](#38-repository-resources) |
-| 19 | [Installation](#19-installation) | 39 | [License](#39-license) |
-| 20 | [Prerequisites](#20-prerequisites) | | |
+| 1 | [📋 Project Overview](#1-project-overview) | 21 | [🔐 Environment Variables](#21-environment-variables) |
+| 2 | [🚀 Quick Start](#2-quick-start) | 22 | [💾 Database Setup](#22-database-setup) |
+| 3 | [📈 Platform at a Glance](#3-platform-at-a-glance) | 23 | [▶️ Running the Backend](#23-running-the-backend) |
+| 4 | [💡 Why This Project Matters](#4-why-this-project-matters) | 24 | [🖥️ Running the Frontend](#24-running-the-frontend) |
+| 5 | [⚡ Key Capabilities](#5-key-capabilities) | 25 | [🐳 Docker Setup](#25-docker-setup) |
+| 6 | [🎯 Business Problem](#6-business-problem) | 26 | [🧪 Testing](#26-testing) |
+| 7 | [✅ Solution](#7-solution) | 27 | [🔍 Code Quality](#27-code-quality) |
+| 8 | [⭐ Key Highlights](#8-key-highlights) | 28 | [🔄 CI/CD](#28-cicd) |
+| 9 | [🔧 Features](#9-features) | 29 | [🚀 Deployment](#29-deployment) |
+| 10 | [🏗️ Architecture](#10-architecture) | 30 | [🔒 Security](#30-security) |
+| 11 | [📸 Project Screenshots](#11-project-screenshots) | 31 | [⚡ Performance & Scalability](#31-performance--scalability) |
+| 12 | [🛠️ Technology Stack](#12-technology-stack) | 32 | [✨ Advantages](#32-advantages) |
+| 13 | [📁 Project Structure](#13-project-structure) | 33 | [💼 Use Cases](#33-use-cases) |
+| 14 | [🗄️ Data Architecture](#14-data-architecture) | 34 | [🔧 Troubleshooting](#34-troubleshooting) |
+| 15 | [💾 Database](#15-database) | 35 | [🚀 Future Enhancements](#35-future-enhancements) |
+| 16 | [📊 Analytics](#16-analytics) | 36 | [🤝 Contributing](#36-contributing) |
+| 17 | [✅ Data Quality](#17-data-quality) | 37 | [📊 Project Status](#37-project-status) |
+| 18 | [📚 API Documentation](#18-api-documentation) | 38 | [🔗 Repository Resources](#38-repository-resources) |
+| 19 | [📦 Installation](#19-installation) | 39 | [📄 License](#39-license) |
+| 20 | [⚙️ Prerequisites](#20-prerequisites) | | |
 
 ---
 
@@ -609,59 +609,83 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 
 ---
 
-## 12. Technology Stack
+## 🛠️ Technology Stack
 
-### 12.1 Backend
-- Python 3.11, 3.12, 3.14
-- FastAPI 0.109.0
-- Pydantic 2.5.3
-- SQLAlchemy 2.0.35
-- Alembic 1.13.0
-- Uvicorn 0.27.0
-- python-jose[cryptography] 3.3.0
-- passlib 1.7.4
-- bcrypt 4.0.1
+### 🐍 Backend — Python 3.11+
 
-### 12.2 Frontend / BI
-- Streamlit 1.31.0
-- Plotly 5.18.0
-- Pandas 2.1.4
-- NumPy 1.26.2
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| <img src="https://skillicons.dev/icons?i=python" width="32" height="32" /> | **Python 3.11, 3.12, 3.14** | Core runtime for API and analytics |
+| <img src="https://skillicons.dev/icons?i=fastapi" width="32" height="32" /> | **FastAPI 0.109.0** | High-performance async web framework with auto-generated OpenAPI docs |
+| <img src="https://skillicons.dev/icons?i=pydantic" width="32" height="32" /> | **Pydantic 2.5.3** | Runtime type validation and request/response schemas |
+| 🗄️ | **SQLAlchemy 2.0.35** | Type-safe ORM with connection pooling |
+| 🔄 | **Alembic 1.13.0** | Database migration management |
+| ⚡ | **Uvicorn 0.27.0** | ASGI server for FastAPI |
+| 🔐 | **python-jose[cryptography] 3.3.0** | JWT token encoding/decoding |
+| 🔒 | **passlib 1.7.4** | Password hashing with bcrypt |
+| 🛡️ | **bcrypt 4.0.1** | Secure password hashing |
 
-### 12.3 Data Engineering
-- Pandas 2.1.4
-- NumPy 1.26.2
-- Polars 0.20.6
-- Pandera 0.18.0
-- multimethod 1.10.0
+### 📊 Frontend / BI — Streamlit
 
-### 12.4 Database
-- PostgreSQL 15
-- psycopg2-binary 2.9.9
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| <img src="https://skillicons.dev/icons?i=streamlit" width="32" height="32" /> | **Streamlit 1.31.0** | Interactive analytics frontend with 14 dashboards |
+| 📈 | **Plotly 5.18.0** | Interactive charts and visualizations |
+| 🐼 | **Pandas 2.1.4** | Data manipulation and analysis |
+| 🔢 | **NumPy 1.26.2** | Numerical computing |
 
-### 12.5 Machine Learning
-- scikit-learn 1.3.2
-- imbalanced-learn 0.11.0
-- scipy 1.11.4
-- statsmodels 0.14.0
+### 🔧 Data Engineering
 
-### 12.6 Streaming Infrastructure
-- confluent-kafka 2.0.2
-- redis 4.3.4
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| 🐼 | **Pandas 2.1.4** | Data manipulation and ETL |
+| 🔢 | **NumPy 1.26.2** | Numerical operations |
+| ⚡ | **Polars 0.20.6** | High-performance DataFrame library |
+| ✅ | **Pandera 0.18.0** | Data validation with schema contracts |
+| 🎯 | **multimethod 1.10.0** | Multiple dispatch for analytics modules |
 
-### 12.7 DevOps
-- Docker
-- docker-compose 3.8
-- Kubernetes manifests (k8s/production/)
+### 💾 Database
 
-### 12.8 Testing & Quality
-- pytest 7.4.4
-- pytest-cov 4.1.0
-- pytest-mock 3.12.0
-- pytest-asyncio 0.23.3
-- bandit 1.7.5
-- pip-audit 2.6.4
-- slowapi 0.1.9
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| <img src="https://skillicons.dev/icons?i=postgresql" width="32" height="32" /> | **PostgreSQL 15** | Relational data warehouse with star schema |
+| 🔌 | **psycopg2-binary 2.9.9** | PostgreSQL adapter for Python |
+
+### 🤖 Machine Learning
+
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| <img src="https://skillicons.dev/icons?i=scikitlearn" width="32" height="32" /> | **scikit-learn 1.3.2** | ML algorithms for churn, segmentation, risk scoring |
+| ⚖️ | **imbalanced-learn 0.11.0** | Handling imbalanced datasets |
+| 📊 | **scipy 1.11.4** | Statistical computing |
+| 📈 | **statsmodels 0.14.0** | Statistical modeling and testing |
+
+### 🌊 Streaming Infrastructure
+
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| 📨 | **confluent-kafka 2.0.2** | Event streaming for real-time alerts |
+| 🔴 | **redis 4.3.4** | Feature store and live alert cache |
+
+### 🐳 DevOps & Tooling
+
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| <img src="https://skillicons.dev/icons?i=docker" width="32" height="32" /> | **Docker** | Containerization for API, Streamlit, and streaming services |
+| 🐙 | **docker-compose 3.8** | Multi-container orchestration |
+| ☸️ | **Kubernetes** | Production deployment manifests (k8s/production/) |
+
+### 🧪 Testing & Quality
+
+| Icon | Technology | Purpose |
+|------|-----------|---------|
+| 🧪 | **pytest 7.4.4** | Test framework with 35 test files |
+| 📊 | **pytest-cov 4.1.0** | Code coverage reporting |
+| 🎭 | **pytest-mock 3.12.0** | Mocking utilities |
+| ⏱️ | **pytest-asyncio 0.23.3** | Async test support |
+| 🕵️ | **bandit 1.7.5** | Security linting (SAST) |
+| 🔍 | **pip-audit 2.6.4** | Dependency vulnerability scanning (SCA) |
+| 🐢 | **slowapi 0.1.9** | API rate limiting |
 
 ---
 
