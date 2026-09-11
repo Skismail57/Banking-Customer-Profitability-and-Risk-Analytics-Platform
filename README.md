@@ -780,12 +780,18 @@ python -m pytest tests/integration -v
 
 ### 23.5 Known External-Dependency Failures (Documented, Not Masked)
 
-Two categories of tests require unavailable external software on a fresh sandbox:
+Three categories of known issues surface on a fresh Python 3.14 sandbox. None are masked by `|| true` anywhere in code, CI, or this README:
 
-1. **`tests/unit/streaming/kafka/*` — 3 collection errors.** `ModuleNotFoundError: No module named 'confluent_kafka'`. Install `confluent-kafka` via pip if Kafka tests are needed.
-2. **`tests/unit/models/test_streaming.py` — 1 collection error.** Python 3.14 + SQLAlchemy 2.0.36 typing edge case in `de_stringify_union_elements` → `TypeError: descriptor '__getitem__' requires a 'typing.Union' object but received a 'tuple'`. Mitigated by `--ignore=tests/unit/models` pending a SQLAlchemy release targeting Python 3.14 typing.
-
-These are documented per the project charter; they are not masked by `|| true` anywhere in code, CI, or this README.
+1. **`tests/unit/streaming/kafka/*` — 3 collection errors.** `ModuleNotFoundError: No module named 'confluent_kafka'`. Install `confluent-kafka` via pip if Kafka tests are needed. CI applies `--ignore=tests/unit/streaming/kafka`.
+2. **`tests/unit/models/test_streaming.py` — 1 collection error.** Python 3.14 + SQLAlchemy 2.0.36 typing edge case in `de_stringify_union_elements` → `TypeError: descriptor '__getitem__' requires a 'typing.Union' object but received a 'tuple'`. Mitigated by `--ignore=tests/unit/models` pending a SQLAlchemy release targeting Python 3.14 typing internals.
+3. **`datetime.utcnow()` deprecation warnings (non-blocking).** Python 3.12+ emits `DeprecationWarning: datetime.utcnow() is deprecated and scheduled for removal in a future version` across the source tree. Affected files (100+ call sites, 15 files):
+   - `src/data_quality/metrics.py`, `src/data_quality/base.py`, `src/data_quality/schemas.py` (`CustomCheck._past_date`, `CustomCheck._age_at_least`)
+   - `api/routers/health.py`, `api/routers/realtime.py`
+   - `api/main.py`, `api/database.py`, `api/websocket.py`, `api/audit.py`
+   - `api/auth/security.py`, `api/auth/models.py`
+   - `tests/api/test_api_endpoints.py`, `tests/unit/data_quality/test_schemas.py::test_invalid_birth_date_future`
+   - `tests/unit/streaming/schemas/{test_validation,test_event_schemas}.py`, `tests/unit/streaming/{test_alert_engine,test_warning_adapter,processor/test_processor}.py`
+   Clean semantic-upgrade path is a future PR replacing each call with `datetime.now(datetime.UTC)` (and `.replace(tzinfo=None)` for naive-timestamp consumers) — no behaviour change required. GitHub-dependent CD operations (Docker registry push, Codecov upload, GitHub Environments protection rules, kubectl rollback) require GitHub secrets / live cluster — correct in YAML, not reproducible locally, catalogued explicitly in §25.3.
 
 ---
 
@@ -970,6 +976,7 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 | Pandera `SchemaError: column 'churn_date' not in dataframe` | Old schema code missing auto-inject | Current `BaseSchema` auto-injects; confirm schema class inherits from `src.data_quality.base.BaseSchema`. |
 | `fraud_score = 1.5` passed validation | Old `checks=` removals without `_field_validators` restoration | Current `FactTransactionSchema` and `FactCardTransactionSchema` both install `CustomCheck.valid_rate` on `fraud_score`. |
 | `amount = 0` passed validation | Cross-field rule not dispatched | Current schemas register `_amount_not_zero` classmethods; cross-field dispatch handles classmethod refs via `ref.__func__(cls, df)`. |
+| `DeprecationWarning: datetime.utcnow() is deprecated` on Python 3.12+ | `datetime.utcnow()` scheduled for removal in future Python release | Non-blocking; clean upgrade path is `datetime.now(datetime.UTC)` (strip `tzinfo` for naive consumers). See §23.5 item 3 for affected file inventory. |
 
 ---
 
@@ -1031,9 +1038,10 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for the full text.
 | Security audits, phased implementation reports, architecture guides | ✅ Shipped (35 files under `docs/`) |
 
 Genuine remaining items (documented, not masked):
-- `confluent_kafka` Python client must be installed separately to collect Kafka unit tests.
-- SQLAlchemy 2.0.36 + Python 3.14 typing edge case in streaming models tests (see §23.5).
-- GitHub-dependent CD operations (registry push, Codecov, Environments protection rules) require repo secrets.
+- `confluent_kafka` Python client must be installed separately to collect Kafka unit tests (3 tests; see §23.5 item 1).
+- SQLAlchemy 2.0.36 + Python 3.14 typing edge case in streaming models tests (see §23.5 item 2).
+- GitHub-dependent CD operations (registry push, Codecov, Environments protection rules) require repo secrets (see §25.3).
+- `datetime.utcnow()` deprecation warnings in 15 files (100+ call sites, src + tests). Non-blocking; semantic upgrade to `datetime.now(datetime.UTC)` scheduled for a dedicated follow-up PR (see §23.5 item 3 and §31 Troubleshooting).
 
 ---
 
