@@ -12,6 +12,7 @@ numpy==1.26.2
 
 # Data Validation
 pandera==0.18.0
+multimethod==1.10.0
 
 # Statistical Analysis
 scipy==1.11.4

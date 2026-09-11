@@ -1,6 +1,6 @@
 """Risk-adjusted profitability calculation."""
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 import logging
 
 import pandas as pd
