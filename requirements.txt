@@ -32,7 +32,7 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.6
 slowapi==0.1.9
-pip-audit==2.6.4
+pip-audit==2.3
 bandit==1.7.5
 
 # Visualization
