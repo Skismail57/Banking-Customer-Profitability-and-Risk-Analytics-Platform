@@ -607,71 +607,117 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 ---
 
 ## 🛠️ Technology Stack
+## 🛠️ Technology Stack
 
-### 🐍 Backend — Python 3.11+
+The platform is built with a modern data engineering, analytics, machine learning, API, security, and deployment stack.
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| <img src="https://skillicons.dev/icons?i=python" width="32" height="32" /> | **Python 3.11, 3.12, 3.14** | Core runtime for API and analytics |
-| <img src="https://skillicons.dev/icons?i=fastapi" width="32" height="32" /> | **FastAPI 0.109.0** | High-performance async web framework with auto-generated OpenAPI docs |
-| <img src="https://skillicons.dev/icons?i=pydantic" width="32" height="32" /> | **Pydantic 2.5.3** | Runtime type validation and request/response schemas |
-| 🗄️ | **SQLAlchemy 2.0.35** | Type-safe ORM with connection pooling |
-| 🔄 | **Alembic 1.13.0** | Database migration management |
-| ⚡ | **Uvicorn 0.27.0** | ASGI server for FastAPI |
-| 🔐 | **python-jose[cryptography] 3.3.0** | JWT token encoding/decoding |
-| 🔒 | **passlib 1.7.4** | Password hashing with bcrypt |
-| 🛡️ | **bcrypt 4.0.1** | Secure password hashing |
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=python,fastapi,postgresql,docker,kubernetes,github,githubactions,redis" alt="Core Technology Stack" />
+</p>
 
-### 📊 Frontend / BI — Streamlit
+### 🎨 Frontend
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| <img src="https://skillicons.dev/icons?i=streamlit" width="32" height="32" /> | **Streamlit 1.31.0** | Interactive analytics frontend with 14 dashboards |
-| 📈 | **Plotly 5.18.0** | Interactive charts and visualizations |
-| 🐼 | **Pandas 2.1.4** | Data manipulation and analysis |
-| 🔢 | **NumPy 1.26.2** | Numerical computing |
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 📊 | **Streamlit** | 1.31.0 | Used to build interactive banking analytics dashboards |
+| 📈 | **Plotly** | 5.18.0 | Used to create interactive charts and risk/profitability visualizations |
 
-### 🔧 Data Engineering
+---
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| 🐼 | **Pandas 2.1.4** | Data manipulation and ETL |
-| 🔢 | **NumPy 1.26.2** | Numerical operations |
-| ⚡ | **Polars 0.20.6** | High-performance DataFrame library |
-| ✅ | **Pandera 0.18.0** | Data validation with schema contracts |
-| 🎯 | **multimethod 1.10.0** | Multiple dispatch for analytics modules |
+### ⚙️ Backend
 
-### 💾 Database
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🐍 | **Python** | 3.11+ | Used for backend development, data processing, analytics, and machine learning |
+| ⚡ | **FastAPI** | 0.109.0 | Used to build REST APIs for serving banking analytics and application services |
+| � | **python-jose** | 3.3.0 | Used for JWT authentication and token management |
+| 🔑 | **Passlib** | 1.7.4 | Used for password hashing |
+| 🔒 | **bcrypt** | 4.0.1 | Used for secure password hashing |
+| 🚦 | **SlowAPI** | 0.1.9 | Used for API rate limiting and abuse protection |
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| <img src="https://skillicons.dev/icons?i=postgresql" width="32" height="32" /> | **PostgreSQL 15** | Relational data warehouse with star schema |
-| 🔌 | **psycopg2-binary 2.9.9** | PostgreSQL adapter for Python |
+---
 
-### 🤖 Machine Learning
+### 🗄️ Database
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| <img src="https://skillicons.dev/icons?i=scikitlearn" width="32" height="32" /> | **scikit-learn 1.3.2** | ML algorithms for churn, segmentation, risk scoring |
-| ⚖️ | **imbalanced-learn 0.11.0** | Handling imbalanced datasets |
-| 📊 | **scipy 1.11.4** | Statistical computing |
-| 📈 | **statsmodels 0.14.0** | Statistical modeling and testing |
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🐘 | **PostgreSQL** | 15 | Used to store customer, account, transaction, profitability, and risk data |
+| � | **SQLAlchemy** | 2.0.35 | Used for database access and ORM operations |
+| 🔄 | **Alembic** | 1.13.0 | Used for database schema migrations |
+| � | **psycopg2-binary** | 2.9.9 | Used to connect Python applications to PostgreSQL |
 
-### 🌊 Streaming Infrastructure
+**Data Architecture:** PostgreSQL star schema with **4 dimensions, 9 fact tables, and 10 analytical SQL views**.
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| 📨 | **confluent-kafka 2.0.2** | Event streaming for real-time alerts |
-| 🔴 | **redis 4.3.4** | Feature store and live alert cache |
+---
 
-### 🐳 DevOps & Tooling
+### 📊 Data Engineering & Data Quality
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| <img src="https://skillicons.dev/icons?i=docker" width="32" height="32" /> | **Docker** | Containerization for API, Streamlit, and streaming services |
-| 🐙 | **docker-compose 3.8** | Multi-container orchestration |
-| ☸️ | **Kubernetes** | Production deployment manifests (k8s/production/) |
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🐼 | **Pandas** | 2.1.4 | Used for data cleaning, transformation, aggregation, and analysis |
+| 🚀 | **Polars** | 0.20.6 | Used for high-performance DataFrame processing |
+| 🔢 | **NumPy** | 1.26.2 | Used for numerical calculations and data processing |
+| 🛡️ | **Pandera** | 0.18.0 | Used to validate data schemas and detect data-quality problems |
 
+---
+
+### 🤖 Machine Learning & Statistics
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🤖 | **Scikit-learn** | 1.3.2 | Used for customer segmentation, prediction, classification, and clustering |
+| ⚖️ | **Imbalanced-learn** | 0.11.0 | Used to handle imbalanced machine learning datasets |
+| 🧮 | **SciPy** | 1.11.4 | Used for scientific computing and statistical calculations |
+| � | **Statsmodels** | 0.14.0 | Used for statistical modelling and analytical methods |
+
+---
+
+### 🔄 Real-Time Streaming & Caching
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 📨 | **Apache Kafka** | — | Used for real-time transaction and event streaming |
+| � | **Confluent Kafka** | 2.0.2 | Used to integrate Python applications with Kafka producers and consumers |
+| �🔴 | **Redis** | 4.3.4 | Used for caching, feature serving, and live-alert state management |
+
+---
+
+### 🧪 Testing
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🧪 | **Pytest** | 7.4.4 | Used for automated unit and integration testing |
+| � | **pytest-cov** | 4.1.0 | Used to measure test coverage |
+| � | **pytest-mock** | 3.12.0 | Used for mocking dependencies during tests |
+| ⚡ | **pytest-asyncio** | 0.23.3 | Used for testing asynchronous Python code |
+
+---
+
+### 🛡️ Security Auditing
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🔍 | **Bandit** | 1.7.5 | Used to scan Python code for security vulnerabilities |
+| 🩺 | **pip-audit** | 2.6.4 | Used to identify vulnerabilities in Python dependencies |
+
+---
+
+### 🐳 DevOps & Deployment
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🐳 | **Docker** | — | Used to containerize the application and its services |
+| 📦 | **Docker Compose** | — | Used to run and manage multiple services locally |
+| ☸️ | **Kubernetes** | — | Used for container orchestration and deployment |
+
+---
+
+### 🔄 CI/CD & Version Control
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| 🐙 | **GitHub** | — | Used for source-code hosting and collaboration |
+| ⚙️ | **GitHub Actions** | — | Used to automate testing, CI/CD, and security checks |
 ### 🧪 Testing & Quality
 
 | Icon | Technology | Purpose |
