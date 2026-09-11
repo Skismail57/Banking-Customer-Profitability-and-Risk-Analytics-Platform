@@ -98,6 +98,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librdkafka-dev
+
       - name: Install project dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
@@ -153,6 +158,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librdkafka-dev
 
       - name: Install project dependencies
         run: |
@@ -210,6 +220,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librdkafka-dev
 
       - name: Install project dependencies
         run: |
@@ -308,6 +323,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librdkafka-dev
 
       - name: Install project dependencies
         run: |

@@ -465,11 +465,7 @@ class CustomCheck:
         Returns:
             Boolean series indicating valid rows
         """
-<<<<<<< HEAD
         return CustomCheck._to_bool_series(series <= datetime.now(timezone.utc).replace(tzinfo=None))
-=======
-        return CustomCheck._to_bool_series(series <= datetime.utcnow())
->>>>>>> origin/main
 
     @staticmethod
     def not_past_date(series: Series, years: int = 100) -> Series[bool]:
@@ -482,9 +478,5 @@ class CustomCheck:
         Returns:
             Boolean series indicating valid rows
         """
-<<<<<<< HEAD
         cutoff_date = datetime.now(timezone.utc).replace(tzinfo=None).replace(year=datetime.now(timezone.utc).replace(tzinfo=None).year - years)
-=======
-        cutoff_date = datetime.utcnow().replace(year=datetime.utcnow().year - years)
->>>>>>> origin/main
         return CustomCheck._to_bool_series(series >= cutoff_date)
