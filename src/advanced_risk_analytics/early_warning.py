@@ -23,7 +23,7 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 
-from src.advanced_risk_analytics.base import RiskBase, RiskLevel
+from src.advanced_risk_analytics.base import RiskBase, RiskLevel, RiskThresholds
 
 logger = logging.getLogger(__name__)
 
@@ -70,8 +70,8 @@ class EarlyWarningIndicators(RiskBase):
         super().__init__(thresholds)
         self.as_of_date = as_of_date
         
-        # Warning thresholds (configurable)
-        self.thresholds = {
+        # Warning thresholds (configurable) - separate from risk thresholds
+        self.warning_thresholds = {
             'utilization_increase_threshold': 0.15,  # 15% increase
             'payment_decline_threshold': 0.10,  # 10% decline
             'balance_increase_threshold': 0.20,  # 20% increase
@@ -119,13 +119,13 @@ class EarlyWarningIndicators(RiskBase):
                     customer_df[utilization_column].iloc[-1] - 
                     customer_df[utilization_column].iloc[0]
                 )
-                if utilization_change >= self.thresholds['utilization_increase_threshold']:
+                if utilization_change >= self.warning_thresholds['utilization_increase_threshold']:
                     warning_signals.append({
                         "customer_key": customer,
                         "signal_type": "utilization_increase",
                         "value": utilization_change,
-                        "threshold": self.thresholds['utilization_increase_threshold'],
-                        "severity": self._determine_severity(utilization_change, self.thresholds['utilization_increase_threshold']),
+                        "threshold": self.warning_thresholds['utilization_increase_threshold'],
+                        "severity": self._determine_severity(utilization_change, self.warning_thresholds['utilization_increase_threshold']),
                         "date": customer_df[date_column].iloc[-1].isoformat()
                     })
             
@@ -135,13 +135,13 @@ class EarlyWarningIndicators(RiskBase):
                     customer_df[payment_rate_column].iloc[0] - 
                     customer_df[payment_rate_column].iloc[-1]
                 )
-                if payment_change >= self.thresholds['payment_decline_threshold']:
+                if payment_change >= self.warning_thresholds['payment_decline_threshold']:
                     warning_signals.append({
                         "customer_key": customer,
                         "signal_type": "payment_decline",
                         "value": payment_change,
-                        "threshold": self.thresholds['payment_decline_threshold'],
-                        "severity": self._determine_severity(payment_change, self.thresholds['payment_decline_threshold']),
+                        "threshold": self.warning_thresholds['payment_decline_threshold'],
+                        "severity": self._determine_severity(payment_change, self.warning_thresholds['payment_decline_threshold']),
                         "date": customer_df[date_column].iloc[-1].isoformat()
                     })
             
@@ -151,13 +151,13 @@ class EarlyWarningIndicators(RiskBase):
                     customer_df[balance_column].iloc[-1] - 
                     customer_df[balance_column].iloc[0]
                 ) / (abs(customer_df[balance_column].iloc[0]) + 1e-8)
-                if balance_change >= self.thresholds['balance_increase_threshold']:
+                if balance_change >= self.warning_thresholds['balance_increase_threshold']:
                     warning_signals.append({
                         "customer_key": customer,
                         "signal_type": "balance_increase",
                         "value": balance_change,
-                        "threshold": self.thresholds['balance_increase_threshold'],
-                        "severity": self._determine_severity(balance_change, self.thresholds['balance_increase_threshold']),
+                        "threshold": self.warning_thresholds['balance_increase_threshold'],
+                        "severity": self._determine_severity(balance_change, self.warning_thresholds['balance_increase_threshold']),
                         "date": customer_df[date_column].iloc[-1].isoformat()
                     })
         
