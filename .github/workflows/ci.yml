@@ -251,13 +251,11 @@ jobs:
         # Rationale: security scans are run continuously and findings are triaged;
         # findings should not fail the pipeline. Job-level continue-on-error is set.
         run: |
-          pip install bandit
           bandit -r src/ api/ -f json -o bandit-report.json
       
       - name: Run pip-audit for dependency vulnerabilities
         # Rationale: advisory-only — see Bandit rationale above.
         run: |
-          pip install pip-audit
           pip-audit --format json --output pip-audit-report.json
       - name: Upload security scan results
         if: always()
