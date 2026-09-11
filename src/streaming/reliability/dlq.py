@@ -6,7 +6,7 @@ them to a dead letter queue for later inspection and reprocessing.
 
 import json
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Callable
 from datetime import datetime
 from dataclasses import dataclass, asdict
 
