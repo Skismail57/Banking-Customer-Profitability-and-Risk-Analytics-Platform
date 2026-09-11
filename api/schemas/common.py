@@ -1,7 +1,7 @@
 """Common schemas."""
 
 from pydantic import BaseModel, Field
-from typing import Optional, Generic, TypeVar, List
+from typing import Optional, Generic, TypeVar, List, Dict
 from datetime import datetime
 
 
@@ -40,6 +40,7 @@ class HealthResponse(BaseModel):
     version: str
     timestamp: datetime
     database: str
+    components: Optional[Dict[str, str]] = None
 
 
 class ErrorResponse(BaseModel):

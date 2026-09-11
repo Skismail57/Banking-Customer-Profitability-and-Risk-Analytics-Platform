@@ -60,13 +60,15 @@ class EarlyWarningIndicators(RiskBase):
     - Provide context for warnings to avoid stereotyping
     """
     
-    def __init__(self, as_of_date: Optional[date] = None):
+    def __init__(self, thresholds: Optional[RiskThresholds] = None, as_of_date: Optional[date] = None):
         """Initialize Early Warning Indicators.
         
         Args:
+            thresholds: Configurable risk thresholds
             as_of_date: As-of date for analysis
         """
-        super().__init__(as_of_date)
+        super().__init__(thresholds)
+        self.as_of_date = as_of_date
         
         # Warning thresholds (configurable)
         self.thresholds = {
