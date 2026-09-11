@@ -83,7 +83,7 @@ services:
         condition: service_healthy
     volumes:
       - ./src:/app/src:ro
-      - ./streamlit:/app/streamlit:ro
+      - ./frontend:/app/frontend:ro
       - ./config:/app/config:ro
     healthcheck:
       test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8501')"]

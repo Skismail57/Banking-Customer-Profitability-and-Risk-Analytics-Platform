@@ -128,8 +128,9 @@ class CustomerRiskScoreCalculator(CreditRiskBase):
             # 0% utilization = 0 score, 100%+ utilization = 100 score
             normalized = min(value, 100.0)
         elif indicator == RiskIndicator.ON_TIME_PAYMENT_RATE:
-            # 100% on-time = 0 score, 0% on-time = 100 score
-            normalized = (100.0 - value)
+            # 0% on-time = 0 raw, 100% on-time = 100 raw
+            # higher_is_better direction will invert: 100% → 0 score (low risk), 0% → 100 score (high risk)
+            normalized = min(max(value, 0.0), 100.0)
         elif indicator == RiskIndicator.DELINQUENCY_STATUS:
             # Current (0) = 0 score, 90+ DPD (4) = 100 score
             normalized = (value / 4.0) * 100.0

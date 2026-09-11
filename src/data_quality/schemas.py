@@ -4,6 +4,7 @@ import pandera as pa
 from pandera.typing import DataFrame, Series
 from datetime import datetime
 import logging
+import pandas as pd
 
 from src.data_quality.base import BaseSchema, CustomCheck
 
@@ -45,18 +46,11 @@ class DimCustomerSchema(BaseSchema):
     
     birth_date: Series[datetime] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.not_future_date, error="Birth date cannot be in future"),
-            pa.Check(CustomCheck.not_past_date, years=120, error="Birth date cannot be more than 120 years ago")
-        ],
         description="Customer date of birth"
     )
     
     annual_income: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Annual income must be non-negative")
-        ],
         description="Annual income amount"
     )
     
@@ -67,9 +61,6 @@ class DimCustomerSchema(BaseSchema):
     
     customer_since: Series[datetime] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.not_future_date, error="Customer since date cannot be in future")
-        ],
         description="Customer onboarding date"
     )
     
@@ -82,6 +73,36 @@ class DimCustomerSchema(BaseSchema):
         """Schema configuration."""
         strict = True
         coerce = True
+
+    _field_validators = {
+        "birth_date": {
+            "not_future_date": CustomCheck.not_future_date,
+            "not_too_old": lambda s: CustomCheck.not_past_date(s, years=120),
+        },
+        "annual_income": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "customer_since": {
+            "not_future_date": CustomCheck.not_future_date,
+        },
+        "churn_date": {
+            "not_future_date": CustomCheck.not_future_date,
+        },
+    }
+
+    @classmethod
+    def _churn_after_customer_since(cls, df):
+        if "customer_since" not in df.columns or "churn_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        cs = df["customer_since"]
+        cd = df["churn_date"]
+        both_present = cs.notna() & cd.notna()
+        invalid = both_present & (cd < cs)
+        return invalid
+
+    _cross_field_validators = {
+        "churn_date >= customer_since": _churn_after_customer_since,
+    }
 
 
 class DimAccountSchema(BaseSchema):
@@ -122,17 +143,11 @@ class DimAccountSchema(BaseSchema):
     
     credit_limit: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Credit limit must be non-negative")
-        ],
         description="Account credit limit"
     )
     
     overdraft_limit: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Overdraft limit must be non-negative")
-        ],
         description="Account overdraft limit"
     )
     
@@ -143,9 +158,6 @@ class DimAccountSchema(BaseSchema):
     
     opened_date: Series[datetime] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.not_future_date, error="Opened date cannot be in future")
-        ],
         description="Account opening date"
     )
     
@@ -157,6 +169,35 @@ class DimAccountSchema(BaseSchema):
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "credit_limit": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "overdraft_limit": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "opened_date": {
+            "not_future_date": CustomCheck.not_future_date,
+        },
+        "closed_date": {
+            "not_future_date": CustomCheck.not_future_date,
+        },
+    }
+
+    @classmethod
+    def _closed_after_opened(cls, df):
+        if "opened_date" not in df.columns or "closed_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        od = df["opened_date"]
+        cd = df["closed_date"]
+        both_present = od.notna() & cd.notna()
+        invalid = both_present & (cd < od)
+        return invalid
+
+    _cross_field_validators = {
+        "closed_date >= opened_date": _closed_after_opened,
+    }
 
 
 class DimProductSchema(BaseSchema):
@@ -197,33 +238,21 @@ class DimProductSchema(BaseSchema):
     
     interest_rate: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Interest rate must be non-negative")
-        ],
         description="Annual interest rate"
     )
     
     annual_fee: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Annual fee must be non-negative")
-        ],
         description="Annual fee amount"
     )
     
     minimum_balance: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Minimum balance must be non-negative")
-        ],
         description="Minimum balance requirement"
     )
     
     term_months: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Term months must be non-negative")
-        ],
         description="Loan term in months"
     )
     
@@ -235,6 +264,21 @@ class DimProductSchema(BaseSchema):
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "interest_rate": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "annual_fee": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "minimum_balance": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "term_months": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
 
 
 class DimBranchSchema(BaseSchema):
@@ -263,35 +307,21 @@ class DimBranchSchema(BaseSchema):
     
     latitude: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=-90, max_val=90, 
-                   error="Latitude must be between -90 and 90")
-        ],
         description="Branch latitude"
     )
     
     longitude: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=-180, max_val=180,
-                   error="Longitude must be between -180 and 180")
-        ],
         description="Branch longitude"
     )
     
     atm_count: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="ATM count must be non-negative")
-        ],
         description="Number of ATMs at branch"
     )
     
     employee_count: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Employee count must be non-negative")
-        ],
         description="Number of employees at branch"
     )
     
@@ -303,6 +333,21 @@ class DimBranchSchema(BaseSchema):
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "latitude": {
+            "valid_latitude": lambda s: CustomCheck.in_range(s, -90.0, 90.0),
+        },
+        "longitude": {
+            "valid_longitude": lambda s: CustomCheck.in_range(s, -180.0, 180.0),
+        },
+        "atm_count": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "employee_count": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
 
 
 class DimDateSchema(BaseSchema):
@@ -332,52 +377,50 @@ class DimDateSchema(BaseSchema):
     
     day_of_month: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1, max_val=31,
-                   error="Day of month must be between 1 and 31")
-        ],
         description="Day of month (1-31)"
     )
     
     day_of_week: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1, max_val=7,
-                   error="Day of week must be between 1 and 7")
-        ],
         description="Day of week (1-7, Monday=1)"
     )
     
     month: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1, max_val=12,
-                   error="Month must be between 1 and 12")
-        ],
         description="Month (1-12)"
     )
     
     quarter: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1, max_val=4,
-                   error="Quarter must be between 1 and 4")
-        ],
         description="Quarter (1-4)"
     )
     
     year: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1900, max_val=2100,
-                   error="Year must be reasonable")
-        ],
         description="Year"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "day_of_month": {
+            "valid_day_of_month": lambda s: CustomCheck.in_range(s, 1, 31),
+        },
+        "day_of_week": {
+            "valid_day_of_week": lambda s: CustomCheck.in_range(s, 1, 7),
+        },
+        "month": {
+            "valid_month": lambda s: CustomCheck.in_range(s, 1, 12),
+        },
+        "quarter": {
+            "valid_quarter": lambda s: CustomCheck.in_range(s, 1, 4),
+        },
+        "year": {
+            "reasonable_year": lambda s: CustomCheck.in_range(s, 1900, 2200),
+        },
+    }
 
 
 class DimCustomerSegmentSchema(BaseSchema):
@@ -388,7 +431,6 @@ class DimCustomerSegmentSchema(BaseSchema):
     - segment_name: Required non-null string
     - segment_type: Required non-null string
     - min_balance, max_balance: Non-negative integers
-    - min_transactions, max_transactions: Non-negative integers
     - credit_score_min, credit_score_max: Between 300 and 850
     - effective_date: Required date
     - expiry_date: Optional date, must be >= effective_date
@@ -413,33 +455,21 @@ class DimCustomerSegmentSchema(BaseSchema):
     
     min_balance: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Min balance must be non-negative")
-        ],
         description="Minimum balance for segment"
     )
     
     max_balance: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Max balance must be non-negative")
-        ],
         description="Maximum balance for segment"
     )
     
     credit_score_min: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_credit_score, error="Credit score min must be 300-850")
-        ],
         description="Minimum credit score for segment"
     )
     
     credit_score_max: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_credit_score, error="Credit score max must be 300-850")
-        ],
         description="Maximum credit score for segment"
     )
     
@@ -461,6 +491,57 @@ class DimCustomerSegmentSchema(BaseSchema):
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "min_balance": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "max_balance": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "credit_score_min": {
+            "valid_credit_score": CustomCheck.valid_credit_score,
+        },
+        "credit_score_max": {
+            "valid_credit_score": CustomCheck.valid_credit_score,
+        },
+    }
+
+    @classmethod
+    def _expiry_after_effective(cls, df):
+        if "effective_date" not in df.columns or "expiry_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        ed = df["effective_date"]
+        xd = df["expiry_date"]
+        both_present = ed.notna() & xd.notna()
+        invalid = both_present & (xd < ed)
+        return invalid
+
+    @classmethod
+    def _min_lte_max_balance(cls, df):
+        if "min_balance" not in df.columns or "max_balance" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        mn = df["min_balance"]
+        mx = df["max_balance"]
+        both_present = mn.notna() & mx.notna()
+        invalid = both_present & (mn > mx)
+        return invalid
+
+    @classmethod
+    def _min_lte_max_credit(cls, df):
+        if "credit_score_min" not in df.columns or "credit_score_max" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        mn = df["credit_score_min"]
+        mx = df["credit_score_max"]
+        both_present = mn.notna() & mx.notna()
+        invalid = both_present & (mn > mx)
+        return invalid
+
+    _cross_field_validators = {
+        "expiry_date >= effective_date": _expiry_after_effective,
+        "min_balance <= max_balance": _min_lte_max_balance,
+        "credit_score_min <= credit_score_max": _min_lte_max_credit,
+    }
 
 
 # ============================================================================
@@ -506,9 +587,6 @@ class FactTransactionSchema(BaseSchema):
     
     amount: Series[float] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(lambda x: x != 0, error="Transaction amount cannot be zero")
-        ],
         description="Transaction amount"
     )
     
@@ -519,15 +597,29 @@ class FactTransactionSchema(BaseSchema):
     
     fraud_score: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_rate, error="Fraud score must be between 0 and 1")
-        ],
         description="Fraud detection score"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "fraud_score": {
+            "valid_rate": CustomCheck.valid_rate,
+        },
+    }
+
+    @classmethod
+    def _amount_not_zero(cls, df):
+        if "amount" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        amt = df["amount"]
+        return amt.notna() & (amt == 0)
+
+    _cross_field_validators = {
+        "amount != 0": _amount_not_zero,
+    }
 
 
 class FactLoanSchema(BaseSchema):
@@ -573,41 +665,26 @@ class FactLoanSchema(BaseSchema):
     
     principal_amount: Series[float] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.positive, error="Principal amount must be positive")
-        ],
         description="Loan principal amount"
     )
     
     interest_rate: Series[float] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Interest rate must be non-negative")
-        ],
         description="Loan interest rate"
     )
     
     term_months: Series[int] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.positive, error="Term months must be positive")
-        ],
         description="Loan term in months"
     )
     
     credit_score_at_origination: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_credit_score, error="Credit score must be 300-850")
-        ],
         description="Credit score at loan origination"
     )
     
     days_past_due: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Days past due must be non-negative")
-        ],
         description="Days past due"
     )
     
@@ -624,6 +701,38 @@ class FactLoanSchema(BaseSchema):
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "principal_amount": {
+            "positive": CustomCheck.positive,
+        },
+        "interest_rate": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "term_months": {
+            "positive": CustomCheck.positive,
+        },
+        "credit_score_at_origination": {
+            "valid_credit_score": CustomCheck.valid_credit_score,
+        },
+        "days_past_due": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
+
+    @classmethod
+    def _maturity_after_origination(cls, df):
+        if "origination_date" not in df.columns or "maturity_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        od = df["origination_date"]
+        md = df["maturity_date"]
+        both_present = od.notna() & md.notna()
+        invalid = both_present & (md < od)
+        return invalid
+
+    _cross_field_validators = {
+        "maturity_date >= origination_date": _maturity_after_origination,
+    }
 
 
 class FactLoanPaymentSchema(BaseSchema):
@@ -660,39 +769,42 @@ class FactLoanPaymentSchema(BaseSchema):
     
     payment_amount: Series[float] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(CustomCheck.positive, error="Payment amount must be positive")
-        ],
         description="Total payment amount"
     )
     
     principal_component: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Principal component must be non-negative")
-        ],
         description="Principal portion of payment"
     )
     
     interest_component: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Interest component must be non-negative")
-        ],
         description="Interest portion of payment"
     )
     
     days_late: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Days late must be non-negative")
-        ],
         description="Days payment is late"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "payment_amount": {
+            "positive": CustomCheck.positive,
+        },
+        "principal_component": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "interest_component": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "days_late": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
 
 
 class FactCardTransactionSchema(BaseSchema):
@@ -734,31 +846,42 @@ class FactCardTransactionSchema(BaseSchema):
     
     transaction_amount: Series[float] = pa.Field(
         nullable=False,
-        checks=[
-            pa.Check(lambda x: x != 0, error="Transaction amount cannot be zero")
-        ],
         description="Card transaction amount"
     )
     
     fraud_score: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_rate, error="Fraud score must be between 0 and 1")
-        ],
         description="Fraud detection score"
     )
     
     rewards_points: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Rewards points must be non-negative")
-        ],
         description="Rewards points earned"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "fraud_score": {
+            "valid_rate": CustomCheck.valid_rate,
+        },
+        "rewards_points": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
+
+    @classmethod
+    def _transaction_amount_not_zero(cls, df):
+        if "transaction_amount" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        amt = df["transaction_amount"]
+        return amt.notna() & (amt == 0)
+
+    _cross_field_validators = {
+        "transaction_amount != 0": _transaction_amount_not_zero,
+    }
 
 
 class FactCustomerInteractionSchema(BaseSchema):
@@ -789,24 +912,26 @@ class FactCustomerInteractionSchema(BaseSchema):
     
     duration_seconds: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Duration must be non-negative")
-        ],
         description="Interaction duration in seconds"
     )
     
     satisfaction_score: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.in_range, min_val=1, max_val=5,
-                   error="Satisfaction score must be between 1 and 5")
-        ],
         description="Customer satisfaction score (1-5)"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "duration_seconds": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "satisfaction_score": {
+            "valid_satisfaction": lambda s: CustomCheck.in_range(s, 1, 5),
+        },
+    }
 
 
 class FactCustomerProfitabilitySchema(BaseSchema):
@@ -843,55 +968,72 @@ class FactCustomerProfitabilitySchema(BaseSchema):
     
     interest_income: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Interest income must be non-negative")
-        ],
         description="Interest income"
     )
     
     fee_income: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Fee income must be non-negative")
-        ],
         description="Fee income"
     )
     
     cost_of_funds: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Cost of funds must be non-negative")
-        ],
         description="Cost of funds"
     )
     
     operating_costs: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Operating costs must be non-negative")
-        ],
         description="Operating costs"
     )
     
     number_of_accounts: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Number of accounts must be non-negative")
-        ],
         description="Number of accounts"
     )
     
     number_of_transactions: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Number of transactions must be non-negative")
-        ],
         description="Number of transactions"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "interest_income": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "fee_income": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "cost_of_funds": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "operating_costs": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "number_of_accounts": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "number_of_transactions": {
+            "non_negative": CustomCheck.non_negative,
+        },
+    }
+
+    @classmethod
+    def _period_end_after_start(cls, df):
+        if "period_start_date" not in df.columns or "period_end_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        sd = df["period_start_date"]
+        ed = df["period_end_date"]
+        both_present = sd.notna() & ed.notna()
+        invalid = both_present & (ed < sd)
+        return invalid
+
+    _cross_field_validators = {
+        "period_end_date >= period_start_date": _period_end_after_start,
+    }
 
 
 class FactCustomerRiskSchema(BaseSchema):
@@ -928,52 +1070,69 @@ class FactCustomerRiskSchema(BaseSchema):
     
     credit_score: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_credit_score, error="Credit score must be 300-850")
-        ],
         description="Customer credit score"
     )
     
     total_exposure: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Total exposure must be non-negative")
-        ],
         description="Total credit exposure"
     )
     
     days_past_due: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Days past due must be non-negative")
-        ],
         description="Days past due"
     )
     
     number_of_delinquent_accounts: Series[int] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.non_negative, error="Delinquent accounts must be non-negative")
-        ],
         description="Number of delinquent accounts"
     )
     
     probability_of_default: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_rate, error="PD must be between 0 and 1")
-        ],
         description="Probability of default"
     )
     
     loss_given_default: Series[float] = pa.Field(
         nullable=True,
-        checks=[
-            pa.Check(CustomCheck.valid_rate, error="LGD must be between 0 and 1")
-        ],
         description="Loss given default"
     )
     
     class Config:
         strict = True
         coerce = True
+
+    _field_validators = {
+        "credit_score": {
+            "valid_credit_score": CustomCheck.valid_credit_score,
+        },
+        "total_exposure": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "days_past_due": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "number_of_delinquent_accounts": {
+            "non_negative": CustomCheck.non_negative,
+        },
+        "probability_of_default": {
+            "valid_rate": CustomCheck.valid_rate,
+        },
+        "loss_given_default": {
+            "valid_rate": CustomCheck.valid_rate,
+        },
+    }
+
+    @classmethod
+    def _period_end_after_start_risk(cls, df):
+        if "period_start_date" not in df.columns or "period_end_date" not in df.columns:
+            return pd.Series([False] * len(df), index=df.index)
+        sd = df["period_start_date"]
+        ed = df["period_end_date"]
+        both_present = sd.notna() & ed.notna()
+        invalid = both_present & (ed < sd)
+        return invalid
+
+    _cross_field_validators = {
+        "period_end_date >= period_start_date": _period_end_after_start_risk,
+    }

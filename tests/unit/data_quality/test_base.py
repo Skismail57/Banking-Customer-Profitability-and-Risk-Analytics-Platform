@@ -86,7 +86,7 @@ class TestCustomCheck:
         result = CustomCheck.non_negative(series)
         
         assert not result.all()
-        assert result.iloc[2] is False
+        assert not result.iloc[2]
     
     def test_positive(self):
         """Test positive check."""
