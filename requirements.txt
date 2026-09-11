@@ -1,4 +1,4 @@
-﻿# Database Dependencies
+# Database Dependencies
 psycopg2-binary==2.9.9
 sqlalchemy==2.0.23
 alembic==1.13.0
@@ -57,4 +57,3 @@ pytz==2023.3
 confluent-kafka==2.0.2
 redis==4.3.4
 requests==2.32.3
-
