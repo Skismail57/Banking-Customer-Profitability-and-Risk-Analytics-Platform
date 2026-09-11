@@ -1,13 +1,10 @@
 # Banking Customer Profitability and Risk Analytics Platform
 
-[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.14-blue)](#)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-teal)](#)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.31-FF4B4B)](#)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)](#)
-[![Pandera](https://img.shields.io/badge/Pandera-0.18-E94E5C)](#)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-
-![Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/Github%20Image.png)
+<img src="https://skillicons.dev/icons?i=python" width="24" height="24" /> **Python 3.11 | 3.12 | 3.14**
+<img src="https://skillicons.dev/icons?i=fastapi" width="24" height="24" /> **FastAPI 0.109**
+<img src="https://skillicons.dev/icons?i=streamlit" width="24" height="24" /> **Streamlit 1.31**
+<img src="https://skillicons.dev/icons?i=postgresql" width="24" height="24" /> **PostgreSQL 15**
+✅ **Pandera 0.18**
 
 > A modular, domain-driven banking analytics platform that unifies customer profitability measurement, credit risk scoring, churn prediction, customer segmentation, real-time transaction monitoring, executive decision intelligence, and model observability into one cohesive FastAPI + Streamlit + PostgreSQL data warehouse application.
 
