@@ -58,8 +58,9 @@ def _truncate_password(password: str) -> str:
     Returns:
         Password truncated to 72 bytes maximum
     """
-    if len(password.encode('utf-8')) > BCRYPT_MAX_PASSWORD_LENGTH:
-        return password[:BCRYPT_MAX_PASSWORD_LENGTH]
+    password_bytes = password.encode('utf-8')
+    if len(password_bytes) > BCRYPT_MAX_PASSWORD_LENGTH:
+        return password_bytes[:BCRYPT_MAX_PASSWORD_LENGTH].decode('utf-8', errors='ignore')
     return password
 
 
