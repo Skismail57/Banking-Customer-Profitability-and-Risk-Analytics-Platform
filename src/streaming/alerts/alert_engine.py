@@ -19,7 +19,7 @@ Fairness Considerations:
 - Provide context for alerts to avoid stereotyping
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Callable
 from abc import ABC, abstractmethod
 import logging
@@ -133,7 +133,7 @@ class AlertEngine:
             severity=severity,
             alert_source="risk_engine",
             alert_message=alert_message,
-            triggered_at=datetime.utcnow(),
+            triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
             context_data=risk_event
         )
         
@@ -186,7 +186,7 @@ class AlertEngine:
             severity=severity,
             alert_source="anomaly_detector",
             alert_message=alert_message,
-            triggered_at=datetime.utcnow(),
+            triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
             context_data=anomaly_result
         )
         
@@ -242,7 +242,7 @@ class AlertEngine:
             severity=severity,
             alert_source="early_warning",
             alert_message=alert_message,
-            triggered_at=datetime.utcnow(),
+            triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
             context_data=warning_signal
         )
         
@@ -279,7 +279,7 @@ class AlertEngine:
             import json
             alert_dict = json.loads(alert_data)
             alert_dict['status'] = AlertStatus.ACKNOWLEDGED.value
-            alert_dict['acknowledged_at'] = datetime.utcnow().isoformat()
+            alert_dict['acknowledged_at'] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             alert_dict['acknowledged_by'] = acknowledged_by
             
             self.feature_store.redis_client.setex(

@@ -4,7 +4,7 @@ This module provides data validation capabilities to ensure data quality
 in the streaming pipeline.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 from enum import Enum
 import logging
@@ -102,7 +102,7 @@ class DataValidator:
         Returns:
             Validation result
         """
-        validation_id = f"validation_{int(datetime.utcnow().timestamp())}"
+        validation_id = f"validation_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
         rule_type = rule_config['rule_type']
         field = rule_config['field']
         parameters = rule_config['parameters']
@@ -163,7 +163,7 @@ class DataValidator:
             message=message,
             failed_count=failed_count,
             total_count=total_count,
-            validated_at=datetime.utcnow()
+            validated_at=datetime.now(timezone.utc).replace(tzinfo=None)
         )
     
     def validate_field(

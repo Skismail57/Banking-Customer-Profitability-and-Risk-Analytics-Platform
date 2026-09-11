@@ -19,7 +19,7 @@ Fairness Considerations:
 - Alert on performance degradation for protected groups
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import deque
 import logging
@@ -117,7 +117,7 @@ class ModelPerformanceTracker:
             timestamp: Prediction timestamp
         """
         if timestamp is None:
-            timestamp = datetime.utcnow()
+            timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
         
         key = f"{model_id}:{version}"
         self.metrics_history[key].append({
@@ -176,7 +176,7 @@ class ModelPerformanceTracker:
         return PerformanceMetrics(
             model_id=model_id,
             version=version,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             accuracy=accuracy,
             precision=None,  # Would calculate for binary classification
             recall=None,
@@ -265,7 +265,7 @@ class DriftDetector:
         self.baseline_distributions[key] = {
             'mean': {k: np.mean(v) for k, v in features.items()},
             'std': {k: np.std(v) for k, v in features.items()},
-            'timestamp': datetime.utcnow()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None)
         }
     
     def detect_data_drift(
@@ -319,7 +319,7 @@ class DriftDetector:
                 drift_type=DriftType.DATA_DRIFT.value,
                 drift_score=max_drift_score,
                 threshold=self.drift_threshold,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 feature_name=drifted_feature,
                 context_data={
                     'baseline_mean': baseline['mean'].get(drifted_feature),
@@ -357,7 +357,7 @@ class DriftDetector:
                 drift_type=DriftType.PERFORMANCE_DRIFT.value,
                 drift_score=drift_score,
                 threshold=self.drift_threshold,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     'baseline_accuracy': baseline_accuracy,
                     'current_accuracy': current_accuracy
@@ -454,5 +454,5 @@ class ModelHealthChecker:
             'health_status': health_status.value,
             'issues': issues,
             'performance_trend': trend,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }

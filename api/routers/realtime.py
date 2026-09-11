@@ -4,7 +4,7 @@ This module provides REST API endpoints for real-time analytics,
 including alerts, risk scores, watchlist, and streaming metrics.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
@@ -241,7 +241,7 @@ async def acknowledge_alert(
     
     result = db.execute(query, {
         'alert_id': alert_id,
-        'acknowledged_at': datetime.utcnow(),
+        'acknowledged_at': datetime.now(timezone.utc).replace(tzinfo=None),
         'acknowledged_by': acknowledged_by
     })
     
@@ -288,7 +288,7 @@ async def get_realtime_risk(
         customer_key=result.customer_key,
         risk_level=result.realtime_risk_level or "unknown",
         risk_score=float(result.realtime_risk_score or 0.0),
-        updated_at=result.last_realtime_event_time or datetime.utcnow()
+        updated_at=result.last_realtime_event_time or datetime.now(timezone.utc).replace(tzinfo=None)
     )
 
 
@@ -349,7 +349,7 @@ async def get_watchlist(
             on_watchlist=row.on_watchlist,
             warning_level=row.warning_level,
             warning_score=float(row.warning_score or 0.0) if row.warning_score else None,
-            updated_at=row.updated_at or datetime.utcnow()
+            updated_at=row.updated_at or datetime.now(timezone.utc).replace(tzinfo=None)
         ))
 
     return watchlist

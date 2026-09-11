@@ -4,7 +4,7 @@ This module provides load testing capabilities to validate system performance
 under expected load conditions.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 import logging
 import time
@@ -68,7 +68,7 @@ class LoadTester:
         test_id = f"load_test_{int(time.time())}"
         logger.info(f"Starting load test {test_id}: {test_name}")
         
-        started_at = datetime.utcnow()
+        started_at = datetime.now(timezone.utc).replace(tzinfo=None)
         latencies = []
         successful = 0
         failed = 0
@@ -106,7 +106,7 @@ class LoadTester:
                     logger.error(f"Error in request execution: {e}")
                     failed += 1
         
-        completed_at = datetime.utcnow()
+        completed_at = datetime.now(timezone.utc).replace(tzinfo=None)
         duration = (completed_at - started_at).total_seconds()
         
         # Calculate statistics

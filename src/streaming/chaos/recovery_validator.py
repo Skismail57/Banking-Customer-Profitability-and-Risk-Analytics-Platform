@@ -4,7 +4,7 @@ This module provides recovery validation capabilities to verify system
 resilience after fault injection.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Callable
 from enum import Enum
 import logging
@@ -90,7 +90,7 @@ class RecoveryValidator:
             'overall_status': overall_status.value,
             'check_results': results,
             'duration_seconds': time.time() - start_time,
-            'validated_at': datetime.utcnow().isoformat()
+            'validated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         self.validation_history.append(validation_result)
@@ -171,7 +171,7 @@ class RecoveryValidator:
         return {
             'component': component,
             'status': 'healthy',
-            'checked_at': datetime.utcnow().isoformat(),
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'metrics': {}
         }
     
@@ -194,7 +194,7 @@ class RecoveryValidator:
         return {
             'data_source': data_source,
             'status': 'consistent',
-            'checked_at': datetime.utcnow().isoformat(),
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'inconsistencies': []
         }
     
@@ -219,7 +219,7 @@ class RecoveryValidator:
         return {
             'component': component,
             'status': 'within_threshold',
-            'checked_at': datetime.utcnow().isoformat(),
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'current_metrics': {},
             'baseline_metrics': baseline_metrics
         }

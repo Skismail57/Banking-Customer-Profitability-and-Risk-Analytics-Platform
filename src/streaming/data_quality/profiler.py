@@ -4,7 +4,7 @@ This module provides data profiling capabilities to understand data
 characteristics and detect quality issues.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import logging
 import pandas as pd
@@ -65,7 +65,7 @@ class DataProfiler:
         Returns:
             Column profile
         """
-        profile_id = f"profile_{column}_{int(datetime.utcnow().timestamp())}"
+        profile_id = f"profile_{column}_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
         series = data[column]
         
         # Basic statistics
@@ -105,7 +105,7 @@ class DataProfiler:
             mean_value=mean_value,
             std_value=std_value,
             sample_values=sample_values,
-            profiled_at=datetime.utcnow()
+            profiled_at=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         self.profile_history.append(profile)

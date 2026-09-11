@@ -1,7 +1,7 @@
 """Unit tests for data quality base classes."""
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 import numpy as np
 
@@ -16,7 +16,7 @@ class TestValidationResult:
         result = ValidationResult(
             table_name="test_table",
             is_valid=True,
-            validation_time=datetime.utcnow(),
+            validation_time=datetime.now(timezone.utc).replace(tzinfo=None),
             total_rows=100,
             valid_rows=95,
             invalid_rows=5
@@ -31,7 +31,7 @@ class TestValidationResult:
         result = ValidationResult(
             table_name="test",
             is_valid=True,
-            validation_time=datetime.utcnow(),
+            validation_time=datetime.now(timezone.utc).replace(tzinfo=None),
             total_rows=200,
             valid_rows=180,
             invalid_rows=20
@@ -44,7 +44,7 @@ class TestValidationResult:
         result = ValidationResult(
             table_name="test",
             is_valid=True,
-            validation_time=datetime.utcnow(),
+            validation_time=datetime.now(timezone.utc).replace(tzinfo=None),
             total_rows=0,
             valid_rows=0,
             invalid_rows=0
@@ -57,7 +57,7 @@ class TestValidationResult:
         result = ValidationResult(
             table_name="test",
             is_valid=True,
-            validation_time=datetime.utcnow(),
+            validation_time=datetime.now(timezone.utc).replace(tzinfo=None),
             total_rows=100,
             valid_rows=100,
             invalid_rows=0
@@ -86,7 +86,7 @@ class TestCustomCheck:
         result = CustomCheck.non_negative(series)
         
         assert not result.all()
-        assert result.iloc[2] is False
+        assert not result.iloc[2]
     
     def test_positive(self):
         """Test positive check."""

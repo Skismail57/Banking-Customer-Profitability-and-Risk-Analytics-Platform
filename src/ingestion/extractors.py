@@ -1,6 +1,6 @@
 """Data extractors for different file formats."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 import logging
 
@@ -62,7 +62,7 @@ class CSVExtractor(BaseExtractor):
                 source_name=self.source_name,
                 source_type=self.source_type,
                 source_path=self.source_path,
-                ingestion_timestamp=datetime.utcnow(),
+                ingestion_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 ingestion_id=IngestionMetadata.generate_ingestion_id(),
                 row_count=len(df),
                 column_count=len(df.columns),
@@ -120,7 +120,7 @@ class ParquetExtractor(BaseExtractor):
                 source_name=self.source_name,
                 source_type=self.source_type,
                 source_path=self.source_path,
-                ingestion_timestamp=datetime.utcnow(),
+                ingestion_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 ingestion_id=IngestionMetadata.generate_ingestion_id(),
                 row_count=len(df),
                 column_count=len(df.columns),

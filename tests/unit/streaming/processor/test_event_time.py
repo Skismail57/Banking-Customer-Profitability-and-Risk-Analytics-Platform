@@ -1,7 +1,7 @@
 """Unit tests for event-time processing."""
 
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 from src.streaming.processor.event_time import EventTimeProcessor, TimedEvent
 
@@ -18,7 +18,7 @@ class TestEventTimeProcessor:
         """Test extracting event timestamp."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
         }
         
         timestamp = processor.extract_event_timestamp(event)
@@ -26,7 +26,7 @@ class TestEventTimeProcessor:
     
     def test_extract_event_timestamp_datetime(self, processor):
         """Test extracting datetime timestamp."""
-        ts = datetime.utcnow()
+        ts = datetime.now(timezone.utc).replace(tzinfo=None)
         event = {
             "event_id": "evt_123",
             "event_timestamp": ts,
@@ -46,8 +46,8 @@ class TestEventTimeProcessor:
         """Test extracting processing timestamp."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow().isoformat(),
-            "ingestion_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
+            "ingestion_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
         }
         
         timestamp = processor.extract_processing_timestamp(event)
@@ -57,7 +57,7 @@ class TestEventTimeProcessor:
         """Test assigning time information to event."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         
         timed_event = processor.assign_timed_event(event)
@@ -72,10 +72,10 @@ class TestEventTimeProcessor:
         """Test assigning time information with watermark."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow() - timedelta(seconds=10),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=10),
         }
         
-        watermark = datetime.utcnow()
+        watermark = datetime.now(timezone.utc).replace(tzinfo=None)
         timed_event = processor.assign_timed_event(event, watermark)
         
         assert timed_event.is_late is True
@@ -85,9 +85,9 @@ class TestEventTimeProcessor:
     def test_calculate_watermark(self, processor):
         """Test watermark calculation."""
         timestamps = [
-            datetime.utcnow() - timedelta(seconds=5),
-            datetime.utcnow() - timedelta(seconds=3),
-            datetime.utcnow() - timedelta(seconds=1),
+            datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=5),
+            datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=3),
+            datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=1),
         ]
         
         watermark = processor.calculate_watermark(timestamps, out_of_orderness_ms=1000)
@@ -97,15 +97,15 @@ class TestEventTimeProcessor:
     
     def test_advance_watermark(self, processor):
         """Test advancing watermark."""
-        new_watermark = datetime.utcnow()
+        new_watermark = datetime.now(timezone.utc).replace(tzinfo=None)
         processor.advance_watermark(new_watermark)
         
         assert processor.get_watermark() == new_watermark
     
     def test_get_max_event_timestamp(self, processor):
         """Test getting max event timestamp."""
-        event1 = {"event_id": "evt_1", "event_timestamp": datetime.utcnow() - timedelta(seconds=5)}
-        event2 = {"event_id": "evt_2", "event_timestamp": datetime.utcnow()}
+        event1 = {"event_id": "evt_1", "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=5)}
+        event2 = {"event_id": "evt_2", "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None)}
         
         processor.assign_timed_event(event1)
         processor.assign_timed_event(event2)
@@ -115,7 +115,7 @@ class TestEventTimeProcessor:
     
     def test_metrics(self, processor):
         """Test metrics tracking."""
-        event = {"event_id": "evt_123", "event_timestamp": datetime.utcnow()}
+        event = {"event_id": "evt_123", "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None)}
         processor.assign_timed_event(event)
         
         metrics = processor.get_metrics()

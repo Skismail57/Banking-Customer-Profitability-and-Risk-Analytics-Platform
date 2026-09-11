@@ -4,7 +4,7 @@ import hashlib
 import json
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, asdict
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional, List
 import logging
@@ -79,8 +79,8 @@ class IngestionMetadata:
     @staticmethod
     def generate_ingestion_id() -> str:
         """Generate unique ingestion ID."""
-        timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
-        random_hash = hashlib.md5(str(datetime.utcnow().timestamp()).encode()).hexdigest()[:8]
+        timestamp = datetime.now(timezone.utc).replace(tzinfo=None).strftime("%Y%m%d%H%M%S")
+        random_hash = hashlib.md5(str(datetime.now(timezone.utc).replace(tzinfo=None).timestamp()).encode()).hexdigest()[:8]
         return f"ing_{timestamp}_{random_hash}"
     
     @staticmethod

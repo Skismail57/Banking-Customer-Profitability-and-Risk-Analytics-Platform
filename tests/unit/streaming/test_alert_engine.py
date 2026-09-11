@@ -1,7 +1,7 @@
 """Unit tests for alert engine."""
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import Mock, MagicMock
 from src.streaming.alerts.alert_engine import (
     AlertEngine,
@@ -161,7 +161,7 @@ class TestAlertRouter:
             severity='critical',
             alert_source='risk_engine',
             alert_message='Test alert',
-            triggered_at=datetime.utcnow(),
+            triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
             context_data={}
         )
         
@@ -227,7 +227,7 @@ class TestAlertTemplateManager:
             severity='high',
             alert_source='risk_engine',
             alert_message='Test',
-            triggered_at=datetime.utcnow(),
+            triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
             context_data={
                 'risk_level': 'high',
                 'threshold_violated': 'credit_score',

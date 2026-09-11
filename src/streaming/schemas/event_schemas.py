@@ -4,7 +4,7 @@ This module defines Pydantic models for banking event validation and serializati
 All events follow the banking domain conventions and support event-time processing.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, Dict, Any, List
 from enum import Enum
 from decimal import Decimal
@@ -35,7 +35,7 @@ class BaseEvent(BaseModel):
     event_type: EventType = Field(..., description="Type of banking event")
     event_timestamp: datetime = Field(..., description="When the event occurred (event-time)")
     ingestion_timestamp: datetime = Field(
-        default_factory=datetime.utcnow,
+        default_factory=timezone.utcnow,
         description="When the event was ingested (processing-time)"
     )
     customer_key: Optional[str] = Field(None, description="Customer identifier")
@@ -46,7 +46,7 @@ class BaseEvent(BaseModel):
     @classmethod
     def validate_event_timestamp(cls, v):
         """Ensure event timestamp is not in the future."""
-        if v > datetime.utcnow():
+        if v > datetime.now(timezone.utc).replace(tzinfo=None):
             raise ValueError("Event timestamp cannot be in the future")
         return v
     
@@ -54,7 +54,7 @@ class BaseEvent(BaseModel):
     @classmethod
     def validate_event_timestamp_not_too_old(cls, v):
         """Ensure event timestamp is not too old (more than 1 year)."""
-        if (datetime.utcnow() - v).days > 365:
+        if (datetime.now(timezone.utc).replace(tzinfo=None) - v).days > 365:
             raise ValueError("Event timestamp is too old (more than 1 year)")
         return v
 

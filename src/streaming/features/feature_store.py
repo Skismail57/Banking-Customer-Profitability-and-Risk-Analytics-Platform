@@ -7,7 +7,7 @@ features for real-time analytics and ML predictions with reliability patterns.
 import logging
 import json
 from typing import Optional, Dict, Any, List
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from dataclasses import dataclass, asdict
 import redis
 
@@ -334,7 +334,7 @@ class FeatureStore:
         Returns:
             Snapshot ID
         """
-        snapshot_id = f"snapshot_{entity_key}_{datetime.utcnow().isoformat()}"
+        snapshot_id = f"snapshot_{entity_key}_{datetime.now(timezone.utc).replace(tzinfo=None).isoformat()}"
         
         snapshot = FeatureSnapshot(
             snapshot_id=snapshot_id,
@@ -342,7 +342,7 @@ class FeatureStore:
             feature_version=feature_version,
             features=features,
             event_timestamp=event_timestamp,
-            snapshot_timestamp=datetime.utcnow()
+            snapshot_timestamp=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         # Store snapshot in Redis
@@ -409,7 +409,7 @@ class FeatureStore:
         try:
             feature_version = FeatureVersion(
                 version=version,
-                created_at=datetime.utcnow(),
+                created_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 feature_schema=feature_schema,
                 description=description
             )

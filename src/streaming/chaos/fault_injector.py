@@ -3,7 +3,7 @@
 This module provides fault injection capabilities for testing system resilience.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 from enum import Enum
 import logging
@@ -75,7 +75,7 @@ class FaultInjector:
             severity=severity,
             duration_seconds=duration_seconds,
             parameters=parameters or {},
-            injected_at=datetime.utcnow()
+            injected_at=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         self.active_faults[fault_id] = fault

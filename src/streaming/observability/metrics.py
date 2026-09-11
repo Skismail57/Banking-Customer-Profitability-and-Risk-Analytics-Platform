@@ -4,7 +4,7 @@ This module provides metrics collection and aggregation for the streaming
 pipeline, tracking performance, throughput, and business metrics.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Callable
 import logging
 import time
@@ -46,7 +46,7 @@ class MetricsCollector:
         self.gauges = defaultdict(float)
         self.histograms = defaultdict(list)
         self.timers = defaultdict(list)
-        self.start_time = datetime.utcnow()
+        self.start_time = datetime.now(timezone.utc).replace(tzinfo=None)
     
     def increment_counter(self, name: str, value: int = 1, labels: Optional[Dict[str, str]] = None):
         """Increment a counter metric.
@@ -222,7 +222,7 @@ class MetricsCollector:
             'histograms': {k: self.get_histogram_stats(k) for k in self.histograms.keys()},
             'timers': {k: self.get_timer_stats(k) for k in self.timers.keys()},
             'start_time': self.start_time.isoformat(),
-            'uptime_seconds': (datetime.utcnow() - self.start_time).total_seconds()
+            'uptime_seconds': (datetime.now(timezone.utc).replace(tzinfo=None) - self.start_time).total_seconds()
         }
     
     def export_prometheus(self) -> str:
@@ -271,7 +271,7 @@ class MetricsCollector:
         self.gauges.clear()
         self.histograms.clear()
         self.timers.clear()
-        self.start_time = datetime.utcnow()
+        self.start_time = datetime.now(timezone.utc).replace(tzinfo=None)
         logger.info("Metrics reset")
     
     def _make_key(self, name: str, labels: Optional[Dict[str, str]]) -> str:
@@ -358,7 +358,7 @@ class StructuredLogger:
         """
         log_data = {
             'service': self.service_name,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'level': level,
             'message': message,
             'trace_id': trace_id,
@@ -603,7 +603,7 @@ class ObservabilityManager:
             'metrics': self.metrics.get_all_metrics(),
             'spans': self.tracer.export_spans(),
             'service': self.service_name,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
 
 

@@ -27,7 +27,7 @@ from contextlib import contextmanager
 from typing import Optional, Dict, Any, List
 import logging
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from api.config import settings
 
@@ -138,7 +138,7 @@ class QueryOptimizer:
                 return {
                     'query': query,
                     'execution_plan': plan,
-                    'analyzed_at': datetime.utcnow().isoformat()
+                    'analyzed_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
                 }
         except Exception as e:
             logger.error(f"Error analyzing query: {e}")
@@ -242,7 +242,7 @@ class BackupManager:
             'backup_id': str(uuid.uuid4()),
             'backup_name': backup_name,
             'backup_type': backup_type,
-            'created_at': datetime.utcnow().isoformat(),
+            'created_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'status': 'created',
             'note': 'Backup requires external tool (pg_dump)'
         }
@@ -275,7 +275,7 @@ class BackupManager:
         # In production, this would use pg_restore or similar tools
         return {
             'backup_id': backup_id,
-            'restored_at': datetime.utcnow().isoformat(),
+            'restored_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'status': 'restored',
             'note': 'Restore requires external tool (pg_restore)'
         }

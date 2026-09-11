@@ -7,7 +7,7 @@ them to a dead letter queue for later inspection and reprocessing.
 import json
 import logging
 from typing import Optional, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass, asdict
 
 logger = logging.getLogger(__name__)
@@ -80,7 +80,7 @@ class DeadLetterQueueHandler:
             original_value=json.dumps(original_event) if original_event else None,
             error_type=error_type,
             error_message=error_message,
-            error_timestamp=datetime.utcnow().isoformat(),
+            error_timestamp=datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             retry_count=retry_count,
             headers=headers,
             context=context

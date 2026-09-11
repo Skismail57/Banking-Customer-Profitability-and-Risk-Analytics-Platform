@@ -19,7 +19,7 @@ Fairness Considerations:
 - Ensure parity validation doesn't mask systematic errors
 """
 
-from datetime import datetime, date, timedelta
+from datetime import datetime, timezone, date, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import defaultdict
 from dataclasses import dataclass
@@ -100,7 +100,7 @@ class FeatureDriftDetector:
         Returns:
             Drift report
         """
-        timestamp = timestamp or datetime.utcnow()
+        timestamp = timestamp or datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Add to history
         self.history[feature_name].append({
@@ -244,7 +244,7 @@ class FeatureReconciler:
         Returns:
             Reconciliation action record
         """
-        timestamp = datetime.utcnow()
+        timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Determine action if auto
         if action == 'auto':
@@ -486,7 +486,7 @@ class FeatureParityChecker:
         
         return {
             'customer_key': customer_key,
-            'checked_at': datetime.utcnow().isoformat(),
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'features_checked': len(parity_results),
             'features_passed': sum(1 for r in parity_results if r['passed']),
             'all_passed': all_passed,
@@ -575,7 +575,7 @@ class FeatureParityChecker:
             'status': status,
             'summary': summary,
             'customer_results': all_results,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def _check_single_feature_parity(

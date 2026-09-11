@@ -1,7 +1,7 @@
 """Orchestrator for managing end-to-end ingestion pipelines."""
 
 import yaml
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import logging
@@ -55,7 +55,7 @@ class IngestionOrchestrator:
         
         result = {
             "source": source_name,
-            "start_time": datetime.utcnow().isoformat(),
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "stages": {},
             "status": "in_progress"
         }
@@ -108,7 +108,7 @@ class IngestionOrchestrator:
             else:
                 result["status"] = "success"
             
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             result["final_row_count"] = len(clean_result["data"])
             
             logger.info(f"Ingestion completed for source: {source_name}")
@@ -117,7 +117,7 @@ class IngestionOrchestrator:
             logger.error(f"Ingestion failed for source {source_name}: {e}")
             result["status"] = "failed"
             result["error"] = str(e)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         self.pipeline_results.append(result)
         return result
@@ -131,7 +131,7 @@ class IngestionOrchestrator:
         logger.info("Starting ingestion for all sources")
         
         overall_result = {
-            "start_time": datetime.utcnow().isoformat(),
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "sources": {},
             "summary": {
                 "total": 0,
@@ -155,7 +155,7 @@ class IngestionOrchestrator:
             elif status == "partial_success":
                 overall_result["summary"]["partial_success"] += 1
         
-        overall_result["end_time"] = datetime.utcnow().isoformat()
+        overall_result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         logger.info(f"All source ingestion completed. Success: {overall_result['summary']['successful']}, Failed: {overall_result['summary']['failed']}")
         
@@ -175,7 +175,7 @@ class IngestionOrchestrator:
         result = {
             "stage": "extract",
             "status": "in_progress",
-            "start_time": datetime.utcnow().isoformat()
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         try:
@@ -201,7 +201,7 @@ class IngestionOrchestrator:
             result["row_count"] = len(df)
             result["output_path"] = output_path
             result["metadata"] = extractor.metadata.to_dict()
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             
             # Return data for next stage
             result["data"] = df
@@ -211,7 +211,7 @@ class IngestionOrchestrator:
             logger.error(f"Extract stage failed: {e}")
             result["status"] = "failed"
             result["error"] = str(e)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         return result
     
@@ -230,7 +230,7 @@ class IngestionOrchestrator:
         result = {
             "stage": "transform",
             "status": "in_progress",
-            "start_time": datetime.utcnow().isoformat()
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         try:
@@ -259,7 +259,7 @@ class IngestionOrchestrator:
             
             result["output_path"] = output_path
             result["row_count"] = len(df)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             
             # Return data for next stage
             result["data"] = df
@@ -269,7 +269,7 @@ class IngestionOrchestrator:
             logger.error(f"Transform stage failed: {e}")
             result["status"] = "failed"
             result["error"] = str(e)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         return result
     
@@ -287,7 +287,7 @@ class IngestionOrchestrator:
         result = {
             "stage": "clean",
             "status": "in_progress",
-            "start_time": datetime.utcnow().isoformat()
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         try:
@@ -307,7 +307,7 @@ class IngestionOrchestrator:
             result["row_count_before"] = len(df)
             result["row_count_after"] = len(df_cleaned)
             result["rows_removed"] = len(df) - len(df_cleaned)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             
             # Return cleaned data
             result["data"] = df_cleaned
@@ -316,7 +316,7 @@ class IngestionOrchestrator:
             logger.error(f"Clean stage failed: {e}")
             result["status"] = "failed"
             result["error"] = str(e)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             result["data"] = df  # Return original data on failure
         
         return result
@@ -336,7 +336,7 @@ class IngestionOrchestrator:
         result = {
             "stage": "warehouse",
             "status": "in_progress",
-            "start_time": datetime.utcnow().isoformat()
+            "start_time": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         try:
@@ -359,13 +359,13 @@ class IngestionOrchestrator:
             result["status"] = "success"
             result["table_name"] = table_name
             result["row_count"] = len(df)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             
         except Exception as e:
             logger.error(f"Warehouse stage failed: {e}")
             result["status"] = "failed"
             result["error"] = str(e)
-            result["end_time"] = datetime.utcnow().isoformat()
+            result["end_time"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         return result
     

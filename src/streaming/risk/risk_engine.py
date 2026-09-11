@@ -19,7 +19,7 @@ Fairness Considerations:
 - Monitor risk score distribution across customer segments for fairness
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 from collections import defaultdict
 import logging
@@ -169,7 +169,7 @@ class RealTimeRiskEngine:
                 risk_type="credit",
                 risk_level=risk_level.value,
                 risk_score=risk_score,
-                triggered_at=datetime.utcnow(),
+                triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 threshold_violated=threshold_violated,
                 context_data={
                     "utilization": utilization,
@@ -244,7 +244,7 @@ class RealTimeRiskEngine:
                 risk_type="payment",
                 risk_level=risk_level.value,
                 risk_score=risk_score,
-                triggered_at=datetime.utcnow(),
+                triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 threshold_violated=f"DPD {dpd} days, payment score {payment_history_score}",
                 context_data={
                     "dpd": dpd,
@@ -303,7 +303,7 @@ class RealTimeRiskEngine:
                 risk_type="concentration",
                 risk_level=risk_level.value,
                 risk_score=risk_score,
-                triggered_at=datetime.utcnow(),
+                triggered_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 threshold_violated=f"Concentration ratio {concentration_ratio:.2%} exceeds threshold",
                 context_data={
                     "total_exposure": total_exposure,
@@ -473,7 +473,7 @@ class RiskAggregator:
                 "overall_risk_score": 0.0,
                 "overall_risk_level": "low",
                 "risk_by_type": {},
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             }
         
         # Extract risk scores by type
@@ -504,7 +504,7 @@ class RiskAggregator:
         
         # Store in history
         self.risk_history[customer_key].append({
-            "timestamp": datetime.utcnow(),
+            "timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "overall_score": overall_score,
             "risk_by_type": risk_scores_by_type
         })
@@ -515,7 +515,7 @@ class RiskAggregator:
             "overall_risk_level": overall_risk_level,
             "risk_by_type": risk_scores_by_type,
             "risk_events_count": len(risk_events),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def _weighted_average(self, risk_scores: Dict[str, float]) -> float:
@@ -684,7 +684,7 @@ class DynamicRiskThresholds:
         
         # Record adjustment
         self.adjustment_history.append({
-            "timestamp": datetime.utcnow(),
+            "timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "performance_factor": performance_factor,
             "market_factor": market_factor,
             "combined_factor": combined_factor,

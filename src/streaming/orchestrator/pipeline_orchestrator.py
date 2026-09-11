@@ -19,7 +19,7 @@ Fairness Considerations:
 - Ensure audit trail captures fairness-relevant context
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import logging
 import uuid
@@ -131,7 +131,7 @@ class StreamingOrchestrator:
         event_type = event_data.get('event_type')
         # Use event_timestamp if available, fall back to timestamp for backward compatibility
         timestamp_str = event_data.get('event_timestamp') or event_data.get('timestamp')
-        timestamp = datetime.fromisoformat(timestamp_str) if timestamp_str else datetime.utcnow()
+        timestamp = datetime.fromisoformat(timestamp_str) if timestamp_str else datetime.now(timezone.utc).replace(tzinfo=None)
         
         logger.debug(f"Processing event {event_id} for customer {customer_key}")
         
@@ -144,8 +144,8 @@ class StreamingOrchestrator:
                 'customer_key': customer_key,
                 'event_type': event_type,
                 'timestamp': timestamp.isoformat(),
-                'processing_start': datetime.utcnow().isoformat(),
-                'processing_end': datetime.utcnow().isoformat(),
+                'processing_start': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
+                'processing_end': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                 'processing_latency_ms': 0,
                 'success': True,
                 'skipped': True,
@@ -158,7 +158,7 @@ class StreamingOrchestrator:
                 'errors': []
             }
         
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc).replace(tzinfo=None)
         
         result = {
             'event_id': event_id,
@@ -274,9 +274,9 @@ class StreamingOrchestrator:
             if event_type in ['transaction', 'account_update']:
                 self._run_predictions(customer_key, event_id)
             
-            result['processing_end'] = datetime.utcnow().isoformat()
+            result['processing_end'] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             result['processing_latency_ms'] = (
-                datetime.utcnow() - start_time
+                datetime.now(timezone.utc).replace(tzinfo=None) - start_time
             ).total_seconds() * 1000
             
             # Mark event as processed for idempotency
@@ -303,7 +303,7 @@ class StreamingOrchestrator:
             logger.error(f"Error processing event {event_id}: {e}")
             result['success'] = False
             result['errors'].append(str(e))
-            result['processing_end'] = datetime.utcnow().isoformat()
+            result['processing_end'] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         
         return result
     

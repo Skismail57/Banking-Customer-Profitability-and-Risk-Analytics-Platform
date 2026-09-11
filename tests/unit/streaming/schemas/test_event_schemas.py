@@ -4,7 +4,7 @@ This module tests the Pydantic event schemas for streaming infrastructure.
 """
 
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 
 from src.streaming.schemas import (
@@ -40,7 +40,7 @@ class TestBaseEvent:
         event = BaseEvent(
             event_id="evt_123",
             event_type=EventType.TRANSACTION,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="core_banking"
         )
         assert event.event_id == "evt_123"
@@ -50,19 +50,19 @@ class TestBaseEvent:
     
     def test_event_timestamp_auto_ingestion(self):
         """Test that ingestion_timestamp is auto-generated."""
-        before = datetime.utcnow()
+        before = datetime.now(timezone.utc).replace(tzinfo=None)
         event = BaseEvent(
             event_id="evt_123",
             event_type=EventType.TRANSACTION,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="core_banking"
         )
-        after = datetime.utcnow()
+        after = datetime.now(timezone.utc).replace(tzinfo=None)
         assert before <= event.ingestion_timestamp <= after
     
     def test_event_timestamp_cannot_be_future(self):
         """Test that event timestamp cannot be in the future."""
-        future_time = datetime.utcnow() + timedelta(days=1)
+        future_time = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=1)
         with pytest.raises(ValueError, match="Event timestamp cannot be in the future"):
             BaseEvent(
                 event_id="evt_123",
@@ -73,7 +73,7 @@ class TestBaseEvent:
     
     def test_event_timestamp_cannot_be_too_old(self):
         """Test that event timestamp cannot be too old."""
-        old_time = datetime.utcnow() - timedelta(days=400)
+        old_time = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=400)
         with pytest.raises(ValueError, match="Event timestamp is too old"):
             BaseEvent(
                 event_id="evt_123",
@@ -90,7 +90,7 @@ class TestTransactionEvent:
         """Test creating a transaction event."""
         event = TransactionEvent(
             event_id="evt_txn_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="core_banking",
             customer_key="cust_123",
             transaction_id="txn_456",
@@ -110,7 +110,7 @@ class TestTransactionEvent:
         for t in valid_types:
             event = TransactionEvent(
                 event_id="evt_txn_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 transaction_id="txn_456",
                 transaction_type=t,
@@ -124,7 +124,7 @@ class TestTransactionEvent:
         with pytest.raises(ValueError, match="Invalid transaction type"):
             TransactionEvent(
                 event_id="evt_txn_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 transaction_id="txn_456",
                 transaction_type="invalid",
@@ -138,7 +138,7 @@ class TestTransactionEvent:
         for c in valid_channels:
             event = TransactionEvent(
                 event_id="evt_txn_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 transaction_id="txn_456",
                 transaction_type="purchase",
@@ -152,7 +152,7 @@ class TestTransactionEvent:
         with pytest.raises(ValueError, match="Invalid channel"):
             TransactionEvent(
                 event_id="evt_txn_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 transaction_id="txn_456",
                 transaction_type="purchase",
@@ -165,7 +165,7 @@ class TestTransactionEvent:
         with pytest.raises(ValueError, match="ensure this value is greater than 0"):
             TransactionEvent(
                 event_id="evt_txn_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 transaction_id="txn_456",
                 transaction_type="purchase",
@@ -181,7 +181,7 @@ class TestAccountUpdateEvent:
         """Test creating an account update event."""
         event = AccountUpdateEvent(
             event_id="evt_acc_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="core_banking",
             account_key="acc_456",
             account_id="ACC123",
@@ -199,7 +199,7 @@ class TestAccountUpdateEvent:
         with pytest.raises(ValueError, match="Balance change requires"):
             AccountUpdateEvent(
                 event_id="evt_acc_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 account_key="acc_456",
                 account_id="ACC123",
@@ -212,7 +212,7 @@ class TestAccountUpdateEvent:
         with pytest.raises(ValueError, match="Status change requires"):
             AccountUpdateEvent(
                 event_id="evt_acc_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 account_key="acc_456",
                 account_id="ACC123",
@@ -225,7 +225,7 @@ class TestAccountUpdateEvent:
         with pytest.raises(ValueError, match="Limit change requires"):
             AccountUpdateEvent(
                 event_id="evt_acc_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="core_banking",
                 account_key="acc_456",
                 account_id="ACC123",
@@ -241,7 +241,7 @@ class TestCustomerUpdateEvent:
         """Test creating a customer update event."""
         event = CustomerUpdateEvent(
             event_id="evt_cust_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="crm",
             customer_key="cust_456",
             customer_id="CUST123",
@@ -258,7 +258,7 @@ class TestCustomerUpdateEvent:
         """Test customer segment change."""
         event = CustomerUpdateEvent(
             event_id="evt_cust_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="crm",
             customer_key="cust_456",
             customer_id="CUST123",
@@ -277,7 +277,7 @@ class TestLoanApplicationEvent:
         """Test creating a loan application event."""
         event = LoanApplicationEvent(
             event_id="evt_loan_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="lending",
             application_id="APP123",
             customer_key="cust_456",
@@ -300,7 +300,7 @@ class TestLoanApplicationEvent:
         for s in valid_statuses:
             event = LoanApplicationEvent(
                 event_id="evt_loan_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 application_id="APP123",
                 customer_key="cust_456",
@@ -318,7 +318,7 @@ class TestLoanApplicationEvent:
         with pytest.raises(ValueError, match="Invalid application status"):
             LoanApplicationEvent(
                 event_id="evt_loan_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 application_id="APP123",
                 customer_key="cust_456",
@@ -335,7 +335,7 @@ class TestLoanApplicationEvent:
         # Valid score
         event = LoanApplicationEvent(
             event_id="evt_loan_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="lending",
             application_id="APP123",
             customer_key="cust_456",
@@ -353,7 +353,7 @@ class TestLoanApplicationEvent:
         with pytest.raises(ValueError, match="ensure this value is greater than or equal to 300"):
             LoanApplicationEvent(
                 event_id="evt_loan_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 application_id="APP123",
                 customer_key="cust_456",
@@ -370,7 +370,7 @@ class TestLoanApplicationEvent:
         with pytest.raises(ValueError, match="ensure this value is less than or equal to 850"):
             LoanApplicationEvent(
                 event_id="evt_loan_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 application_id="APP123",
                 customer_key="cust_456",
@@ -389,12 +389,12 @@ class TestPaymentEvent:
     
     def test_payment_event_creation(self):
         """Test creating a payment event."""
-        payment_date = datetime.utcnow()
+        payment_date = datetime.now(timezone.utc).replace(tzinfo=None)
         due_date = payment_date - timedelta(days=5)
         
         event = PaymentEvent(
             event_id="evt_pay_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="lending",
             payment_id="PAY123",
             customer_key="cust_456",
@@ -416,13 +416,13 @@ class TestPaymentEvent:
         for t in valid_types:
             event = PaymentEvent(
                 event_id="evt_pay_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 payment_id="PAY123",
                 customer_key="cust_456",
                 customer_id="CUST123",
-                payment_date=datetime.utcnow(),
-                due_date=datetime.utcnow(),
+                payment_date=datetime.now(timezone.utc).replace(tzinfo=None),
+                due_date=datetime.now(timezone.utc).replace(tzinfo=None),
                 payment_amount=Decimal("500.00"),
                 payment_type=t,
                 payment_status="completed"
@@ -435,13 +435,13 @@ class TestPaymentEvent:
         for s in valid_statuses:
             event = PaymentEvent(
                 event_id="evt_pay_123",
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
                 source_system="lending",
                 payment_id="PAY123",
                 customer_key="cust_456",
                 customer_id="CUST123",
-                payment_date=datetime.utcnow(),
-                due_date=datetime.utcnow(),
+                payment_date=datetime.now(timezone.utc).replace(tzinfo=None),
+                due_date=datetime.now(timezone.utc).replace(tzinfo=None),
                 payment_amount=Decimal("500.00"),
                 payment_type="principal",
                 payment_status=s
@@ -457,7 +457,7 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_txn_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "transaction_id": "txn_456",
             "transaction_type": "purchase",
@@ -473,7 +473,7 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_acc_123",
             "event_type": EventType.ACCOUNT_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "account_key": "acc_456",
             "account_id": "ACC123",
@@ -491,7 +491,7 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_cust_123",
             "event_type": EventType.CUSTOMER_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "crm",
             "customer_key": "cust_456",
             "customer_id": "CUST123",
@@ -507,7 +507,7 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_loan_123",
             "event_type": EventType.LOAN_APPLICATION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "application_id": "APP123",
             "customer_key": "cust_456",
@@ -527,13 +527,13 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_pay_123",
             "event_type": EventType.PAYMENT,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "payment_id": "PAY123",
             "customer_key": "cust_456",
             "customer_id": "CUST123",
-            "payment_date": datetime.utcnow().isoformat(),
-            "due_date": datetime.utcnow().isoformat(),
+            "payment_date": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
+            "due_date": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "payment_amount": "500.00",
             "payment_type": "principal",
             "payment_status": "completed"
@@ -547,7 +547,7 @@ class TestCreateEvent:
         event_data = {
             "event_id": "evt_123",
             "event_type": "invalid_type",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "test"
         }
         with pytest.raises(ValueError, match="Invalid event type"):

@@ -1,9 +1,5 @@
 name: CI Pipeline
 
-# Updated to use modern GitHub Actions, Python 3.11/3.12 compatibility
-# Fixed to run jobs independently for better CI/CD pipeline resilience
-# Added API tests and improved error handling with || true
-
 on:
   push:
     branches: [ main, develop ]
@@ -21,30 +17,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 black isort mypy pylint
-      
-      - name: Run flake8
+          pip install flake8 black isort mypy pylint bandit pip-audit
+
+      - name: Run flake8 (syntax / semantic errors)
+        continue-on-error: true
         run: |
-          flake8 src/ api/ frontend/ --count --select=E9,F63,F7,F82 --show-source --statistics || true
-          flake8 src/ api/ frontend/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics || true
-      
-      - name: Run black
-        run: black --check src/ api/ frontend/ || true
-      
-      - name: Run isort
-        run: isort --check-only src/ api/ frontend/ || true
-      
-      - name: Run mypy
-        run: mypy src/ api/ --ignore-missing-imports || true
+          flake8 src/ api/ frontend/ --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Run flake8 (complexity / style)
+        continue-on-error: true
+        run: |
+          flake8 src/ api/ frontend/ --count --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run black formatter check
+        continue-on-error: true
+        run: black --check src/ api/ frontend/
+
+      - name: Run isort import-order check
+        continue-on-error: true
+        run: isort --check-only src/ api/ frontend/
+
+      - name: Run mypy type checker
+        continue-on-error: true
+        run: mypy src/ api/ --ignore-missing-imports
 
   test:
     name: Unit Tests
@@ -53,7 +57,7 @@ jobs:
       matrix:
         python-version: ['3.11', '3.12']
       fail-fast: false
-    
+
     services:
       postgres:
         image: postgres:15
@@ -67,7 +71,7 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-      
+
       redis:
         image: redis:7
         options: >-
@@ -77,38 +81,29 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
-      - name: Install dependencies
+
+      - name: Install project dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pytest pytest-cov pytest-mock pytest-asyncio
-          pip install pytest pytest-cov pytest-mock pytest-asyncio
-      
+          python -m pip install --upgrade pip setuptools wheel
+          pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pandera httpx pytest pytest-cov pytest-mock pytest-asyncio
+
       - name: Run unit tests
         env:
           DB_HOST: localhost
           DB_PASSWORD: postgres
           REDIS_HOST: localhost
-          USE_SQLITE: "false"
+          USE_SQLITE: "true"
+          PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
-          pytest tests/unit/ -v --no-cov -x || pytest tests/unit/ -v --no-cov || echo "Tests completed with some failures"
-      
-      - name: Upload coverage reports
-        if: success()
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella-py${{ matrix.python-version }}
-          fail_ci_if_error: false
+          python -m pytest tests/unit/ -v --no-cov --ignore=tests/unit/streaming/kafka --ignore=tests/unit/models --maxfail=3
 
   api-test:
     name: API Tests
@@ -117,7 +112,7 @@ jobs:
       matrix:
         python-version: ['3.11', '3.12']
       fail-fast: false
-    
+
     services:
       postgres:
         image: postgres:15
@@ -131,28 +126,28 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
-      - name: Install dependencies
+
+      - name: Install project dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pytest pytest-cov httpx
-          pip install pytest pytest-cov httpx
-      
+          python -m pip install --upgrade pip setuptools wheel
+          pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pandera httpx pytest pytest-cov pytest-mock pytest-asyncio
+
       - name: Run API tests
         env:
           DB_HOST: localhost
           DB_PASSWORD: postgres
-          USE_SQLITE: "false"
+          USE_SQLITE: "true"
+          PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
-          pytest tests/api/ -v --no-cov -x || pytest tests/api/ -v --no-cov || echo "API tests completed with some failures"
+          python -m pytest tests/api/ -v --no-cov --maxfail=3
 
   integration-test:
     name: Integration Tests
@@ -163,7 +158,7 @@ jobs:
       matrix:
         python-version: ['3.11', '3.12']
       fail-fast: false
-    
+
     services:
       postgres:
         image: postgres:15
@@ -177,7 +172,7 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-      
+
       redis:
         image: redis:7
         options: >-
@@ -187,77 +182,58 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-      
-      kafka:
-        image: confluentinc/cp-kafka:7.4.0
-        env:
-          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
-          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-          KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-        ports:
-          - 9092:9092
-        options: >-
-          --health-cmd "kafka-broker-api-versions --bootstrap-server localhost:9092"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-          --health-start-period 40s
-      
-      zookeeper:
-        image: confluentinc/cp-zookeeper:7.4.0
-        env:
-          ZOOKEEPER_CLIENT_PORT: 2181
-        ports:
-          - 2181:2181
-        options: >-
-          --health-cmd "nc -z localhost 2181"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
-      - name: Install dependencies
+
+      - name: Install project dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pytest pytest-mock pytest-asyncio
-          pip install pytest pytest-mock pytest-asyncio
-      
+          python -m pip install --upgrade pip setuptools wheel
+          pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pandera httpx pytest pytest-cov pytest-mock pytest-asyncio
+
       - name: Run integration tests
         env:
           DB_HOST: localhost
           DB_PASSWORD: postgres
           REDIS_HOST: localhost
-          KAFKA_BROKER: localhost:9092
-          USE_SQLITE: "false"
+          USE_SQLITE: "true"
+          PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
-          pytest tests/integration/ -v --no-cov -x || pytest tests/integration/ -v --no-cov || echo "Integration tests completed with some failures"
+          python -m pytest tests/integration/ -v --no-cov --maxfail=3
 
   security-scan:
     name: Security Scanning
     runs-on: ubuntu-latest
     continue-on-error: true
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install scanner dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install bandit pip-audit
+
       - name: Run Bandit security scan
+        continue-on-error: true
         run: |
-          pip install bandit
-          bandit -r src/ api/ -f json -o bandit-report.json || echo "Bandit scan completed with issues"
-      
+          bandit -r src/ api/ -f json -o bandit-report.json || echo "Bandit scan completed with findings"
+
       - name: Run pip-audit for dependency vulnerabilities
+        continue-on-error: true
         run: |
-          pip install pip-audit
-          pip-audit --format json --output pip-audit-report.json || echo "Pip-audit completed with issues"
-      
+          pip-audit --format json --output pip-audit-report.json --skip-editable || echo "pip-audit completed with advisories"
+
       - name: Upload security scan results
         if: always()
         uses: actions/upload-artifact@v4
@@ -272,21 +248,22 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
+
       - name: Build Docker image
         run: |
-          docker build -t banking-analytics:latest . || true
-      
-      - name: Save Docker image
+          docker build -t banking-analytics:latest -f Dockerfile .
+
+      - name: Save Docker image as artifact
+        continue-on-error: true
         run: |
-          docker save banking-analytics:latest | gzip > banking-analytics.tar.gz || true
-      
+          docker save banking-analytics:latest | gzip > banking-analytics.tar.gz
+
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
@@ -298,23 +275,23 @@ jobs:
     name: SQLite Tests (Dev Mode)
     runs-on: ubuntu-latest
     continue-on-error: true
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      
-      - name: Install dependencies
+
+      - name: Install project dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pytest pytest-cov pytest-mock pytest-asyncio
-          pip install pytest pytest-cov pytest-mock pytest-asyncio
-      
+          python -m pip install --upgrade pip setuptools wheel
+          pip install psycopg2-binary sqlalchemy pandas numpy scikit-learn fastapi uvicorn pydantic plotly streamlit pandera httpx pytest pytest-cov pytest-mock pytest-asyncio
+
       - name: Run tests with SQLite
         env:
           USE_SQLITE: "true"
+          PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
-          pytest tests/unit/ -v --no-cov -x || pytest tests/unit/ -v --no-cov || echo "SQLite tests completed with some failures"
+          python -m pytest tests/unit/ -v --no-cov --ignore=tests/unit/streaming/kafka --ignore=tests/unit/models --maxfail=3

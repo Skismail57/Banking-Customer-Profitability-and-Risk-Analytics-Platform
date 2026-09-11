@@ -7,7 +7,7 @@ to/from Kafka using JSON format with schema validation support.
 import json
 import logging
 from typing import Any, Dict, Optional, Union
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 
 from pydantic import BaseModel
@@ -54,7 +54,7 @@ class MessageSerializer:
         if self.include_metadata:
             event_dict["_metadata"] = {
                 "topic": topic,
-                "serialized_at": datetime.utcnow().isoformat(),
+                "serialized_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             }
         
         # Serialize to JSON
@@ -256,7 +256,7 @@ class ErrorMessage:
         self.error_message = error_message
         self.error_type = error_type
         self.topic = topic
-        self.timestamp = timestamp or datetime.utcnow()
+        self.timestamp = timestamp or datetime.now(timezone.utc).replace(tzinfo=None)
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert error message to dictionary.

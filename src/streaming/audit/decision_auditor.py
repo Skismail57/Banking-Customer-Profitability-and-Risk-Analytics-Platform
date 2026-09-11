@@ -19,7 +19,7 @@ Fairness Considerations:
 - Provide audit access controls for privacy compliance
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import defaultdict
 import logging
@@ -186,7 +186,7 @@ class DecisionAuditor:
             decision_type="alert",
             event_id=event_id,
             customer_key=alert.get('customer_key'),
-            decision_timestamp=datetime.utcnow(),
+            decision_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             model_version=None,
             feature_version=None,
             feature_values=alert.get('context_data', {}).get('features'),
@@ -223,7 +223,7 @@ class DecisionAuditor:
             decision_type="risk_score",
             event_id=event_id,
             customer_key=risk_event.get('customer_key'),
-            decision_timestamp=datetime.utcnow(),
+            decision_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             model_version=None,  # Would be set if using ML model
             feature_version=None,
             feature_values=risk_event.get('context_data', {}).get('features'),
@@ -259,7 +259,7 @@ class DecisionAuditor:
             decision_type="early_warning",
             event_id=event_id,
             customer_key=warning_signal.get('customer_key'),
-            decision_timestamp=datetime.utcnow(),
+            decision_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             model_version=None,
             feature_version=None,
             feature_values=warning_signal.get('context_data', {}).get('features'),
@@ -376,7 +376,7 @@ class DecisionAuditor:
             'snapshot_id': snapshot_id,
             'decision_id': decision_id,
             'features': feature_values,
-            'created_at': datetime.utcnow().isoformat()
+            'created_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         # Store in Redis with long TTL (7 years for regulatory)

@@ -4,7 +4,7 @@ This module provides stress testing capabilities to validate system behavior
 under extreme load conditions beyond normal operational limits.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 import logging
 import time
@@ -63,7 +63,7 @@ class StressTester:
         test_id = f"stress_test_{int(time.time())}"
         logger.info(f"Starting stress test {test_id}: {test_name}")
         
-        started_at = datetime.utcnow()
+        started_at = datetime.now(timezone.utc).replace(tzinfo=None)
         current_load = initial_load
         breaking_point = None
         system_degraded_at = None
@@ -122,7 +122,7 @@ class StressTester:
                 logger.error(f"Recovery failed: {e}")
                 status = 'recovery_failed'
         
-        completed_at = datetime.utcnow()
+        completed_at = datetime.now(timezone.utc).replace(tzinfo=None)
         duration = (completed_at - started_at).total_seconds()
         
         result = StressTestResult(

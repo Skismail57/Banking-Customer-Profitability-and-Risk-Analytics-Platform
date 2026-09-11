@@ -1,7 +1,7 @@
 """Unit tests for ingestion base classes."""
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 import pandas as pd
 
 from src.ingestion.base import IngestionMetadata, BaseExtractor, BaseLoader
@@ -16,7 +16,7 @@ class TestIngestionMetadata:
             source_name="test_source",
             source_type="csv",
             source_path="/path/to/file.csv",
-            ingestion_timestamp=datetime.utcnow(),
+            ingestion_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             ingestion_id="test_id",
             row_count=100,
             column_count=10
@@ -56,7 +56,7 @@ class TestIngestionMetadata:
             source_name="test",
             source_type="csv",
             source_path="/path",
-            ingestion_timestamp=datetime.utcnow(),
+            ingestion_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             ingestion_id="id123",
             row_count=50,
             column_count=5

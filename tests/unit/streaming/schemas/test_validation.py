@@ -4,7 +4,7 @@ This module tests the EventValidator and ValidationResult classes.
 """
 
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from decimal import Decimal
 
 from src.streaming.schemas import (
@@ -101,7 +101,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_txn_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "customer_key": "cust_123",
             "transaction_id": "txn_456",
@@ -120,7 +120,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_txn_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "transaction_id": "txn_456",
             "transaction_type": "purchase",
@@ -138,7 +138,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_txn_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "customer_key": "cust_123",
             "transaction_id": "txn_456",
@@ -158,7 +158,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_acc_123",
             "event_type": EventType.ACCOUNT_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "account_key": "acc_456",
             "account_id": "ACC123",
@@ -176,7 +176,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_acc_123",
             "event_type": EventType.ACCOUNT_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "account_key": "acc_456",
             "account_id": "ACC123",
@@ -195,7 +195,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_acc_123",
             "event_type": EventType.ACCOUNT_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
             "account_key": "acc_456",
             "account_id": "ACC123",
@@ -214,7 +214,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_cust_123",
             "event_type": EventType.CUSTOMER_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "crm",
             "customer_key": "cust_456",
             "customer_id": "CUST123",
@@ -231,7 +231,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_cust_123",
             "event_type": EventType.CUSTOMER_UPDATE,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "crm",
             "customer_key": "cust_456",
             "customer_id": "CUST123",
@@ -249,7 +249,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_loan_123",
             "event_type": EventType.LOAN_APPLICATION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "application_id": "APP123",
             "customer_key": "cust_456",
@@ -271,7 +271,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_loan_123",
             "event_type": EventType.LOAN_APPLICATION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "application_id": "APP123",
             "customer_key": "cust_456",
@@ -293,7 +293,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_loan_123",
             "event_type": EventType.LOAN_APPLICATION,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "application_id": "APP123",
             "customer_key": "cust_456",
@@ -312,13 +312,13 @@ class TestEventValidator:
     
     def test_validate_valid_payment_event(self, validator):
         """Test validating a valid payment event."""
-        payment_date = datetime.utcnow()
+        payment_date = datetime.now(timezone.utc).replace(tzinfo=None)
         due_date = payment_date - timedelta(days=5)
         
         event_data = {
             "event_id": "evt_pay_123",
             "event_type": EventType.PAYMENT,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "payment_id": "PAY123",
             "customer_key": "cust_456",
@@ -339,13 +339,13 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_pay_123",
             "event_type": EventType.PAYMENT,
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "lending",
             "payment_id": "PAY123",
             "customer_key": "cust_456",
             "customer_id": "CUST123",
-            "payment_date": datetime.utcnow().isoformat(),
-            "due_date": datetime.utcnow().isoformat(),
+            "payment_date": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
+            "due_date": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "payment_amount": "-500.00",  # Negative
             "payment_type": "principal",
             "payment_status": "completed"
@@ -373,7 +373,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": (datetime.utcnow() + timedelta(days=2)).isoformat(),
+            "event_timestamp": (datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=2)).isoformat(),
             "source_system": "core_banking"
         }
         
@@ -386,7 +386,7 @@ class TestEventValidator:
         event_data = {
             "event_id": "evt_123",
             "event_type": EventType.TRANSACTION,
-            "event_timestamp": (datetime.utcnow() - timedelta(days=400)).isoformat(),
+            "event_timestamp": (datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=400)).isoformat(),
             "source_system": "core_banking",
             "transaction_id": "txn_456",
             "transaction_type": "purchase",
@@ -404,7 +404,7 @@ class TestEventValidator:
             {
                 "event_id": "evt_1",
                 "event_type": EventType.TRANSACTION,
-                "event_timestamp": datetime.utcnow(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
                 "source_system": "core_banking",
                 "transaction_id": "txn_1",
                 "transaction_type": "purchase",
@@ -414,7 +414,7 @@ class TestEventValidator:
             {
                 "event_id": "evt_2",
                 "event_type": EventType.TRANSACTION,
-                "event_timestamp": datetime.utcnow(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
                 "source_system": "core_banking",
                 "transaction_id": "txn_2",
                 "transaction_type": "purchase",
@@ -436,7 +436,7 @@ class TestEventValidator:
             {
                 "event_id": "evt_1",
                 "event_type": EventType.TRANSACTION,
-                "event_timestamp": datetime.utcnow(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
                 "source_system": "core_banking",
                 "transaction_id": "txn_1",
                 "transaction_type": "purchase",
@@ -446,7 +446,7 @@ class TestEventValidator:
             {
                 "event_id": "evt_2",
                 "event_type": EventType.TRANSACTION,
-                "event_timestamp": datetime.utcnow(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
                 "source_system": "core_banking",
                 "transaction_id": "txn_2",
                 "transaction_type": "purchase",

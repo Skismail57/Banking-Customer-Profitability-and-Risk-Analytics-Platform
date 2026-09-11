@@ -6,7 +6,7 @@ state checkpointing, and state restoration for fault tolerance.
 
 import logging
 from typing import Optional, Dict, Any, List, Callable
-from datetime import datetime
+from datetime import datetime, timezone
 from dataclasses import dataclass
 from enum import Enum
 import json
@@ -207,12 +207,12 @@ class StateManager:
         Returns:
             StateSnapshot object
         """
-        snapshot_id = f"snapshot_{datetime.utcnow().isoformat()}"
+        snapshot_id = f"snapshot_{datetime.now(timezone.utc).replace(tzinfo=None).isoformat()}"
         
         # Create snapshot
         snapshot = StateSnapshot(
             snapshot_id=snapshot_id,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             state_data={
                 'state': self.state.copy(),
                 'keyed_state': {k: v.copy() for k, v in self.keyed_state.items()},
@@ -227,7 +227,7 @@ class StateManager:
         while len(self.snapshots) > self.max_snapshots:
             self.snapshots.pop(0)
         
-        self.last_checkpoint_time = datetime.utcnow()
+        self.last_checkpoint_time = datetime.now(timezone.utc).replace(tzinfo=None)
         self.metrics['checkpoints_created'] += 1
         self.metrics['snapshot_count'] = len(self.snapshots)
         
@@ -315,7 +315,7 @@ class StateManager:
         if self.last_checkpoint_time is None:
             return True
         
-        elapsed = datetime.utcnow() - self.last_checkpoint_time
+        elapsed = datetime.now(timezone.utc).replace(tzinfo=None) - self.last_checkpoint_time
         elapsed_ms = int(elapsed.total_seconds() * 1000)
         
         return elapsed_ms >= self.checkpoint_interval_ms

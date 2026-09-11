@@ -6,7 +6,7 @@ with automatic deserialization, error handling, and metrics tracking.
 
 import logging
 from typing import Optional, Dict, Any, List, Callable, Iterator
-from datetime import datetime
+from datetime import datetime, timezone
 from collections import defaultdict
 
 from confluent_kafka import Consumer, KafkaException, KafkaError, TopicPartition
@@ -440,10 +440,10 @@ class BatchKafkaConsumer(KafkaConsumer):
             while True:
                 # Collect batch
                 batch = []
-                start_time = datetime.utcnow()
+                start_time = datetime.now(timezone.utc).replace(tzinfo=None)
                 
                 while len(batch) < self.batch_size:
-                    remaining_time = self.batch_timeout - (datetime.utcnow() - start_time).total_seconds()
+                    remaining_time = self.batch_timeout - (datetime.now(timezone.utc).replace(tzinfo=None) - start_time).total_seconds()
                     if remaining_time <= 0:
                         break
                     

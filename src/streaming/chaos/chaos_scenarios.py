@@ -3,7 +3,7 @@
 This module provides pre-defined chaos scenarios for testing.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import logging
 import time
@@ -65,7 +65,7 @@ class ChaosScenario:
                 'scenario_name': self.name,
                 'status': 'executed',
                 'fault_ids': fault_ids,
-                'executed_at': datetime.utcnow().isoformat()
+                'executed_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             }
             
             self.execution_history.append(result)
@@ -84,7 +84,7 @@ class ChaosScenario:
                 'scenario_name': self.name,
                 'status': 'failed',
                 'error': str(e),
-                'executed_at': datetime.utcnow().isoformat()
+                'executed_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             }
 
 

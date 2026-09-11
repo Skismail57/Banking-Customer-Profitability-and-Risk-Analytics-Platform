@@ -4,7 +4,7 @@ This module provides benchmarking capabilities to establish performance baseline
 and track performance over time.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 import logging
 import time
@@ -126,7 +126,7 @@ class PerformanceBenchmark:
             deviation_percent=deviation_percent,
             status=status,
             metadata=metadata or {},
-            benchmarked_at=datetime.utcnow()
+            benchmarked_at=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         self.benchmark_history.append(result)
@@ -195,7 +195,7 @@ class PerformanceBenchmark:
             'failed': total - passed,
             'pass_rate': passed / total if total > 0 else 0,
             'results': results,
-            'completed_at': datetime.utcnow().isoformat()
+            'completed_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         return suite_result
@@ -316,5 +316,5 @@ class PerformanceBenchmark:
             'total_benchmarks': len(results),
             'unique_metrics': len(by_metric),
             'metric_statistics': metric_stats,
-            'generated_at': datetime.utcnow().isoformat()
+            'generated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }

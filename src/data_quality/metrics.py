@@ -112,7 +112,7 @@ class QualityCalculator:
         Returns:
             QualityMetrics object with all metrics
         """
-        from datetime import datetime
+        from datetime import datetime, timezone
         
         total_rows = len(df)
         total_columns = len(df.columns)
@@ -137,7 +137,7 @@ class QualityCalculator:
                 validation_errors=0,
                 validation_error_percentage=0.0,
                 table_name=table_name,
-                timestamp=datetime.utcnow().isoformat()
+                timestamp=datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             )
         
         # Calculate individual dimensions
@@ -185,7 +185,7 @@ class QualityCalculator:
             validation_errors=validation_errors,
             validation_error_percentage=round(validation_error_percentage, 2),
             table_name=table_name,
-            timestamp=datetime.utcnow().isoformat()
+            timestamp=datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         )
     
     def _calculate_completeness(self, df: pd.DataFrame) -> float:

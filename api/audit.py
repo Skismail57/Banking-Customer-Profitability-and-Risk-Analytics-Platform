@@ -1,6 +1,6 @@
 """Security event auditing module."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 from enum import Enum
 import logging
@@ -52,7 +52,7 @@ class SecurityEvent:
             context: Additional context data
         """
         self.event_id = str(uuid.uuid4())
-        self.timestamp = datetime.utcnow()
+        self.timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
         self.event_type = event_type
         self.actor = actor
         self.resource = resource

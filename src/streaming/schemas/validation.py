@@ -6,7 +6,7 @@ schema validation, data quality checks, and business rule validation.
 
 import logging
 from typing import Dict, Any, List, Optional, Tuple
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 
 from pydantic import ValidationError
@@ -378,7 +378,7 @@ class EventValidator:
                     result.add_error("Invalid due_date format")
             
             if isinstance(due_date, datetime):
-                if (due_date - datetime.utcnow()).days > 365:
+                if (due_date - datetime.now(timezone.utc).replace(tzinfo=None)).days > 365:
                     result.add_warning("Due date is more than 1 year in the future")
         
         # Check that payment_date is not before due_date (simplified check)
@@ -432,10 +432,10 @@ class EventValidator:
             
             if isinstance(event_timestamp, datetime):
                 # Check for events too far in the future
-                if (event_timestamp - datetime.utcnow()).days > 1:
+                if (event_timestamp - datetime.now(timezone.utc).replace(tzinfo=None)).days > 1:
                     result.add_error("Event timestamp is too far in the future")
                 # Check for events too far in the past
-                if (datetime.utcnow() - event_timestamp).days > 365:
+                if (datetime.now(timezone.utc).replace(tzinfo=None) - event_timestamp).days > 365:
                     result.add_warning("Event timestamp is very old (more than 1 year)")
         
         return result

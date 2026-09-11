@@ -20,7 +20,7 @@ Fairness Considerations:
 - Monitor warning rates across customer segments for fairness
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import deque
 import logging
@@ -133,7 +133,7 @@ class StreamingWarningAdapter:
                 signal_type="utilization_increase",
                 warning_level=warning_level.value,
                 warning_score=warning_score,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "current_utilization": current_utilization,
                     "previous_utilization": previous_utilization,
@@ -192,7 +192,7 @@ class StreamingWarningAdapter:
                 signal_type="payment_decline",
                 warning_level=warning_level.value,
                 warning_score=warning_score,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "current_payment_rate": payment_rate,
                     "previous_payment_rate": previous_payment_rate,
@@ -254,7 +254,7 @@ class StreamingWarningAdapter:
                 signal_type="balance_increase",
                 warning_level=warning_level.value,
                 warning_score=warning_score,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "current_balance": current_balance,
                     "previous_balance": previous_balance,
@@ -308,7 +308,7 @@ class StreamingWarningAdapter:
                 signal_type="composite_warning",
                 warning_level=warning_level,
                 warning_score=warning_score / 100.0,  # Normalize to 0-1
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "factors": warning_result['factors'],
                     "interpretation": warning_result['interpretation'],
@@ -674,7 +674,7 @@ class WarningEscalation:
         })
         
         # Clean old history
-        cutoff = datetime.utcnow() - timedelta(days=7)
+        cutoff = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=7)
         self.escalation_history[customer_key] = [
             w for w in self.escalation_history[customer_key]
             if w['timestamp'] > cutoff

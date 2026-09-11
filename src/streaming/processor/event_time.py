@@ -7,7 +7,7 @@ time-based event ordering.
 
 import logging
 from typing import Optional, Dict, Any
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
@@ -100,21 +100,21 @@ class EventTimeProcessor:
             timestamp_value = event['processing_timestamp']
         else:
             # Use current time if not present
-            return datetime.utcnow()
+            return datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Handle string timestamps
         if isinstance(timestamp_value, str):
             try:
                 return datetime.fromisoformat(timestamp_value)
             except ValueError:
-                return datetime.utcnow()
+                return datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Handle datetime objects
         elif isinstance(timestamp_value, datetime):
             return timestamp_value
         
         else:
-            return datetime.utcnow()
+            return datetime.now(timezone.utc).replace(tzinfo=None)
     
     def assign_timed_event(
         self,
@@ -192,7 +192,7 @@ class EventTimeProcessor:
             Calculated watermark
         """
         if not event_timestamps:
-            return datetime.utcnow()
+            return datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Watermark = max timestamp - out-of-orderness bound
         max_timestamp = max(event_timestamps)

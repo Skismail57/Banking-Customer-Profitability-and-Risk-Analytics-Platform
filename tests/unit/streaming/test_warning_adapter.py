@@ -1,7 +1,7 @@
 """Unit tests for early warning adapter."""
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import Mock
 from src.streaming.early_warning.warning_adapter import (
     StreamingWarningAdapter,
@@ -118,7 +118,7 @@ class TestLeadingIndicators:
             customer_key='CUST_001',
             indicator_type='utilization',
             value=0.75,
-            timestamp=datetime.utcnow()
+            timestamp=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         history = indicators.get_indicator_history('CUST_001', 'utilization')
@@ -134,7 +134,7 @@ class TestLeadingIndicators:
                 customer_key='CUST_001',
                 indicator_type='utilization',
                 value=0.5 + (i * 0.05),
-                timestamp=datetime.utcnow()
+                timestamp=datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         trend = indicators.calculate_trend('CUST_001', 'utilization')
@@ -153,7 +153,7 @@ class TestLeadingIndicators:
                 customer_key='CUST_001',
                 indicator_type='utilization',
                 value=0.5 + (i * 0.1),
-                timestamp=datetime.utcnow()
+                timestamp=datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         is_warning, score, message = indicators.detect_early_warning(
@@ -178,7 +178,7 @@ class TestWarningEscalation:
             'CUST_001',
             'medium',
             'utilization',
-            datetime.utcnow()
+            datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         assert should_esc is False
@@ -189,14 +189,14 @@ class TestWarningEscalation:
                 'CUST_001',
                 'medium',
                 'utilization',
-                datetime.utcnow()
+                datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         should_esc, level, reason = escalation.should_escalate(
             'CUST_001',
             'medium',
             'utilization',
-            datetime.utcnow()
+            datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         assert should_esc is True
@@ -209,7 +209,7 @@ class TestWarningEscalation:
             'CUST_001',
             'high',
             'utilization',
-            datetime.utcnow()
+            datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         summary = escalation.get_escalation_summary('CUST_001')
@@ -228,7 +228,7 @@ class TestWarningEscalation:
                 'CUST_001',
                 'medium',
                 'utilization',
-                datetime.utcnow()
+                datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         summary = escalation.get_escalation_summary('CUST_001')

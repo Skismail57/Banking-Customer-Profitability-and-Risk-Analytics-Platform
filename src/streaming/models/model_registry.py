@@ -19,7 +19,7 @@ Fairness Considerations:
 - Provide model version comparison for bias analysis
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 from enum import Enum
 import logging
@@ -147,7 +147,7 @@ class ModelRegistry:
             version=version,
             model_type=model_type,
             framework=framework,
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(timezone.utc).replace(tzinfo=None),
             created_by=created_by,
             model_path=model_path,
             feature_schema=feature_schema,
@@ -199,7 +199,7 @@ class ModelRegistry:
             model_id=model_id,
             version=model_version.version,
             environment=environment,
-            deployed_at=datetime.utcnow(),
+            deployed_at=datetime.now(timezone.utc).replace(tzinfo=None),
             deployed_by=deployed_by,
             status=ModelStatus.DEPLOYED.value,
             deployment_config=deployment_config or {},
@@ -443,7 +443,7 @@ class ModelRegistry:
             'model_id': model_id,
             'version': version,
             'deployment_id': deployment_id,
-            'updated_at': datetime.utcnow().isoformat()
+            'updated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         import json

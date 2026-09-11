@@ -23,7 +23,7 @@ Fairness Considerations:
 - ML models should be evaluated for bias across demographic groups
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, Tuple, List
 import logging
 import uuid
@@ -140,7 +140,7 @@ class StreamingAnomalyAdapter:
                 anomaly_type="amount_outlier",
                 anomaly_score=anomaly_score,
                 severity=severity,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "amount": amount,
                     "method": method,
@@ -214,7 +214,7 @@ class StreamingAnomalyAdapter:
                 anomaly_type="velocity_anomaly",
                 anomaly_score=anomaly_score,
                 severity=severity,
-                detected_at=datetime.utcnow(),
+                detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                 context_data={
                     "transaction_count": transaction_count,
                     "window_minutes": window_minutes,
@@ -279,7 +279,7 @@ class StreamingAnomalyAdapter:
                     anomaly_type="frequency_anomaly",
                     anomaly_score=anomaly_score,
                     severity=severity,
-                    detected_at=datetime.utcnow(),
+                    detected_at=datetime.now(timezone.utc).replace(tzinfo=None),
                     context_data={
                         "transaction_count": stats["count"],
                         "window_days": window_days,
@@ -685,7 +685,7 @@ class AnomalyAlertIntegrator:
         Returns:
             Tuple of (should_alert, reason)
         """
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Get recent alerts for customer
         recent_alerts = [
@@ -726,11 +726,11 @@ class AnomalyAlertIntegrator:
             'anomaly_type': anomaly_type,
             'severity': severity,
             'anomaly_id': anomaly_id,
-            'timestamp': datetime.utcnow()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None)
         })
         
         # Clean old alerts
-        cutoff = datetime.utcnow().timestamp() - 86400  # 24 hours
+        cutoff = datetime.now(timezone.utc).replace(tzinfo=None).timestamp() - 86400  # 24 hours
         self.alert_history[customer_key] = [
             a for a in self.alert_history[customer_key]
             if a['timestamp'].timestamp() > cutoff

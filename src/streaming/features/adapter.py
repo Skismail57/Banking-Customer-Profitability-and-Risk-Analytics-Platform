@@ -7,7 +7,7 @@ batch and streaming pipelines.
 
 import logging
 from typing import Optional, Dict, Any, List
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 from src.streaming.features.feature_store import FeatureStore
 from src.streaming.config import StreamingConfig
@@ -126,7 +126,7 @@ class FeatureStoreAdapter:
                 entity_key=customer_key,
                 features=features,
                 feature_version=self.feature_version,
-                event_timestamp=event_timestamp or datetime.utcnow()
+                event_timestamp=event_timestamp or datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         return snapshot_id
@@ -167,7 +167,7 @@ class FeatureStoreAdapter:
                 entity_key=entity_key,
                 features=features,
                 feature_version=self.feature_version,
-                event_timestamp=event_timestamp or datetime.utcnow()
+                event_timestamp=event_timestamp or datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         return snapshot_id
@@ -204,7 +204,7 @@ class FeatureStoreAdapter:
                 entity_key=customer_key,
                 features=features,
                 feature_version=self.feature_version,
-                event_timestamp=event_timestamp or datetime.utcnow()
+                event_timestamp=event_timestamp or datetime.now(timezone.utc).replace(tzinfo=None)
             )
         
         return snapshot_id

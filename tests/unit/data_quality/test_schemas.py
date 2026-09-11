@@ -1,7 +1,7 @@
 """Unit tests for Pandera schemas."""
 
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 import pandas as pd
 
 from src.data_quality.schemas import (
@@ -38,7 +38,7 @@ class TestDimCustomerSchema:
             "customer_id": ["C001"],
             "first_name": ["John"],
             "last_name": ["Doe"],
-            "birth_date": [datetime.utcnow() + timedelta(days=365)],
+            "birth_date": [datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(days=365)],
             "annual_income": [50000],
             "is_active": [True]
         })

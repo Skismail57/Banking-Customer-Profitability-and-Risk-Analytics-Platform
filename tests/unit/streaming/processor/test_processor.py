@@ -1,7 +1,7 @@
 """Unit tests for main stream processor."""
 
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 from src.streaming.processor.processor import StreamProcessor
 from src.streaming.processor.windows import WindowType
@@ -65,7 +65,7 @@ class TestStreamProcessor:
         
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         
         result = processor.process_event(event)
@@ -84,7 +84,7 @@ class TestStreamProcessor:
         
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         
         processor.process_event(event, key="cust_123")
@@ -102,14 +102,14 @@ class TestStreamProcessor:
         for i in range(5):
             event = {
                 "event_id": f"evt_{i}",
-                "event_timestamp": datetime.utcnow(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             }
             processor.process_event(event)
         
         # Now process a late event
         late_event = {
             "event_id": "evt_late",
-            "event_timestamp": datetime.utcnow() - timedelta(seconds=10),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(seconds=10),
         }
         
         result = processor.process_event(late_event)
@@ -125,7 +125,7 @@ class TestStreamProcessor:
         """Test creating a checkpoint."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         
@@ -139,7 +139,7 @@ class TestStreamProcessor:
         # Process event and create checkpoint
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         processor.checkpoint()
@@ -158,7 +158,7 @@ class TestStreamProcessor:
         """Test getting watermark."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         
@@ -170,7 +170,7 @@ class TestStreamProcessor:
         """Test getting metrics."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         
@@ -199,7 +199,7 @@ class TestStreamProcessor:
         """Test resetting metrics."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         
@@ -212,7 +212,7 @@ class TestStreamProcessor:
         """Test resetting processor."""
         event = {
             "event_id": "evt_123",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
         }
         processor.process_event(event)
         processor.checkpoint()

@@ -4,23 +4,19 @@ import pytest
 import sys
 import os
 
-# Add the project root to the path
+os.environ.setdefault("USE_SQLITE", "true")
+
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, project_root)
 
-# Also add the api directory to the path
-api_dir = os.path.join(project_root, 'api')
-sys.path.insert(0, api_dir)
-
 from fastapi.testclient import TestClient
+from api.main import app
 
 
 @pytest.mark.api
 class TestAPIEndpoints:
     """Tests for FastAPI API endpoints."""
-    # Import app here to avoid import errors
-        from main import app
-        
+
     @pytest.fixture
     def client(self):
         """Create test client."""

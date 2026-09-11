@@ -4,7 +4,7 @@ This module provides penetration testing capabilities to identify security
 vulnerabilities through simulated attacks.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 from enum import Enum
 import logging
@@ -71,7 +71,7 @@ class PenetrationTester:
         results = []
         
         for payload in test_payloads:
-            test_id = f"sql_inject_{int(datetime.utcnow().timestamp())}"
+            test_id = f"sql_inject_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
             
             # Simulate test (in production, this would make actual API calls)
             success = self._simulate_sql_injection_test(payload)
@@ -85,7 +85,7 @@ class PenetrationTester:
                 description=f"SQL injection test with payload: {payload[:50]}...",
                 evidence=payload if success else None,
                 remediation="Use parameterized queries and input validation",
-                tested_at=datetime.utcnow()
+                tested_at=datetime.now(timezone.utc).replace(tzinfo=None)
             )
             
             results.append(result)
@@ -119,7 +119,7 @@ class PenetrationTester:
         results = []
         
         for payload in test_payloads:
-            test_id = f"xss_test_{int(datetime.utcnow().timestamp())}"
+            test_id = f"xss_test_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
             
             success = self._simulate_xss_test(payload)
             
@@ -132,7 +132,7 @@ class PenetrationTester:
                 description=f"XSS test with payload: {payload[:50]}...",
                 evidence=payload if success else None,
                 remediation="Implement output encoding and Content Security Policy",
-                tested_at=datetime.utcnow()
+                tested_at=datetime.now(timezone.utc).replace(tzinfo=None)
             )
             
             results.append(result)
@@ -165,7 +165,7 @@ class PenetrationTester:
         results = []
         
         for creds in test_credentials:
-            test_id = f"auth_bypass_{int(datetime.utcnow().timestamp())}"
+            test_id = f"auth_bypass_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
             
             success = self._simulate_auth_bypass_test(creds)
             
@@ -178,7 +178,7 @@ class PenetrationTester:
                 description=f"Authentication bypass test with username: {creds['username']}",
                 evidence=str(creds) if success else None,
                 remediation="Implement strong password policy and account lockout",
-                tested_at=datetime.utcnow()
+                tested_at=datetime.now(timezone.utc).replace(tzinfo=None)
             )
             
             results.append(result)
@@ -206,7 +206,7 @@ class PenetrationTester:
         results = []
         
         for role in user_roles:
-            test_id = f"authz_bypass_{int(datetime.utcnow().timestamp())}"
+            test_id = f"authz_bypass_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
             
             success = self._simulate_authorization_bypass_test(role)
             
@@ -219,7 +219,7 @@ class PenetrationTester:
                 description=f"Authorization bypass test for role: {role}",
                 evidence=role if success else None,
                 remediation="Implement proper role-based access control",
-                tested_at=datetime.utcnow()
+                tested_at=datetime.now(timezone.utc).replace(tzinfo=None)
             )
             
             results.append(result)
@@ -241,7 +241,7 @@ class PenetrationTester:
         Returns:
             Test result
         """
-        test_id = f"rate_limit_{int(datetime.utcnow().timestamp())}"
+        test_id = f"rate_limit_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
         
         # Simulate rate limit test
         blocked = self._simulate_rate_limit_test(request_count)
@@ -255,7 +255,7 @@ class PenetrationTester:
             description=f"Rate limiting test with {request_count} requests",
             evidence=f"All {request_count} requests allowed" if not blocked else None,
             remediation="Implement rate limiting and throttling",
-            tested_at=datetime.utcnow()
+            tested_at=datetime.now(timezone.utc).replace(tzinfo=None)
         )
         
         self.test_history.append(result)
@@ -357,5 +357,5 @@ class PenetrationTester:
             'high_count': len(by_severity.get('high', [])),
             'medium_count': len(by_severity.get('medium', [])),
             'low_count': len(by_severity.get('low', [])),
-            'generated_at': datetime.utcnow().isoformat()
+            'generated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }

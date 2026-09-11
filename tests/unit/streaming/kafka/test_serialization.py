@@ -5,7 +5,7 @@ This module tests the message serialization and deserialization logic.
 
 import pytest
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 
 from src.streaming.kafka.serialization import (
@@ -30,7 +30,7 @@ class TestMessageSerializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "source_system": "core_banking",
             "customer_key": "cust_123",
         }
@@ -50,7 +50,7 @@ class TestMessageSerializer:
         """Test serializing a Pydantic event object."""
         event = TransactionEvent(
             event_id="evt_txn_123",
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             source_system="core_banking",
             customer_key="cust_123",
             transaction_id="txn_456",
@@ -75,7 +75,7 @@ class TestMessageSerializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "source_system": "core_banking",
             "customer_key": "cust_123",
         }
@@ -92,14 +92,14 @@ class TestMessageSerializer:
             {
                 "event_id": "evt_1",
                 "event_type": "transaction",
-                "event_timestamp": datetime.utcnow().isoformat(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                 "source_system": "core_banking",
                 "customer_key": "cust_1",
             },
             {
                 "event_id": "evt_2",
                 "event_type": "transaction",
-                "event_timestamp": datetime.utcnow().isoformat(),
+                "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                 "source_system": "core_banking",
                 "customer_key": "cust_2",
             },
@@ -117,7 +117,7 @@ class TestMessageSerializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None),
             "source_system": "core_banking",
         }
         
@@ -132,7 +132,7 @@ class TestMessageSerializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "source_system": "core_banking",
             "amount": Decimal("100.50"),
         }
@@ -158,7 +158,7 @@ class TestMessageDeserializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "source_system": "core_banking",
             "_metadata": {"topic": "transactions"},
         }
@@ -177,7 +177,7 @@ class TestMessageDeserializer:
         event_dict = {
             "event_id": "evt_123",
             "event_type": "transaction",
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             "source_system": "core_banking",
         }
         

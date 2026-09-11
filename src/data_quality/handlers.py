@@ -1,7 +1,7 @@
 """Failed record handling and quarantine management."""
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 import logging
@@ -54,7 +54,7 @@ class FailedRecordHandler:
         valid_df = df.drop(failed_indices).copy()
         
         # Add quarantine metadata
-        failed_df["_quarantine_timestamp"] = datetime.utcnow().isoformat()
+        failed_df["_quarantine_timestamp"] = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         failed_df["_quarantine_table"] = table_name
         failed_df["_quarantine_reason"] = "validation_failure"
         
@@ -101,7 +101,7 @@ class FailedRecordHandler:
         Returns:
             Path to quarantined file
         """
-        timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now(timezone.utc).replace(tzinfo=None).strftime("%Y%m%d_%H%M%S")
         filename = f"quarantine_{table_name}_{timestamp}.parquet"
         quarantine_path = self.quarantine_dir / filename
         
@@ -231,7 +231,7 @@ class FailedRecordHandler:
         """
         from datetime import timedelta
         
-        cutoff_date = datetime.utcnow() - timedelta(days=days_old)
+        cutoff_date = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=days_old)
         cleaned_count = 0
         
         for qf in self.quarantine_dir.glob("quarantine_*.parquet"):

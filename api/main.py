@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from contextlib import asynccontextmanager
 from typing import Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 
 from api.config import settings
@@ -148,7 +148,7 @@ async def websocket_endpoint(
             if data.get("type") == "ping":
                 await websocket.send_json({
                     "type": "pong",
-                    "timestamp": datetime.utcnow().isoformat()
+                    "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
                 })
             elif data.get("type") == "subscribe":
                 # Handle subscription to specific channels
@@ -157,7 +157,7 @@ async def websocket_endpoint(
                     await websocket.send_json({
                         "type": "subscribed",
                         "channel": channel,
-                        "timestamp": datetime.utcnow().isoformat()
+                        "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
                     })
                     
     except WebSocketDisconnect:

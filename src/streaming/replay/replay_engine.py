@@ -19,7 +19,7 @@ Fairness Considerations:
 - Ensure replay doesn't introduce bias in testing
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import defaultdict
 import logging
@@ -123,7 +123,7 @@ class ReplayEngine:
             'model_version': model_version,
             'feature_version': feature_version,
             'status': 'pending',
-            'started_at': datetime.utcnow()
+            'started_at': datetime.now(timezone.utc).replace(tzinfo=None)
         })
         
         self.db_session.commit()
@@ -227,7 +227,7 @@ class ReplayEngine:
         
         self.db_session.execute(update_query, {
             'replay_id': replay_id,
-            'completed_at': datetime.utcnow(),
+            'completed_at': datetime.now(timezone.utc).replace(tzinfo=None),
             'events_processed': events_processed,
             'results_summary': summary
         })
@@ -604,7 +604,7 @@ class ReplayValidator:
                 'match_rate': match_rate
             },
             'comparisons': comparisons,
-            'validated_at': datetime.utcnow().isoformat()
+            'validated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         self.validation_history.append(validation_report)

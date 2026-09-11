@@ -4,7 +4,7 @@ This module tests the feature store functionality (requires Redis to be availabl
 """
 
 import pytest
-from datetime import datetime
+from datetime import datetime, timezone
 
 from src.streaming.features.feature_store import FeatureStore, FeatureVersion, FeatureSnapshot
 
@@ -130,7 +130,7 @@ class TestFeatureStore:
         entity_key = "cust_777"
         features = {"score": 0.85, "risk": "low"}
         feature_version = "v1"
-        event_timestamp = datetime.utcnow()
+        event_timestamp = datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Create snapshot
         snapshot_id = feature_store.create_snapshot(

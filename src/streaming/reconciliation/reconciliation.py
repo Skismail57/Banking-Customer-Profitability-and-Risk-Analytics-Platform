@@ -19,7 +19,7 @@ Fairness Considerations:
 - Ensure reconciliation doesn't mask systematic errors
 """
 
-from datetime import datetime, date, timedelta
+from datetime import datetime, timezone, date, timedelta
 from typing import Dict, Any, Optional, List, Tuple
 from collections import defaultdict
 import logging
@@ -112,7 +112,7 @@ class ReconciliationEngine:
             'difference': difference,
             'difference_percentage': difference_percentage,
             'status': status,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def reconcile_features(
@@ -166,7 +166,7 @@ class ReconciliationEngine:
             'features_passed': sum(1 for r in feature_results if r['passed']),
             'status': status,
             'results': feature_results,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def reconcile_predictions(
@@ -220,7 +220,7 @@ class ReconciliationEngine:
             'predictions_passed': sum(1 for r in prediction_results if r['passed']),
             'status': status,
             'results': prediction_results,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def reconcile_alerts(
@@ -272,7 +272,7 @@ class ReconciliationEngine:
             'missing_alert_types': list(missing_types),
             'extra_alert_types': list(extra_types),
             'status': status,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def run_daily_reconciliation(
@@ -351,7 +351,7 @@ class ReconciliationEngine:
                 'warnings': warning_count,
                 'failed': failed_count
             },
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         
         # Store reconciliation result
@@ -527,7 +527,7 @@ class DiscrepancyInvestigator:
         findings = {
             'investigation_id': str(uuid.uuid4()),
             'reconciliation_id': reconciliation_report.get('reconciliation_id'),
-            'investigated_at': datetime.utcnow().isoformat(),
+            'investigated_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
             'discrepancies_found': [],
             'root_causes': [],
             'recommendations': []
@@ -749,7 +749,7 @@ class ReconciliationTrendAnalyzer:
                 'pass_rate': passed / total_reports if total_reports > 0 else 0
             },
             ' trends_by_check_type': dict(check_trends),
-            'analyzed_at': datetime.utcnow().isoformat()
+            'analyzed_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
     
     def _get_reconciliation_report(self, reconciliation_date: date) -> Optional[Dict[str, Any]]:

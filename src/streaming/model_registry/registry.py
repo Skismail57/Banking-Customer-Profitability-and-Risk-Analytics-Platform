@@ -19,7 +19,7 @@ Fairness Considerations:
 - Ensure model versions are validated for fairness before promotion
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import logging
 import uuid
@@ -146,7 +146,7 @@ class ModelRegistry:
             metrics=metrics,
             validation_status=ValidationStatus.PENDING.value,
             deployment_status=DeploymentStatus.DEVELOPMENT.value,
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(timezone.utc).replace(tzinfo=None),
             promoted_at=None,
             archived_at=None
         )
@@ -197,7 +197,7 @@ class ModelRegistry:
         
         # Update deployment status
         metadata.deployment_status = environment.upper()
-        metadata.promoted_at = datetime.utcnow()
+        metadata.promoted_at = datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Store updated metadata
         self._store_model_metadata(metadata)
@@ -230,7 +230,7 @@ class ModelRegistry:
         
         # Update deployment status
         metadata.deployment_status = environment.upper()
-        metadata.promoted_at = datetime.utcnow()
+        metadata.promoted_at = datetime.now(timezone.utc).replace(tzinfo=None)
         
         # Store updated metadata
         self._store_model_metadata(metadata)
@@ -381,7 +381,7 @@ class ModelRegistry:
         list_key = self.MODEL_LIST_KEY_PATTERN.format(model_name=model_name)
         
         # Add to sorted set (score = timestamp)
-        score = datetime.utcnow().timestamp()
+        score = datetime.now(timezone.utc).replace(tzinfo=None).timestamp()
         self.feature_store.redis_client.zadd(list_key, {model_version: score})
     
     def _get_latest_version(self, model_name: str) -> Optional[str]:

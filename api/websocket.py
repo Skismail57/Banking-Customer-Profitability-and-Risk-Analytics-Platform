@@ -4,7 +4,7 @@ This module provides WebSocket endpoints for pushing real-time
 updates to connected clients (alerts, metrics, etc.).
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 import json
 import logging
@@ -113,7 +113,7 @@ class ConnectionManager:
         message = {
             'type': 'alert',
             'data': alert,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         await self.broadcast(message)
     
@@ -126,7 +126,7 @@ class ConnectionManager:
         message = {
             'type': 'metrics',
             'data': metrics,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         await self.broadcast(message)
     
@@ -141,7 +141,7 @@ class ConnectionManager:
             'type': 'risk_update',
             'customer_key': customer_key,
             'data': risk_data,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
         }
         await self.broadcast(message)
     

@@ -19,7 +19,7 @@ Fairness Considerations:
 - Provide explanation for predictions when possible
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, Union
 import logging
 import pickle
@@ -137,7 +137,7 @@ class OnlineModel:
                 'model_version': metadata.model_version,
                 'model_type': metadata.model_type,
                 'feature_version': metadata.feature_version,
-                'predicted_at': datetime.utcnow().isoformat()
+                'predicted_at': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
             }
         
         except Exception as e:

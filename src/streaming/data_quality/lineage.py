@@ -4,7 +4,7 @@ This module provides data lineage tracking capabilities to trace data
 through the pipeline and understand data transformations.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 from enum import Enum
 import logging
@@ -74,7 +74,7 @@ class DataLineage:
         Returns:
             Event ID
         """
-        event_id = f"lineage_{int(datetime.utcnow().timestamp())}"
+        event_id = f"lineage_{int(datetime.now(timezone.utc).replace(tzinfo=None).timestamp())}"
         
         event = LineageEvent(
             event_id=event_id,
@@ -85,7 +85,7 @@ class DataLineage:
             transformation_type=transformation_type.value,
             transformation_details=transformation_details,
             record_count=record_count,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
             metadata=metadata or {}
         )
         

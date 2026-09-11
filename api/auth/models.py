@@ -2,7 +2,7 @@
 
 from enum import Enum
 from typing import Optional, List
-from datetime import datetime
+from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
 
@@ -106,8 +106,8 @@ class User(BaseModel):
     roles: List[UserRole] = Field(default_factory=list, description="User roles")
     is_active: bool = Field(default=True, description="Whether user is active")
     is_service: bool = Field(default=False, description="Whether this is a service account")
-    created_at: datetime = Field(default_factory=datetime.utcnow, description="Creation timestamp")
-    updated_at: datetime = Field(default_factory=datetime.utcnow, description="Last update timestamp")
+    created_at: datetime = Field(default_factory=timezone.utcnow, description="Creation timestamp")
+    updated_at: datetime = Field(default_factory=timezone.utcnow, description="Last update timestamp")
     
     @property
     def permissions(self) -> set[Permission]:

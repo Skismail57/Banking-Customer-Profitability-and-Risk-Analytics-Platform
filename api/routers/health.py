@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy import text
-from datetime import datetime
+from datetime import datetime, timezone
 import logging
 import redis
 
@@ -77,7 +77,7 @@ async def health_check():
     return HealthResponse(
         status=overall_status,
         version=settings.app_version,
-        timestamp=datetime.utcnow(),
+        timestamp=datetime.now(timezone.utc).replace(tzinfo=None),
         database=components.get('database', 'unknown'),
         components=components
     )
@@ -94,7 +94,7 @@ async def readiness_check():
     # This is more strict than health check
     return {
         "ready": True,
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
     }
 
 
@@ -109,5 +109,5 @@ async def liveness_check():
     # This is a simple check to see if the process is alive
     return {
         "alive": True,
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
     }

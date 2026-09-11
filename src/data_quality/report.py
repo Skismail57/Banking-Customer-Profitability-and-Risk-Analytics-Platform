@@ -1,7 +1,7 @@
 """Data quality report generation."""
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import logging
@@ -40,7 +40,7 @@ class QualityReportGenerator:
         """
         report = {
             "report_metadata": {
-                "generated_at": datetime.utcnow().isoformat(),
+                "generated_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                 "table_name": metrics.table_name,
                 "dq_score": metrics.dq_score
             },
@@ -204,7 +204,7 @@ class QualityReportGenerator:
             Path to saved report
         """
         if filename is None:
-            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+            timestamp = datetime.now(timezone.utc).replace(tzinfo=None).strftime("%Y%m%d_%H%M%S")
             table_name = report.get("report_metadata", {}).get("table_name", "unknown")
             filename = f"dq_report_{table_name}_{timestamp}.json"
         
@@ -246,7 +246,7 @@ class QualityReportGenerator:
         
         summary = {
             "summary_metadata": {
-                "generated_at": datetime.utcnow().isoformat(),
+                "generated_at": datetime.now(timezone.utc).replace(tzinfo=None).isoformat(),
                 "total_tables": total_tables
             },
             "overall_statistics": {
