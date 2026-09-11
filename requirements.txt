@@ -55,4 +55,4 @@ pytz==2023.3
 # Streaming Infrastructure
 confluent-kafka==2.0.2
 redis==4.3.4
-requests=2.32.3
+requests==2.32.3
