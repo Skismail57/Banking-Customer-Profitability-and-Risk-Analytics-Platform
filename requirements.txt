@@ -29,9 +29,11 @@ pydantic-settings==2.1.0
 
 # Security
 python-jose[cryptography]==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
 python-multipart==0.0.6
 slowapi==0.1.9
-pip-audit==2.6.4
+pip-audit==2.3
 bandit==1.7.5
 
 # Visualization
@@ -54,6 +56,4 @@ pytz==2023.3
 confluent-kafka==2.0.2
 redis==4.3.4
 requests==2.31.0
-passlib==1.7.4
-bcrypt==4.0.1
 

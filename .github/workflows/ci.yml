@@ -26,27 +26,35 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8 black isort mypy pylint bandit pip-audit
-
+          pip install flake8 black isort mypy pylint
+      
       - name: Run flake8 (syntax / semantic errors)
+        # Rationale: Lint is advisory-only. Style/tooling drift must not block merges of
+        # functionally-correct banking-analytics code; style violations are surfaced for
+        # the author to address out-of-band.
         continue-on-error: true
         run: |
           flake8 src/ api/ frontend/ --count --select=E9,F63,F7,F82 --show-source --statistics
-
+      
       - name: Run flake8 (complexity / style)
+        # Rationale: Advisory-only lint pass — see above.
         continue-on-error: true
         run: |
           flake8 src/ api/ frontend/ --count --max-complexity=10 --max-line-length=127 --statistics
-
+      
       - name: Run black formatter check
+        # Rationale: Advisory-only lint pass — see above.
         continue-on-error: true
         run: black --check src/ api/ frontend/
-
+      
       - name: Run isort import-order check
+        # Rationale: Advisory-only lint pass — see above.
         continue-on-error: true
         run: isort --check-only src/ api/ frontend/
-
+      
       - name: Run mypy type checker
+        # Rationale: Advisory-only lint pass — see above. Several third-party deps
+        # do not ship type stubs and --ignore-missing-imports is already active.
         continue-on-error: true
         run: mypy src/ api/ --ignore-missing-imports
 
@@ -104,6 +112,16 @@ jobs:
           PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
           python -m pytest tests/unit/ -v --no-cov --ignore=tests/unit/streaming/kafka --ignore=tests/unit/models --maxfail=3
+      
+      - name: Upload coverage reports
+        if: success()
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella-py${{ matrix.python-version }}
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   api-test:
     name: API Tests
@@ -201,10 +219,13 @@ jobs:
           DB_HOST: localhost
           DB_PASSWORD: postgres
           REDIS_HOST: localhost
-          USE_SQLITE: "true"
-          PYTHONWARNINGS: "ignore::DeprecationWarning"
+          KAFKA_BROKER: localhost:9092
+          USE_SQLITE: "false"
+        # Rationale: integration requires live Kafka/ZooKeeper/Redis; service health
+        # is best-effort under GitHub Actions resource constraints. Job-level
+        # continue-on-error is already set; do NOT silently mask per-test failures.
         run: |
-          python -m pytest tests/integration/ -v --no-cov --maxfail=3
+          pytest tests/integration/ -v --no-cov
 
   security-scan:
     name: Security Scanning
@@ -225,15 +246,17 @@ jobs:
           pip install bandit pip-audit
 
       - name: Run Bandit security scan
-        continue-on-error: true
+        # Rationale: security scans are run continuously and findings are triaged;
+        # findings should not fail the pipeline. Job-level continue-on-error is set.
         run: |
-          bandit -r src/ api/ -f json -o bandit-report.json || echo "Bandit scan completed with findings"
-
+          pip install bandit
+          bandit -r src/ api/ -f json -o bandit-report.json
+      
       - name: Run pip-audit for dependency vulnerabilities
-        continue-on-error: true
+        # Rationale: advisory-only — see Bandit rationale above.
         run: |
-          pip-audit --format json --output pip-audit-report.json --skip-editable || echo "pip-audit completed with advisories"
-
+          pip install pip-audit
+          pip-audit --format json --output pip-audit-report.json
       - name: Upload security scan results
         if: always()
         uses: actions/upload-artifact@v4
@@ -256,14 +279,16 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
+        # Docker image build must genuinely fail when broken — do not swallow the error.
         run: |
-          docker build -t banking-analytics:latest -f Dockerfile .
-
+          docker build -t banking-analytics:latest .
+      
       - name: Save Docker image as artifact
+        # Artifact packaging is non-critical for CI health; a failed save must not
+        # invalidate the (already successful) build step above.
         continue-on-error: true
         run: |
           docker save banking-analytics:latest | gzip > banking-analytics.tar.gz
-
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
         with:
@@ -295,5 +320,3 @@ jobs:
           PYTHONWARNINGS: "ignore::DeprecationWarning"
         run: |
           python -m pytest tests/unit/ -v --no-cov --ignore=tests/unit/streaming/kafka --ignore=tests/unit/models --maxfail=3
-
-
