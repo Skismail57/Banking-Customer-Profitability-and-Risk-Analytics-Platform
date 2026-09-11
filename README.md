@@ -17,25 +17,26 @@
 
 | # | Section | # | Section |
 |---|---------|---|---------|
-| 1 | [Project Overview](#1-project-overview) | 20 | [Database Setup](#20-database-setup) |
-| 2 | [Quick Start](#2-quick-start) | 21 | [Running the Backend](#21-running-the-backend) |
-| 3 | [Platform at a Glance](#3-platform-at-a-glance) | 22 | [Running the Frontend](#22-running-the-frontend) |
-| 4 | [Why This Project Matters](#4-why-this-project-matters) | 23 | [Docker Setup](#23-docker-setup) |
-| 5 | [Key Capabilities](#5-key-capabilities) | 24 | [Testing](#24-testing) |
-| 6 | [Business Problem](#6-business-problem) | 25 | [Code Quality](#25-code-quality) |
-| 7 | [Solution](#7-solution) | 26 | [CI/CD](#26-cicd) |
-| 8 | [Key Highlights](#8-key-highlights) | 27 | [Deployment](#27-deployment) |
-| 9 | [Features](#9-features) | 28 | [Security](#28-security) |
-| 10 | [Architecture](#10-architecture) | 29 | [Performance & Scalability](#29-performance--scalability) |
-| 11 | [Project Screenshots](#11-project-screenshots) | 30 | [Advantages](#30-advantages) |
-| 12 | [Technology Stack](#12-technology-stack) | 31 | [Use Cases](#31-use-cases) |
-| 13 | [Project Structure](#13-project-structure) | 32 | [Troubleshooting](#32-troubleshooting) |
-| 14 | [Data Architecture](#14-data-architecture) | 33 | [Future Enhancements](#33-future-enhancements) |
-| 15 | [Database](#15-database) | 34 | [Contributing](#34-contributing) |
-| 16 | [Analytics](#16-analytics) | 35 | [Project Status](#35-project-status) |
-| 17 | [Data Quality](#17-data-quality) | 36 | [Repository Resources](#36-repository-resources) |
-| 18 | [API Documentation](#18-api-documentation) | 37 | [License](#37-license) |
-| 19 | [Installation](#19-installation) | | |
+| 1 | [Project Overview](#1-project-overview) | 21 | [Environment Variables](#21-environment-variables) |
+| 2 | [Quick Start](#2-quick-start) | 22 | [Database Setup](#22-database-setup) |
+| 3 | [Platform at a Glance](#3-platform-at-a-glance) | 23 | [Running the Backend](#23-running-the-backend) |
+| 4 | [Why This Project Matters](#4-why-this-project-matters) | 24 | [Running the Frontend](#24-running-the-frontend) |
+| 5 | [Key Capabilities](#5-key-capabilities) | 25 | [Docker Setup](#25-docker-setup) |
+| 6 | [Business Problem](#6-business-problem) | 26 | [Testing](#26-testing) |
+| 7 | [Solution](#7-solution) | 27 | [Code Quality](#27-code-quality) |
+| 8 | [Key Highlights](#8-key-highlights) | 28 | [CI/CD](#28-cicd) |
+| 9 | [Features](#9-features) | 29 | [Deployment](#29-deployment) |
+| 10 | [Architecture](#10-architecture) | 30 | [Security](#30-security) |
+| 11 | [Project Screenshots](#11-project-screenshots) | 31 | [Performance & Scalability](#31-performance--scalability) |
+| 12 | [Technology Stack](#12-technology-stack) | 32 | [Advantages](#32-advantages) |
+| 13 | [Project Structure](#13-project-structure) | 33 | [Use Cases](#33-use-cases) |
+| 14 | [Data Architecture](#14-data-architecture) | 34 | [Troubleshooting](#34-troubleshooting) |
+| 15 | [Database](#15-database) | 35 | [Future Enhancements](#35-future-enhancements) |
+| 16 | [Analytics](#16-analytics) | 36 | [Contributing](#36-contributing) |
+| 17 | [Data Quality](#17-data-quality) | 37 | [Project Status](#37-project-status) |
+| 18 | [API Documentation](#18-api-documentation) | 38 | [Repository Resources](#38-repository-resources) |
+| 19 | [Installation](#19-installation) | 39 | [License](#39-license) |
+| 20 | [Prerequisites](#20-prerequisites) | | |
 
 ---
 
