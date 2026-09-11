@@ -94,12 +94,12 @@ class TestInfrastructureConnectivity:
     def test_config_loading(self, environment: str, config):
         """Test that streaming configuration loads correctly."""
         assert config is not None
-        assert config.broker is not None
+        assert config.kafka is not None
         assert config.redis is not None
         assert config.schema_registry is not None
         
         # Validate configuration
-        assert config.broker.bootstrap_servers
+        assert config.kafka.bootstrap_servers
         assert config.redis.host
         assert config.redis.port > 0
         

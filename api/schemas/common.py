@@ -1,6 +1,6 @@
 """Common schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, Generic, TypeVar, List, Dict
 from datetime import datetime
 
@@ -23,14 +23,13 @@ class PaginationParams(BaseModel):
 class PaginatedResponse(BaseModel, Generic[T]):
     """Paginated response."""
     
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    
     items: List[T]
     total: int
     page: int
     page_size: int
     total_pages: int
-    
-    class Config:
-        arbitrary_types_allowed = True
 
 
 class HealthResponse(BaseModel):

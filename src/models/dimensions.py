@@ -1,7 +1,9 @@
 """Dimension tables for banking analytics warehouse."""
 
+from __future__ import annotations
+
 from datetime import date, datetime
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy import (
     String,
@@ -73,7 +75,7 @@ class DimCustomer(Base, TimestampMixin):
     source_system: Mapped[Optional[str]] = mapped_column(String(50))
     
     # Relationships
-    accounts: Mapped[list["DimAccount"]] = relationship(
+    accounts = relationship(
         "DimAccount", back_populates="customer", cascade="all, delete-orphan"
     )
     
@@ -133,7 +135,7 @@ class DimAccount(Base, TimestampMixin):
     source_system: Mapped[Optional[str]] = mapped_column(String(50))
     
     # Relationships
-    customer: Mapped["DimCustomer"] = relationship("DimCustomer", back_populates="accounts")
+    customer = relationship("DimCustomer", back_populates="accounts")
     
     # Constraints
     __table_args__ = (

@@ -23,13 +23,13 @@ Fairness Considerations:
 - ML models should be evaluated for bias across demographic groups
 """
 
+from collections import defaultdict, deque
 from datetime import datetime, timezone
-from typing import Dict, Any, Optional, Tuple, List
+from typing import Dict, Any, Optional, List, Tuple
 import logging
+import numpy as np
 import uuid
 from dataclasses import dataclass
-from collections import deque
-import numpy as np
 
 from src.streaming.config import StreamingConfig
 from src.streaming.features.feature_store import FeatureStore

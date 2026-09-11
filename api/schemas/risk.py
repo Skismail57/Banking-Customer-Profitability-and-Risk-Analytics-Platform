@@ -1,12 +1,14 @@
 """Risk schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import date
 
 
 class CustomerRisk(BaseModel):
     """Customer risk schema."""
+    
+    model_config = ConfigDict(from_attributes=True)
     
     customer_key: str = Field(..., description="Customer unique identifier")
     risk_level: str = Field(..., description="Risk level (low, medium, high, critical)")
@@ -17,9 +19,6 @@ class CustomerRisk(BaseModel):
     credit_score: Optional[int] = Field(None, description="Credit score")
     balance_to_income_ratio: Optional[float] = Field(None, description="Balance to income ratio")
     as_of_date: date = Field(..., description="As of date")
-    
-    class Config:
-        from_attributes = True
 
 
 class RiskAggregate(BaseModel):

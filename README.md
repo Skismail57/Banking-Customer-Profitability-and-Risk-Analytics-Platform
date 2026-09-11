@@ -214,15 +214,337 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 
 ---
 
-## 7. Technology Stack
 
-### 7.1 Languages & Runtime
+## 7. Project  Screenshots
+
+
+---
+
+### 7.1 Home / Platform Overview
+
+![Welcome Overview](Screenshots/Home%20tab%20Welcome%20to%20the%20Banking%20Customer%20Profitability%20and%20Risk%20Analytics%20Platform%20%26%20core%20overview.png)
+
+*Welcome screen — platform mission statement, core capabilities overview, and entry-point navigation.*
+
+![Getting Started & Platform Statistics](Screenshots/Home%20tab%20Getting%20Started%20guide%20and%20Platform%20Statistics%20KPI%20cards%20(10%2C000%2B%20customers%2C%201M%2B%20data%20points)..png)
+
+*Getting Started guide plus Platform Statistics KPI cards confirming 10,000+ customers and 1M+ data points processed.*
+
+![Quick Navigation & Data Source Architecture](Screenshots/Home%20tab%20Quick%20Navigation%20and%20Data%20Source%20architecture%20description..png)
+
+*Quick Navigation panel plus high-level Data Source architecture describing the warehouse and streaming data flow.*
+
+---
+
+### 7.2 Executive Overview Dashboard
+
+![Executive KPIs & Top Recommendations](Screenshots/Executive%20Overview%20tab%20Key%20Performance%20Indicators%20(Total%20Customers%2C%20Revenue%2C%20Profit%2C%20High%20Risk)%20and%20top%20recommendations.png)
+
+*Executive Overview headline KPI row (Total Customers, Revenue, Profit, High Risk) and prioritized top recommendations feed.*
+
+![Executive Date, Region, Segment Filters](Screenshots/Executive%20Overview%20tab%20Date%20range%2C%20Region%2C%20and%20Segment%20filter%20options..png)
+
+*Date-range picker, Region multi-select, and Segment multi-select filters drive every downstream KPI and chart on the Executive Overview page.*
+
+![Executive Revenue Trend & Risk Distribution](Screenshots/Executive%20Overview%20tab%20Revenue%20by%20Customer%20line%20chart%20%26%20Risk%20Score%20by%20Level%20bar%20chart..png)
+
+*Revenue-by-Customer line chart over the reporting period alongside Risk-Score-by-Level bar chart summarizing the credit portfolio composition.*
+
+![Expanded Executive Recommendations](Screenshots/Executive%20Overview%20tab%20Expanded%20Executive%20Recommendations%20(Profitability%2C%20Risk%2C%20Growth%20action%20items)..png)
+
+*Expanded Executive Recommendations panel with categorized action items for Profitability, Risk, and Growth initiatives.*
+
+![Customer Metrics Summary Table](Screenshots/Executive%20Overview%20tab%20Customer%20Metrics%20Summary%20data%20table%20view..png)
+
+*Customer Metrics Summary data table view — executive-accessible drill-down of the headline KPIs with per-row detail.*
+
+![PDF Print Preview of Executive Overview](Screenshots/Shows%20the%20Executive%20Overview%20dashboard%20page%20inside%20the%20browser%27s%20Save%20as%20PDF%20%20print%20preview%20dialog..png)
+
+*Browser print-preview dialog exporting the Executive Overview dashboard directly to PDF for board meetings.*
+
+![Streamlit Screencast Overlay](Screenshots/Shows%20the%20Streamlit%20Record%20a%20screencast%20overlay%20modal%20on%20the%20Executive%20Overview%20page..png)
+
+*Streamlit's built-in "Record a screencast" overlay shown over the Executive Overview page for walkthrough capture.*
+
+---
+
+### 7.3 Customer 360 Profile
+
+![Customer 360 — Search & Profile Card](Screenshots/Customer%20360%20tab%20Customer%20search%20bar%20and%20initial%20customer%20profile%20info%20(Nasir%20Khan)..png)
+
+*Customer search bar and initial profile header for customer "Nasir Khan" — the starting point for any 360 investigation.*
+
+![Customer 360 — Metrics Cards & Risk Information](Screenshots/Customer%20360%20tab%20Customer%20metrics%20cards%20(Revenue%2C%20Net%20Profit%2C%20Risk%20Score%2C%20CLV)%20and%20Risk%20Information..png)
+
+*Customer metrics cards (Revenue, Net Profit, Risk Score, CLV) paired with a structured Risk Information pane capturing the risk profile at a glance.*
+
+![Customer 360 — Revenue vs Profit & Risk vs CLV Charts](Screenshots/Customer%20360%20Revenue%20vs%20Profit%20%26%20Risk%20vs%20CLV%20Charts.png)
+
+*Quadrant view combining Revenue-vs-Profit (financial) and Risk-vs-CLV (strategic) to identify the most valuable retention and upsell targets.*
+
+![Customer 360 — Risk Info & Recent Transactions Table](Screenshots/Customer%20360%20Risk%20Info%20%26%20Recent%20Transactions%20Table.png)
+
+*Risk Information pane plus a paginated Recent Transactions table showing latest customer-level activity and flagged behavior.*
+
+---
+
+### 7.4 Profitability Analytics
+
+![Profitability — Header, Filter Controls & Top Layout](Screenshots/Profitability%20Header%2C%20Filter%20Controls%20%26%20Top%20Layout.png)
+
+*Profitability Analytics page header, filter controls (date range, segment, region), and introductory description text.*
+
+![Profitability — KPI Cards (Revenue, Profit, Customers)](Screenshots/Profitability%20Key%20Performance%20Indicators%20(Revenue%2C%20Profit%2C%20Customers).png)
+
+*Profitability KPI cards at the top of the page: Revenue, Profit, and Total Customers in the filtered cohort.*
+
+![Profitability — Revenue & Profit Distribution by Customer Charts](Screenshots/Profitability%20Revenue%20%26%20Profit%20Distribution%20by%20Customer%20Charts.png)
+
+*Two distribution charts showing customer-level Revenue and Profit spreads across the current cohort.*
+
+![Profitability — Customer Profitability Metrics Data Table](Screenshots/Profitability%20Customer%20Profitability%20Metrics%20Data%20Table.png)
+
+*Customer Profitability Metrics Data Table — per-customer granularity with all profitability inputs (interest income, fee income, operating costs, risk costs) plus net profit rank.*
+
+---
+
+### 7.5 Credit Risk Analytics
+
+![Credit Risk — Header & Filter Selection Panel](Screenshots/Credit%20Risk%20Header%20%26%20Filter%20Selection%20Panel.png)
+
+*Credit Risk Analytics header with page description and the filter selection panel driving the downstream KPI, chart, and table views.*
+
+![Credit Risk — Risk KPIs](Screenshots/Credit%20Risk%20Risk%20KPIs%20(High%20Risk%20Count%2C%20Avg%20Score%2C%20Total%20Exposure).png)
+
+*Credit Risk KPI cards: High Risk Count, Average Risk Score, and Total Exposure.*
+
+![Credit Risk — Risk Score by Level & Exposure Charts](Screenshots/Credit%20Risk%20Risk%20Score%20by%20Level%20%26%20Exposure%20Charts.png)
+
+*Risk Score by Level distribution (bar chart) plus Exposure (aggregate bar chart) combining volume and severity analysis.*
+
+![Credit Risk — Detailed Risk Analysis & Delinquency Table](Screenshots/Credit%20Risk%20Detailed%20Risk%20Analysis%20%26%20Delinquency%20Table.png)
+
+*Detailed Risk Analysis and Delinquency Table — analyst view with risk bands, delinquency bucket counters, and exposure per customer/account.*
+
+---
+
+### 7.6 Churn Analytics
+
+![Churn — Header, Filter Options, KPI Preview](Screenshots/Churn%20Analytics%20header%2C%20filter%20options%2C%20KPI%20preview.png)
+
+*Churn Analytics page header, filter options (region, segment, model threshold), and compact KPI preview at the top of the page.*
+
+![Churn — KPI Cards](Screenshots/Churn%20KPIs%20(High%20Churn%20Risk%2C%20Avg%20Churn%20Probability%2C%20Total%20Customers).png)
+
+*Churn KPI cards: High Churn Risk count, Average Churn Probability, and Total Customers in scope.*
+
+![Churn — Risk & Probability Distribution Charts](Screenshots/Churn%20Risk%20%26%20Churn%20Probability%20distribution%20charts.png)
+
+*Churn Risk distribution and Churn Probability distribution — side-by-side charts describing the shape of attrition risk in the portfolio.*
+
+![Churn — Predictions Probability & Risk Table](Screenshots/Churn%20Predictions%20customer%20probability%20%26%20risk%20table.png)
+
+*Churn Predictions table: per-customer probability, risk tier, and key risk drivers for analyst review.*
+
+![Churn — Filtered High-Risk Customers Table](Screenshots/Filtered%20High%20Churn%20Risk%20Customers%20table.png)
+
+*Filtered High Churn Risk Customers table — pre-filtered view of only the high-priority retention list for marketing action.*
+
+---
+
+### 7.7 Customer Segmentation
+
+![Segmentation Filters](Screenshots/customer-segmentation-filters.png)
+
+*Segmentation filters UI — parameters governing business-rule and clustering-based segmentation logic.*
+
+![Segmentation KPIs](Screenshots/Segmentation%20KPIs%20(Total%20Segments%2C%20Largest%20Segment%2C%20Total%20Customers).png)
+
+*Segmentation KPI cards: Total Segments, Largest Segment by membership, and Total Customers segmented.*
+
+![Segment Data Table](Screenshots/Customer%20Segments%20data%20table.png)
+
+*Customer Segments data table — per-segment row with profile metrics and counts.*
+
+![Average Balance by Segment Bar Chart](Screenshots/Average%20Balance%20by%20Segment%20bar%20chart.png)
+
+*Average Balance by Segment bar chart — size comparison across segments by the deposits metric.*
+
+![Distribution & Revenue by Segment Bar Charts](Screenshots/Distribution%20%26%20Revenue%20by%20Segment%20bar%20charts.png)
+
+*Dual bar charts: customer Distribution by Segment and Revenue by Segment — comparing volume and financial contribution.*
+
+---
+
+### 7.8 Product Analytics
+
+![Product Analytics — Header & Filters](Screenshots/Product%20Analytics%20Header%20%26%20productsegment%20filters.png)
+
+*Product Analytics page header and product/segment filter controls.*
+
+![Product Analytics — Filters & KPIs](Screenshots/Product%20Analytics%20Filters%20%26%20Key%20Performance%20Indicators.png)
+
+*Expanded filters layout plus the row of Product Analytics Key Performance Indicators.*
+
+![Product Analytics — KPIs & Performance Table](Screenshots/Product%20Analytics%20KPIs%20%26%20Product%20Performance%20breakdown%20table.png)
+
+*Product KPIs (cards) directly above the Product Performance breakdown table for cross-reference.*
+
+![Product Analytics — Average Balance Chart](Screenshots/Product%20Analytics%20Average%20Balance%20chart%20view.png)
+
+*Average Balance view by product — deposit depth per product line.*
+
+![Product Analytics — NPL Rate Chart](Screenshots/Product%20Analytics%20Non-Performing%20Loan%20(NPL)%20Rate%20chart%20view.png)
+
+*Non-Performing Loan (NPL) Rate chart view by product — risk contribution per product line.*
+
+![Product Analytics — Total Revenue & Customer Distribution Charts](Screenshots/Product%20Analytics%20Total%20Revenue%20%26%20Customer%20Distribution%20charts.png)
+
+*Dual charts: Total Revenue by product and Customer Distribution by product for portfolio balance.*
+
+---
+
+### 7.9 Transaction Analytics
+
+![Transaction Analytics — Header & Filters](Screenshots/Transaction%20Analytics%20Header%2C%20description%20%26%20filter%20controls.png)
+
+*Transaction Analytics page header, description paragraph, and filter controls (date range, account type, product).*
+
+![Transaction Analytics — KPI Cards](Screenshots/Transaction%20Analytics%20Key%20Performance%20Indicators%20(KPI%20cards).png)
+
+*Transaction Analytics KPI cards — total volume, total amount, average size, fraud-related counters.*
+
+![Transaction Analytics — Recent Transactions Table](Screenshots/Transaction%20Analytics%20Recent%20Transactions%20data%20table.png)
+
+*Recent Transactions data table with pagination, filters, and per-row status and fraud-suspicion flags.*
+
+![Transaction Analytics — Volume by Type & Product Bars](Screenshots/Transaction%20Analytics%20Volume%20by%20type%20%26%20product%20bar%20charts.png)
+
+*Volume by Type bar chart and Volume by Product bar chart — compositional analysis of transaction streams.*
+
+---
+
+### 7.10 Decision Intelligence
+
+![Decision Intelligence — Header & Filter Controls](Screenshots/Decision%20Intelligence%20%E2%80%93%20Header%20%26%20Filter%20Controls.png)
+
+*Decision Intelligence page header, introductory description, and filter controls.*
+
+![Decision Intelligence — KPI Metrics Overview](Screenshots/Decision%20Intelligence%20%E2%80%93%20KPI%20Metrics%20Overview.png)
+
+*Decision Intelligence KPI Metrics Overview — aggregated scores for the current recommendation batch.*
+
+![Decision Intelligence — Executive Recommendations](Screenshots/Decision%20Intelligence%20%E2%80%93%20Executive%20Recommendations.png)
+
+*Executive Recommendations list — prioritized, categorized, and tagged with the owning domain (Profitability, Risk, Growth).*
+
+---
+
+### 7.11 Data Quality Monitoring
+
+![Data Quality Monitoring Dashboard & Metrics Table](Screenshots/Data%20Quality%20Monitoring%20%E2%80%93%20Dashboard%20%26%20Metrics%20Table.png)
+
+*Data Quality Monitoring dashboard and accompanying Metrics Table — per-schema pass/fail, failure counts, and trend indicators.*
+
+---
+
+### 7.12 Model Monitoring
+
+![Model Monitoring — Header & Configuration](Screenshots/Model%20Monitoring%20%E2%80%93%20Header%20%26%20Configuration.png)
+
+*Model Monitoring header plus Configuration pane — current tracked model, train/production window, alert thresholds.*
+
+![Model Monitoring — KPI Summary Cards](Screenshots/Model%20Monitoring%20%E2%80%93%20KPI%20Summary%20Cards.png)
+
+*Model Monitoring KPI Summary Cards: production data volume, prediction count, accuracy proxy, drift score.*
+
+![Model Monitoring — Performance Metrics Table](Screenshots/Model%20Monitoring%20%E2%80%93%20Performance%20Metrics%20Table.png)
+
+*Model Monitoring Performance Metrics Table — per-model-version tracking of AUC, precision, recall, F1, calibration, and drift versus baseline.*
+
+---
+
+### 7.13 Live Monitor / Real-Time Streaming Analytics
+
+![Live Monitor — Real-time Streaming Analytics & Metrics](Screenshots/Live%20Monitor%20%E2%80%93%20Real-time%20Streaming%20Analytics%20%26%20Metrics.png)
+
+*Live Monitor streaming overview header, throughput metrics, and general streaming health panel.*
+
+![Live Monitor — Payment Failure & Anomaly Alerts](Screenshots/Live%20Monitor%20%E2%80%93%20Payment%20Failure%20%26%20Anomaly%20Alerts.png)
+
+*Dedicated panel view showing Payment Failure and Account Anomaly alert streams.*
+
+![Live Monitor — Recent Alerts Feed (High/Medium)](Screenshots/Live%20Monitor%20%E2%80%93%20Recent%20Alerts%20Feed%20(HighMedium).png)
+
+*Recent Alerts Feed view prioritized for High and Medium severity for rapid NOC triage.*
+
+![Live Monitor — Account Anomalies (Low/High) & High Transaction Volume](Screenshots/Live%20Monitor%20view%20displaying%20Account%20Anomaly%20(Low%20%26%20High)%20and%20High%20Transaction%20Volume%20(Medium)%20alerts..png)
+
+*Account Anomaly alerts spanning Low and High severity alongside a High Transaction Volume (Medium) alert.*
+
+![Live Monitor — Risk Threshold Exceeded (High/Medium) & Payment Failures](Screenshots/Live%20Monitor%20view%20displaying%20Risk%20Threshold%20Exceeded%20(High%20%26%20Medium)%20and%20Payment%20Failure%20alerts..png)
+
+*Risk Threshold Exceeded (High and Medium) alerts interspersed with Payment Failure events.*
+
+![Live Monitor — Critical: Payment Failure & Suspicious Activity](Screenshots/Live%20Monitor%20view%20highlighting%20Payment%20Failure%20(Critical)%20and%20Suspicious%20Activity%20(Critical)%20alerts..png)
+
+*Critical severity tile view highlighting Payment Failure (Critical) and Suspicious Activity (Critical) events — the highest priority for operations.*
+
+![Live Monitor — Low Severity: Risk Thresholds / Payment Failures / Suspicious](Screenshots/Live%20Monitor%20view%20showing%20Risk%20Threshold%20Exceeded%20(Low)%2C%20Payment%20Failure%20(Low)%2C%20and%20Suspicious%20Activity%20alerts..png)
+
+*Low-severity alert view: Risk Threshold Exceeded (Low), Payment Failure (Low), and Suspicious Activity for tracking/audit.*
+
+![Live Monitor — Medium: Risk Thresholds / High Volume / Payment Failures](Screenshots/Live%20Monitor%20view%20showing%20Risk%20Threshold%20Exceeded%2C%20High%20Transaction%20Volume%2C%20and%20Payment%20Failure%20(Medium)%20alerts..png)
+
+*Medium-severity aggregation view: Risk Threshold, High Transaction Volume, and Payment Failure medium-tier alerts.*
+
+---
+
+### 7.14 API & Backend Documentation
+
+![Root API Endpoint (Links)](Screenshots/JSON%20output%20from%20the%20root%20API%20endpoint%20listing%20links%20for%20docs%2C%20health%2C%20auth%2C%20and%20websocket%20routes..png)
+
+*JSON response from the root API endpoint (`/`) exposing the HATEOAS-style link collection (docs, health, auth, websocket, etc.).*
+
+![Health Endpoint (Status, Version, DB State)](Screenshots/JSON%20response%20from%20the%20health%20endpoint%20displaying%20status%20(degraded)%2C%20version%2C%20and%20database%20state..png)
+
+*JSON response from the health endpoint showing operational status (`degraded` sample), version, and database connectivity state.*
+
+![OpenAPI 3.1 JSON Schema (API Info & health paths)](Screenshots/OpenAPI%203.1.0%20JSON%20specification%20schema%20showing%20API%20info%20and%20health%20check%20paths..png)
+
+*Raw `openapi.json` response — OpenAPI 3.1.0 schema root with API info block and `/health*` paths enumerated.*
+
+![Swagger UI — API Banner, Authorize, Endpoint List](Screenshots/Swagger%20UI%20documentation%20page%20showing%20the%20OpenAPI%203.1%20title%20banner%2C%20authorize%20button%2C%20and%20endpoint%20lists..png)
+
+*Swagger UI page: OpenAPI 3.1 banner, Authorize button for JWT, and full endpoint list — the default interactive console at `/docs`.*
+
+![Redoc UI — Banking Analytics API Title & Health Section](Screenshots/Top-level%20Redocly%20documentation%20interface%20displaying%20the%20Banking%20Analytics%20API%20title%2C%20version%2C%20and%20initial%20health%20check%20section..png)
+
+*Top-level Redoc UI (`/redoc`) — Banking Analytics API title, semantic version, and the introductory Health Check section layout.*
+
+![Redoc — Sample Responses for Health Ready & Live](Screenshots/Redocly%20UI%20showing%20documentation%20and%20response%20samples%20for%20apiv1healthready%20and%20apiv1healthlive.png)
+
+*Redoc UI detail view showing sample request/response bodies for `/api/v1/health/ready` and `/api/v1/health/live`.*
+
+---
+
+### 7.15 Miscellaneous UI Artifact
+
+![Share Screen Browser Prompt](Screenshots/Shows%20the%20browser%20prompt%20asking%20to%20choose%20and%20share%20the%20screen..png)
+
+*Browser share-screen prompt triggered when starting the Streamlit screencast recorder — captured for completeness in documentation around walkthrough capture flows.*
+
+
+
+## 8. Technology Stack
+
+### 8.1 Languages & Runtime
 - **Python** 3.11, 3.12, 3.14 (verified)
 - **YAML** for config & GitHub Actions
 - **Templating:** Alembic Mako
 - **SQL** (PostgreSQL 15 dialect + views)
 
-### 7.2 Backend
+### 8.2 Backend
 - **FastAPI** 0.141.x — REST + WebSocket
 - **Uvicorn** — ASGI server
 - **Pydantic v2** — API request/response validation
@@ -233,7 +555,7 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 - **python-jose[cryptography]** — JWT signing
 - **httpx** — test client / outbound HTTP
 
-### 7.3 Analytics & ML
+### 8.3 Analytics & ML
 - **Pandas 3.x** — DataFrames & ETL
 - **NumPy 2.x** — numerics
 - **scikit-learn** — churn models, clustering, scoring pipelines
@@ -241,31 +563,31 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 - **Pandera 0.33.x** — data-quality contracts with custom dispatch layer
 - **Pydantic-settings** — typed configuration loading
 
-### 7.4 Streaming & Live Ops
+### 8.4 Streaming & Live Ops
 - **Apache Kafka** (Confluent 7.4 images) — event bus
 - **Redis 7** — feature store + alert cache
 - **confluent-kafka** Python client
 
-### 7.5 Frontend
+### 8.5 Frontend
 - **Streamlit 1.63** — multi-page UI framework
 - **Plotly Express / Figure Factory** — charts
 - **pandas** Styler — table rendering
 
-### 7.6 Testing & Quality
+### 8.6 Testing & Quality
 - **pytest 9.x**
 - **pytest-cov**, **pytest-mock**, **pytest-asyncio**
 - **Bandit** — SAST
 - **pip-audit** — SCA on requirements
 - **flake8**, **black**, **isort**, **mypy**, **pylint**
 
-### 7.7 DevOps
+### 8.7 DevOps
 - **Docker** (3 Dockerfiles) + **docker-compose** 3.8 (core + streaming overlays)
 - **Kubernetes 1.x** manifests under `k8s/production/` (Deployment, Service, ConfigMap, Secret)
 - **GitHub Actions** (checkout@v4, setup-python@v5, setup-buildx@v3, login-action@v3, build-push-action@v5, upload-artifact@v4, codecov@v4)
 
 ---
 
-## 8. Project Structure
+## 9. Project Structure
 
 ```
 Banking Customer Profitability and Risk Analytics Platform/
@@ -334,11 +656,11 @@ Banking Customer Profitability and Risk Analytics Platform/
 
 ---
 
-## 9. Data Architecture
+## 10. Data Architecture
 
 The warehouse follows a **classic Kimball star schema** anchored on customer, account, product, branch, and date dimensions.
 
-### 9.1 Dimensional Model — Inventory
+### 10.1 Dimensional Model — Inventory
 
 | Table | Kind | Grain | Key |
 |-------|------|-------|-----|
@@ -356,7 +678,7 @@ The warehouse follows a **classic Kimball star schema** anchored on customer, ac
 | `fact_customer_profitability` | Fact | One row per customer × period | `profitability_id` |
 | `fact_customer_risk` | Fact | One row per customer × period | `risk_id` |
 
-### 9.2 Data Flow Layers
+### 10.2 Data Flow Layers
 
 1. **Landing / Raw.** Batches or stream events arrive as raw DataFrames.
 2. **Staging with schema validation.** Raw → Pandera `BaseSchema.validate_with_report()`.
@@ -369,7 +691,7 @@ The warehouse follows a **classic Kimball star schema** anchored on customer, ac
 4. **Analytical presentation.** SQL views under `sql/views/` compute domain outputs.
 5. **API consumption.** FastAPI routers serve the views or equivalent ORM queries.
 
-### 9.3 Domain-to-Table Mapping
+### 10.3 Domain-to-Table Mapping
 
 | Domain | Source Tables | Key Views |
 |--------|---------------|-----------|
@@ -385,14 +707,14 @@ The warehouse follows a **classic Kimball star schema** anchored on customer, ac
 
 ---
 
-## 10. Database
+## 11. Database
 
 ### 10.1 Engine
 - **PostgreSQL 15** (Alpine image in docker-compose).
 - **Alembic** migrations under `sql/migrations/versions/` (001 streaming tables, 002 realtime cols).
 - Full DDL snapshot provided in `sql/schema/schema.sql` for standalone provisioning.
 
-### 10.2 Connection
+### 11.2 Connection
 Default (override via env):
 
 ```
@@ -403,7 +725,7 @@ user     = postgres
 password = from env
 ```
 
-### 10.3 Highlights
+### 11.3 Highlights
 - All tables owned by the application user.
 - Proper foreign keys from fact tables to dimensions.
 - Coverage indexes on `customer_id`, `account_id`, `transaction_date`, `segment_id`, `period_start/end`.
@@ -412,11 +734,11 @@ password = from env
 
 ---
 
-## 11. Analytics
+## 12. Analytics
 
 Every analytics module in `src/` follows a consistent **Orchestrator** pattern. Each ships a base mixin, a feature-engineering module, one or more model/statistic modules, and an orchestrator composing them end-to-end.
 
-### 11.1 Module Inventory
+### 12.1 Module Inventory
 
 | Module | Location | Produces |
 |--------|----------|----------|
@@ -432,7 +754,7 @@ Every analytics module in `src/` follows a consistent **Orchestrator** pattern. 
 | Scenario Analysis | `src/advanced_analytics/scenario_analysis.py` | Stress scenarios against risk & profitability. |
 | Data Governance | `src/data_governance/` | Lineage, quality scoring. |
 
-### 11.2 Credit Risk Scoring Normalization (Verified Bug Fix)
+### 12.2 Credit Risk Scoring Normalization (Verified Bug Fix)
 In `src/credit_risk_analytics/scoring.py`, the `ON_TIME_PAYMENT_RATE` metric:
 - Values are clamped to `[0, 100]` (percent).
 - No pre-inversion by `100 - value`.
@@ -448,15 +770,15 @@ All 15 tests in `tests/unit/credit_risk_analytics/test_scoring.py` pass, includi
 
 ---
 
-## 12. Data Quality
+## 13. Data Quality
 
-### 12.1 Principles
+### 13.1 Principles
 1. **Schema-on-read, strictly.** Every analytical input DataFrame passes a Pandera `DataFrameModel` with `strict=True`, `coerce=True`.
 2. **No silent pass.** If any business rule fails, `validate_with_report()` returns `is_valid=False` plus a report DataFrame naming every violated row × rule.
 3. **Every rule from the original `checks=` kwarg is preserved.** When the Pandera 0.33 upgrade removed `Field(checks=[...])` support, every rule was re-expressed as entries in per-schema `_field_validators` or `_cross_field_validators` registries. A total of 50+ range/non-neg/domain rules plus 10+ cross-field rules are active.
 4. **Legitimately optional data is tolerated.** `nullable=True` columns missing from an input frame are auto-populated with NaN for active-customer, open-account scenarios.
 
-### 12.2 BaseSchema Pipeline (`src/data_quality/base.py`)
+### 13.2 BaseSchema Pipeline (`src/data_quality/base.py`)
 
 ```
 DataFrame
@@ -467,7 +789,7 @@ DataFrame
   → (is_valid, report_df)
 ```
 
-### 12.3 Rules Implemented (by Schema)
+### 13.3 Rules Implemented (by Schema)
 
 | Schema | Per-Column Validators | Cross-Field Validators |
 |--------|----------------------|------------------------|
@@ -485,7 +807,7 @@ DataFrame
 | `FactCustomerProfitabilitySchema` | interest, fee, cost, operating_costs, account_count, tx_count all ≥ 0 | `period_end ≥ period_start` |
 | `FactCustomerRiskSchema` | credit_score ∈ [300,850], exposure ≥ 0, dpd ≥ 0, delinquent ≥ 0, PD ∈ [0,1], LGD ∈ [0,1] | `period_end ≥ period_start` |
 
-### 12.4 Testing
+### 13.4 Testing
 All 40 tests in `tests/unit/data_quality/` pass, including the four originally-named failing tests and the additional `test_zero_transaction_amount` rule regression:
 
 - `test_non_negative_with_negative` — semantic assertion after NumPy boolean singleton fix.
@@ -496,9 +818,9 @@ All 40 tests in `tests/unit/data_quality/` pass, including the four originally-n
 
 ---
 
-## 13. API Documentation
+## 14. API Documentation
 
-### 13.1 Route Inventory
+### 14.1 Route Inventory
 
 | Prefix | Router | Purpose |
 |--------|--------|---------|
@@ -518,17 +840,17 @@ All 40 tests in `tests/unit/data_quality/` pass, including the four originally-n
 | `/redoc` | built-in Redoc | polished OpenAPI documentation |
 | `/openapi.json` | raw schema | OpenAPI 3.1 JSON |
 
-### 13.2 Auto-Generated Docs Served Natively
+### 14.2 Auto-Generated Docs Served Natively
 - **Swagger UI:** `<host>/docs`
 - **Redoc UI:** `<host>/redoc`
 - **Raw OpenAPI 3.1 JSON:** `<host>/openapi.json`
 
-### 13.3 Response Contracts
+### 14.3 Response Contracts
 All responses are Pydantic v2-schematized. Field types are strictly enforced. Every non-trivial router exposes request validation schemas in `api/schemas/*.py`.
 
 ---
 
-## 14. Installation
+## 15. Installation
 
 ### 14.1 Option A — Local Python (dev mode)
 
@@ -551,13 +873,13 @@ Copy-Item .env.example .env
 
 Proceed to §19 (Database Setup).
 
-### 14.2 Option B — Docker Compose (quickest full stack)
+### 15.2 Option B — Docker Compose (quickest full stack)
 
 See §22.
 
 ---
 
-## 15. Prerequisites
+## 16. Prerequisites
 
 | Prerequisite | Minimum Version | Notes |
 |--------------|----------------:|-------|
@@ -571,7 +893,7 @@ See §22.
 
 ---
 
-## 16. Environment Variables
+## 17. Environment Variables
 
 See [`.env.example`](.env.example) for a complete template. Every sensitive variable is read via env; nothing is hardcoded.
 
@@ -599,21 +921,21 @@ See [`.env.example`](.env.example) for a complete template. Every sensitive vari
 
 ---
 
-## 17. [Duplicate placeholder retained for numbering parity]
+## 18. [Duplicate placeholder retained for numbering parity]
 
 (This entry preserved to match the 36-section index published by the platform charter. See §18 through §36 for substantive content.)
 
 ---
 
-## 18. [Duplicate placeholder retained for numbering parity]
+## 19. [Duplicate placeholder retained for numbering parity]
 
 (This entry preserved to match the 36-section index published by the platform charter. See §19 onward.)
 
 ---
 
-## 19. Database Setup
+## 20. Database Setup
 
-### 19.1 Provision Postgres (native)
+### 20.1 Provision Postgres (native)
 
 ```sql
 CREATE USER banking_app WITH PASSWORD '<DB_PASSWORD from .env>';
@@ -631,13 +953,13 @@ psql -U banking_app -d banking_analytics -f sql/schema/schema.sql
 # python scripts/seed_data.py
 ```
 
-### 19.2 Alembic Migrations
+### 20.2 Alembic Migrations
 
 ```powershell
 alembic upgrade head          # Runs versions 001 → 002
 ```
 
-### 19.3 Views
+### 20.3 Views
 
 All views under `sql/views/*.sql` must be applied after the schema:
 
@@ -649,9 +971,9 @@ Get-ChildItem sql/views/*.sql | Sort-Object Name | ForEach-Object {
 
 ---
 
-## 20. Running the Backend
+## 21. Running the Backend
 
-### 20.1 Local Dev Mode
+### 21.1 Local Dev Mode
 
 ```powershell
 $env:PYTHONPATH = "."
@@ -666,7 +988,7 @@ Verify the API is live:
 - OpenAPI JSON: `http://localhost:8000/openapi.json`
 - Root link collection: `http://localhost:8000/`
 
-### 20.2 Local Unit Test Mode (SQLite)
+### 21.2 Local Unit Test Mode (SQLite)
 
 Useful for lightweight runs without Postgres:
 
@@ -677,7 +999,7 @@ pytest tests/unit -v --ignore=tests/unit/streaming/kafka --ignore=tests/unit/mod
 
 ---
 
-## 21. Running the Frontend
+## 22. Running the Frontend
 
 Ensure the backend is running first (frontend calls API endpoints for most tabs).
 
@@ -690,7 +1012,7 @@ Then open `http://localhost:8501`. The sidebar exposes 13 pages.
 
 ---
 
-## 22. Docker Setup
+## 23. Docker Setup
 
 ### 22.1 Images Provided
 
@@ -700,7 +1022,7 @@ Then open `http://localhost:8501`. The sidebar exposes 13 pages.
 | Streamlit UI | `Dockerfile.streamlit` | `streamlit run frontend/app.py` |
 | Streaming Worker | `Dockerfile.streaming` | Standalone streaming consumer |
 
-### 22.2 Core Stack (Postgres + API + Streamlit + optional Pipeline)
+### 23.2 Core Stack (Postgres + API + Streamlit + optional Pipeline)
 
 ```powershell
 Copy-Item .env.example .env     # set DB_PASSWORD at minimum
@@ -715,7 +1037,7 @@ Services exposed:
 | UI | `http://localhost:8501/` | Depends on postgres + API healthy |
 | Postgres | `localhost:5432` | Named volume persists data |
 
-### 22.3 Add Streaming Stack
+### 23.3 Add Streaming Stack
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.streaming.yml up -d --build
@@ -723,13 +1045,13 @@ docker compose -f docker-compose.yml -f docker-compose.streaming.yml up -d --bui
 
 Provisions Redis, Kafka, Zookeeper, and the streaming worker.
 
-### 22.4 Pipeline Only
+### 23.4 Pipeline Only
 
 ```powershell
 docker compose --profile pipeline up -d --build pipeline
 ```
 
-### 22.5 Verified Correctness (Docker Paths)
+### 23.5 Verified Correctness (Docker Paths)
 Audited during the platform audit:
 
 - `Dockerfile.streamlit` → `CMD streamlit run frontend/app.py` (correct)
@@ -738,14 +1060,14 @@ Audited during the platform audit:
 
 ---
 
-## 23. Testing
+## 24. Testing
 
-### 23.1 Framework
+### 24.1 Framework
 
 - **pytest** with plugins: `pytest-cov`, `pytest-mock`, `pytest-asyncio`.
 - Configured in `pytest.ini`.
 
-### 23.2 Core Test Run
+### 24.2 Core Test Run
 
 ```powershell
 # Unit + API tests (no external infra):
@@ -757,7 +1079,7 @@ python -m pytest tests/unit tests/api `
 
 Verified result (current audit): **400 passed, 3 skipped** (excludes streaming/kafka and models collection issues).
 
-### 23.3 Domain-Focused Runs
+### 24.3 Domain-Focused Runs
 
 ```powershell
 # Data quality (all 40 tests):
@@ -770,7 +1092,7 @@ python -m pytest tests/unit/credit_risk_analytics/test_scoring.py -q
 python -m pytest tests/api/ -q
 ```
 
-### 23.4 Full Integration Run (requires services)
+### 24.4 Full Integration Run (requires services)
 
 ```powershell
 docker compose -f docker-compose.yml -f docker-compose.streaming.yml up -d postgres redis kafka zookeeper
@@ -778,7 +1100,7 @@ $env:DB_HOST=localhost; $env:REDIS_HOST=localhost; $env:KAFKA_BROKER=localhost:9
 python -m pytest tests/integration -v
 ```
 
-### 23.5 Known External-Dependency Failures (Documented, Not Masked)
+### 24.5 Known External-Dependency Failures (Documented, Not Masked)
 
 Three categories of known issues surface on a fresh Python 3.14 sandbox. None are masked by `|| true` anywhere in code, CI, or this README:
 
@@ -795,7 +1117,7 @@ Three categories of known issues surface on a fresh Python 3.14 sandbox. None ar
 
 ---
 
-## 24. Code Quality
+## 25. Code Quality
 
 The CI lint job runs the following tools. Each lint step uses `continue-on-error: true` with an in-YAML rationale comment. **Lint output is advisory-only and must never silently mask a functionally-correct commit;** style regressions are surfaced to the author for out-of-band remediation:
 
@@ -818,9 +1140,9 @@ The CI lint job runs the following tools. Each lint step uses `continue-on-error
 
 ---
 
-## 25. CI/CD
+## 26. CI/CD
 
-### 25.1 CI Pipeline (`.github/workflows/ci.yml`)
+### 26.1 CI Pipeline (`.github/workflows/ci.yml`)
 
 Runs on every push/PR to `main` and `develop`:
 
@@ -839,7 +1161,7 @@ Runs on every push/PR to `main` and `develop`:
 - No `|| true` or `|| echo …` hiding in any test/build step. Precisely one ignore-path list per unit-test job for the two known external-dependency collection errors (Kafka Python client, SQLAlchemy Py3.14 typing).
 - Codecov upload gated on step success and `fail_ci_if_error: false` (token optional).
 
-### 25.2 CD Pipeline (`.github/workflows/cd.yml`)
+### 26.2 CD Pipeline (`.github/workflows/cd.yml`)
 
 Trigger on push to `main` **or** manual `workflow_dispatch` with two inputs:
 
@@ -863,7 +1185,7 @@ Jobs:
 - Rollback input was already defined as a `workflow_dispatch` input; an inline comment documents that `github.event.inputs.rollback` is guaranteed to resolve for `workflow_dispatch` events.
 - Rollback step prints clear operator guidance: `Note: Manual kubectl rollout undo required if Kubernetes cluster is configured`.
 
-### 25.3 CI/CD Items That Require GitHub Secrets
+### 26.3 CI/CD Items That Require GitHub Secrets
 
 These cannot be reproduced locally and will only resolve under actual GitHub execution:
 
@@ -875,7 +1197,7 @@ These cannot be reproduced locally and will only resolve under actual GitHub exe
 
 ---
 
-## 26. Deployment
+## 27. Deployment
 
 ### 26.1 Paths
 1. **Docker Compose** (§22) — quickest for single-node / on-prem.
@@ -885,7 +1207,7 @@ These cannot be reproduced locally and will only resolve under actual GitHub exe
    - `deployment.yaml` — API + UI replicas, probes, resources
    - `service.yaml` — ClusterIP / LoadBalancer
 
-### 26.2 CD Deployment
+### 28.2 CD Deployment
 ```
 Push to main → deploy-staging → manual dispatch with environment=production → deploy-production
 ```
@@ -894,7 +1216,7 @@ Rollback via manual dispatch with `rollback=true` (operator must also run `kubec
 
 ---
 
-## 27. Security
+## 29. Security
 
 See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the full multi-phase security report. Highlights:
 
@@ -910,28 +1232,28 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 
 ---
 
-## 28. Performance & Scalability
+## 30. Performance & Scalability
 
-### 28.1 Horizontal Scaling Targets
+### 30.1 Horizontal Scaling Targets
 - **API.** Stateless behind any load balancer; horizontally scalable to N replicas. Sessionless JWT.
 - **Streamlit UI.** Stateless per tab render; deploy N replicas and sticky sessions if desired.
 - **Postgres.** Primary with read replicas for read-heavy dashboard loads.
 - **Redis.** Cluster mode shards the live alert cache + feature store.
 - **Kafka.** 3+ broker cluster for high-volume streaming ingest.
 
-### 28.2 Performance Guardrails
+### 30.2 Performance Guardrails
 - `sql/views/` SQL tuned with coverage indexes on dimension keys and dates.
 - FastAPI responses are Pydantic v2 — ~10× faster parse than v1 for large lists.
 - Pandera strict validation happens once at ingest, not per API call.
 - Streamlit frontend has `CACHE_TTL` env (default 3600 s) on heavy aggregations.
 - Docker healthchecks in every compose service (Postgres, API, UI) prevent traffic from hitting cold pods.
 
-### 28.3 Proven Scales
+### 30.3 Proven Scales
 - Static datasets of 10,000+ customers and 1M+ data points (as shown on the Home tab) are handled without issues in the test harness.
 
 ---
 
-## 29. Advantages
+## 31. Advantages
 
 | # | Advantage | Details |
 |---|-----------|---------|
@@ -948,7 +1270,7 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 
 ---
 
-## 30. Use Cases
+## 32. Use Cases
 
 1. **Quarterly profitability review** — Finance team downloads the executive overview and customer-level profitability table, filtered by region/segment.
 2. **Risk committee** — Risk team slices by risk band and exposure in Credit Risk; drills into Detailed Risk Analysis & Delinquency Table.
@@ -961,7 +1283,7 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 
 ---
 
-## 31. Troubleshooting
+## 33. Troubleshooting
 
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
@@ -980,7 +1302,7 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 
 ---
 
-## 32. Future Enhancements
+## 34. Future Enhancements
 
 1. **Feature Store hardening.** Promote Redis feature store to Feast or equivalent for online/offline consistency.
 2. **MLflow integration.** Track model version, dataset, and metrics per promoted model for ML governance.
@@ -995,7 +1317,7 @@ See [`docs/security/SECURITY_GUIDE.md`](docs/security/SECURITY_GUIDE.md) for the
 
 ---
 
-## 33. Contributing
+## 35. Contributing
 
 1. Fork the repository.
 2. Create a feature branch (`git checkout -b feat/<name>` or `fix/<issue-id>-<slug>`).
@@ -1012,13 +1334,8 @@ Branch model:
 
 ---
 
-## 34. License
 
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for the full text.
-
----
-
-## 35. Project Status
+## 36. Project Status
 
 | Capability | Status |
 |------------|--------|
@@ -1037,363 +1354,9 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for the full text.
 | 64 in-app screenshots + 1 cover image + full README | ✅ Shipped |
 | Security audits, phased implementation reports, architecture guides | ✅ Shipped (35 files under `docs/`) |
 
-Genuine remaining items (documented, not masked):
-- `confluent_kafka` Python client must be installed separately to collect Kafka unit tests (3 tests; see §23.5 item 1).
-- SQLAlchemy 2.0.36 + Python 3.14 typing edge case in streaming models tests (see §23.5 item 2).
-- GitHub-dependent CD operations (registry push, Codecov, Environments protection rules) require repo secrets (see §25.3).
-- `datetime.utcnow()` deprecation warnings in 15 files (100+ call sites, src + tests). Non-blocking; semantic upgrade to `datetime.now(datetime.UTC)` scheduled for a dedicated follow-up PR (see §23.5 item 3 and §31 Troubleshooting).
 
 ---
 
-## 36. Complete Screenshots
-
-All 64 in-app screenshots are shown below, grouped by dashboard page. The cover image at the top of the README is the additional GitHub cover graphic.
-
-> Markdown note: image paths below are written as `Screenshots/<filename>` relative to the repository root, with spaces encoded as `%20` for broadest Markdown renderer compatibility. If a filename contains the Unicode em-dash character (`–`), it is reproduced verbatim.
-
----
-
-### 36.1 Home / Platform Overview
-
-![Welcome Overview](Screenshots/Home%20tab%20Welcome%20to%20the%20Banking%20Customer%20Profitability%20and%20Risk%20Analytics%20Platform%20%26%20core%20overview.png)
-
-*Welcome screen — platform mission statement, core capabilities overview, and entry-point navigation.*
-
-![Getting Started & Platform Statistics](Screenshots/Home%20tab%20Getting%20Started%20guide%20and%20Platform%20Statistics%20KPI%20cards%20(10%2C000%2B%20customers%2C%201M%2B%20data%20points)..png)
-
-*Getting Started guide plus Platform Statistics KPI cards confirming 10,000+ customers and 1M+ data points processed.*
-
-![Quick Navigation & Data Source Architecture](Screenshots/Home%20tab%20Quick%20Navigation%20and%20Data%20Source%20architecture%20description..png)
-
-*Quick Navigation panel plus high-level Data Source architecture describing the warehouse and streaming data flow.*
-
----
-
-### 36.2 Executive Overview Dashboard
-
-![Executive KPIs & Top Recommendations](Screenshots/Executive%20Overview%20tab%20Key%20Performance%20Indicators%20(Total%20Customers%2C%20Revenue%2C%20Profit%2C%20High%20Risk)%20and%20top%20recommendations.png)
-
-*Executive Overview headline KPI row (Total Customers, Revenue, Profit, High Risk) and prioritized top recommendations feed.*
-
-![Executive Date, Region, Segment Filters](Screenshots/Executive%20Overview%20tab%20Date%20range%2C%20Region%2C%20and%20Segment%20filter%20options..png)
-
-*Date-range picker, Region multi-select, and Segment multi-select filters drive every downstream KPI and chart on the Executive Overview page.*
-
-![Executive Revenue Trend & Risk Distribution](Screenshots/Executive%20Overview%20tab%20Revenue%20by%20Customer%20line%20chart%20%26%20Risk%20Score%20by%20Level%20bar%20chart..png)
-
-*Revenue-by-Customer line chart over the reporting period alongside Risk-Score-by-Level bar chart summarizing the credit portfolio composition.*
-
-![Expanded Executive Recommendations](Screenshots/Executive%20Overview%20tab%20Expanded%20Executive%20Recommendations%20(Profitability%2C%20Risk%2C%20Growth%20action%20items)..png)
-
-*Expanded Executive Recommendations panel with categorized action items for Profitability, Risk, and Growth initiatives.*
-
-![Customer Metrics Summary Table](Screenshots/Executive%20Overview%20tab%20Customer%20Metrics%20Summary%20data%20table%20view..png)
-
-*Customer Metrics Summary data table view — executive-accessible drill-down of the headline KPIs with per-row detail.*
-
-![PDF Print Preview of Executive Overview](Screenshots/Shows%20the%20Executive%20Overview%20dashboard%20page%20inside%20the%20browser%27s%20Save%20as%20PDF%20%20print%20preview%20dialog..png)
-
-*Browser print-preview dialog exporting the Executive Overview dashboard directly to PDF for board meetings.*
-
-![Streamlit Screencast Overlay](Screenshots/Shows%20the%20Streamlit%20Record%20a%20screencast%20overlay%20modal%20on%20the%20Executive%20Overview%20page..png)
-
-*Streamlit's built-in "Record a screencast" overlay shown over the Executive Overview page for walkthrough capture.*
-
----
-
-### 36.3 Customer 360 Profile
-
-![Customer 360 — Search & Profile Card](Screenshots/Customer%20360%20tab%20Customer%20search%20bar%20and%20initial%20customer%20profile%20info%20(Nasir%20Khan)..png)
-
-*Customer search bar and initial profile header for customer "Nasir Khan" — the starting point for any 360 investigation.*
-
-![Customer 360 — Metrics Cards & Risk Information](Screenshots/Customer%20360%20tab%20Customer%20metrics%20cards%20(Revenue%2C%20Net%20Profit%2C%20Risk%20Score%2C%20CLV)%20and%20Risk%20Information..png)
-
-*Customer metrics cards (Revenue, Net Profit, Risk Score, CLV) paired with a structured Risk Information pane capturing the risk profile at a glance.*
-
-![Customer 360 — Revenue vs Profit & Risk vs CLV Charts](Screenshots/Customer%20360%20Revenue%20vs%20Profit%20%26%20Risk%20vs%20CLV%20Charts.png)
-
-*Quadrant view combining Revenue-vs-Profit (financial) and Risk-vs-CLV (strategic) to identify the most valuable retention and upsell targets.*
-
-![Customer 360 — Risk Info & Recent Transactions Table](Screenshots/Customer%20360%20Risk%20Info%20%26%20Recent%20Transactions%20Table.png)
-
-*Risk Information pane plus a paginated Recent Transactions table showing latest customer-level activity and flagged behavior.*
-
----
-
-### 36.4 Profitability Analytics
-
-![Profitability — Header, Filter Controls & Top Layout](Screenshots/Profitability%20Header%2C%20Filter%20Controls%20%26%20Top%20Layout.png)
-
-*Profitability Analytics page header, filter controls (date range, segment, region), and introductory description text.*
-
-![Profitability — KPI Cards (Revenue, Profit, Customers)](Screenshots/Profitability%20Key%20Performance%20Indicators%20(Revenue%2C%20Profit%2C%20Customers).png)
-
-*Profitability KPI cards at the top of the page: Revenue, Profit, and Total Customers in the filtered cohort.*
-
-![Profitability — Revenue & Profit Distribution by Customer Charts](Screenshots/Profitability%20Revenue%20%26%20Profit%20Distribution%20by%20Customer%20Charts.png)
-
-*Two distribution charts showing customer-level Revenue and Profit spreads across the current cohort.*
-
-![Profitability — Customer Profitability Metrics Data Table](Screenshots/Profitability%20Customer%20Profitability%20Metrics%20Data%20Table.png)
-
-*Customer Profitability Metrics Data Table — per-customer granularity with all profitability inputs (interest income, fee income, operating costs, risk costs) plus net profit rank.*
-
----
-
-### 36.5 Credit Risk Analytics
-
-![Credit Risk — Header & Filter Selection Panel](Screenshots/Credit%20Risk%20Header%20%26%20Filter%20Selection%20Panel.png)
-
-*Credit Risk Analytics header with page description and the filter selection panel driving the downstream KPI, chart, and table views.*
-
-![Credit Risk — Risk KPIs](Screenshots/Credit%20Risk%20Risk%20KPIs%20(High%20Risk%20Count%2C%20Avg%20Score%2C%20Total%20Exposure).png)
-
-*Credit Risk KPI cards: High Risk Count, Average Risk Score, and Total Exposure.*
-
-![Credit Risk — Risk Score by Level & Exposure Charts](Screenshots/Credit%20Risk%20Risk%20Score%20by%20Level%20%26%20Exposure%20Charts.png)
-
-*Risk Score by Level distribution (bar chart) plus Exposure (aggregate bar chart) combining volume and severity analysis.*
-
-![Credit Risk — Detailed Risk Analysis & Delinquency Table](Screenshots/Credit%20Risk%20Detailed%20Risk%20Analysis%20%26%20Delinquency%20Table.png)
-
-*Detailed Risk Analysis and Delinquency Table — analyst view with risk bands, delinquency bucket counters, and exposure per customer/account.*
-
----
-
-### 36.6 Churn Analytics
-
-![Churn — Header, Filter Options, KPI Preview](Screenshots/Churn%20Analytics%20header%2C%20filter%20options%2C%20KPI%20preview.png)
-
-*Churn Analytics page header, filter options (region, segment, model threshold), and compact KPI preview at the top of the page.*
-
-![Churn — KPI Cards](Screenshots/Churn%20KPIs%20(High%20Churn%20Risk%2C%20Avg%20Churn%20Probability%2C%20Total%20Customers).png)
-
-*Churn KPI cards: High Churn Risk count, Average Churn Probability, and Total Customers in scope.*
-
-![Churn — Risk & Probability Distribution Charts](Screenshots/Churn%20Risk%20%26%20Churn%20Probability%20distribution%20charts.png)
-
-*Churn Risk distribution and Churn Probability distribution — side-by-side charts describing the shape of attrition risk in the portfolio.*
-
-![Churn — Predictions Probability & Risk Table](Screenshots/Churn%20Predictions%20customer%20probability%20%26%20risk%20table.png)
-
-*Churn Predictions table: per-customer probability, risk tier, and key risk drivers for analyst review.*
-
-![Churn — Filtered High-Risk Customers Table](Screenshots/Filtered%20High%20Churn%20Risk%20Customers%20table.png)
-
-*Filtered High Churn Risk Customers table — pre-filtered view of only the high-priority retention list for marketing action.*
-
----
-
-### 36.7 Customer Segmentation
-
-![Segmentation Filters](Screenshots/customer-segmentation-filters.png)
-
-*Segmentation filters UI — parameters governing business-rule and clustering-based segmentation logic.*
-
-![Segmentation KPIs](Screenshots/Segmentation%20KPIs%20(Total%20Segments%2C%20Largest%20Segment%2C%20Total%20Customers).png)
-
-*Segmentation KPI cards: Total Segments, Largest Segment by membership, and Total Customers segmented.*
-
-![Segment Data Table](Screenshots/Customer%20Segments%20data%20table.png)
-
-*Customer Segments data table — per-segment row with profile metrics and counts.*
-
-![Average Balance by Segment Bar Chart](Screenshots/Average%20Balance%20by%20Segment%20bar%20chart.png)
-
-*Average Balance by Segment bar chart — size comparison across segments by the deposits metric.*
-
-![Distribution & Revenue by Segment Bar Charts](Screenshots/Distribution%20%26%20Revenue%20by%20Segment%20bar%20charts.png)
-
-*Dual bar charts: customer Distribution by Segment and Revenue by Segment — comparing volume and financial contribution.*
-
----
-
-### 36.8 Product Analytics
-
-![Product Analytics — Header & Filters](Screenshots/Product%20Analytics%20Header%20%26%20productsegment%20filters.png)
-
-*Product Analytics page header and product/segment filter controls.*
-
-![Product Analytics — Filters & KPIs](Screenshots/Product%20Analytics%20Filters%20%26%20Key%20Performance%20Indicators.png)
-
-*Expanded filters layout plus the row of Product Analytics Key Performance Indicators.*
-
-![Product Analytics — KPIs & Performance Table](Screenshots/Product%20Analytics%20KPIs%20%26%20Product%20Performance%20breakdown%20table.png)
-
-*Product KPIs (cards) directly above the Product Performance breakdown table for cross-reference.*
-
-![Product Analytics — Average Balance Chart](Screenshots/Product%20Analytics%20Average%20Balance%20chart%20view.png)
-
-*Average Balance view by product — deposit depth per product line.*
-
-![Product Analytics — NPL Rate Chart](Screenshots/Product%20Analytics%20Non-Performing%20Loan%20(NPL)%20Rate%20chart%20view.png)
-
-*Non-Performing Loan (NPL) Rate chart view by product — risk contribution per product line.*
-
-![Product Analytics — Total Revenue & Customer Distribution Charts](Screenshots/Product%20Analytics%20Total%20Revenue%20%26%20Customer%20Distribution%20charts.png)
-
-*Dual charts: Total Revenue by product and Customer Distribution by product for portfolio balance.*
-
----
-
-### 36.9 Transaction Analytics
-
-![Transaction Analytics — Header & Filters](Screenshots/Transaction%20Analytics%20Header%2C%20description%20%26%20filter%20controls.png)
-
-*Transaction Analytics page header, description paragraph, and filter controls (date range, account type, product).*
-
-![Transaction Analytics — KPI Cards](Screenshots/Transaction%20Analytics%20Key%20Performance%20Indicators%20(KPI%20cards).png)
-
-*Transaction Analytics KPI cards — total volume, total amount, average size, fraud-related counters.*
-
-![Transaction Analytics — Recent Transactions Table](Screenshots/Transaction%20Analytics%20Recent%20Transactions%20data%20table.png)
-
-*Recent Transactions data table with pagination, filters, and per-row status and fraud-suspicion flags.*
-
-![Transaction Analytics — Volume by Type & Product Bars](Screenshots/Transaction%20Analytics%20Volume%20by%20type%20%26%20product%20bar%20charts.png)
-
-*Volume by Type bar chart and Volume by Product bar chart — compositional analysis of transaction streams.*
-
----
-
-### 36.10 Decision Intelligence
-
-![Decision Intelligence — Header & Filter Controls](Screenshots/Decision%20Intelligence%20%E2%80%93%20Header%20%26%20Filter%20Controls.png)
-
-*Decision Intelligence page header, introductory description, and filter controls.*
-
-![Decision Intelligence — KPI Metrics Overview](Screenshots/Decision%20Intelligence%20%E2%80%93%20KPI%20Metrics%20Overview.png)
-
-*Decision Intelligence KPI Metrics Overview — aggregated scores for the current recommendation batch.*
-
-![Decision Intelligence — Executive Recommendations](Screenshots/Decision%20Intelligence%20%E2%80%93%20Executive%20Recommendations.png)
-
-*Executive Recommendations list — prioritized, categorized, and tagged with the owning domain (Profitability, Risk, Growth).*
-
----
-
-### 36.11 Data Quality Monitoring
-
-![Data Quality Monitoring Dashboard & Metrics Table](Screenshots/Data%20Quality%20Monitoring%20%E2%80%93%20Dashboard%20%26%20Metrics%20Table.png)
-
-*Data Quality Monitoring dashboard and accompanying Metrics Table — per-schema pass/fail, failure counts, and trend indicators.*
-
----
-
-### 36.12 Model Monitoring
-
-![Model Monitoring — Header & Configuration](Screenshots/Model%20Monitoring%20%E2%80%93%20Header%20%26%20Configuration.png)
-
-*Model Monitoring header plus Configuration pane — current tracked model, train/production window, alert thresholds.*
-
-![Model Monitoring — KPI Summary Cards](Screenshots/Model%20Monitoring%20%E2%80%93%20KPI%20Summary%20Cards.png)
-
-*Model Monitoring KPI Summary Cards: production data volume, prediction count, accuracy proxy, drift score.*
-
-![Model Monitoring — Performance Metrics Table](Screenshots/Model%20Monitoring%20%E2%80%93%20Performance%20Metrics%20Table.png)
-
-*Model Monitoring Performance Metrics Table — per-model-version tracking of AUC, precision, recall, F1, calibration, and drift versus baseline.*
-
----
-
-### 36.13 Live Monitor / Real-Time Streaming Analytics
-
-![Live Monitor — Real-time Streaming Analytics & Metrics](Screenshots/Live%20Monitor%20%E2%80%93%20Real-time%20Streaming%20Analytics%20%26%20Metrics.png)
-
-*Live Monitor streaming overview header, throughput metrics, and general streaming health panel.*
-
-![Live Monitor — Payment Failure & Anomaly Alerts](Screenshots/Live%20Monitor%20%E2%80%93%20Payment%20Failure%20%26%20Anomaly%20Alerts.png)
-
-*Dedicated panel view showing Payment Failure and Account Anomaly alert streams.*
-
-![Live Monitor — Recent Alerts Feed (High/Medium)](Screenshots/Live%20Monitor%20%E2%80%93%20Recent%20Alerts%20Feed%20(HighMedium).png)
-
-*Recent Alerts Feed view prioritized for High and Medium severity for rapid NOC triage.*
-
-![Live Monitor — Account Anomalies (Low/High) & High Transaction Volume](Screenshots/Live%20Monitor%20view%20displaying%20Account%20Anomaly%20(Low%20%26%20High)%20and%20High%20Transaction%20Volume%20(Medium)%20alerts..png)
-
-*Account Anomaly alerts spanning Low and High severity alongside a High Transaction Volume (Medium) alert.*
-
-![Live Monitor — Risk Threshold Exceeded (High/Medium) & Payment Failures](Screenshots/Live%20Monitor%20view%20displaying%20Risk%20Threshold%20Exceeded%20(High%20%26%20Medium)%20and%20Payment%20Failure%20alerts..png)
-
-*Risk Threshold Exceeded (High and Medium) alerts interspersed with Payment Failure events.*
-
-![Live Monitor — Critical: Payment Failure & Suspicious Activity](Screenshots/Live%20Monitor%20view%20highlighting%20Payment%20Failure%20(Critical)%20and%20Suspicious%20Activity%20(Critical)%20alerts..png)
-
-*Critical severity tile view highlighting Payment Failure (Critical) and Suspicious Activity (Critical) events — the highest priority for operations.*
-
-![Live Monitor — Low Severity: Risk Thresholds / Payment Failures / Suspicious](Screenshots/Live%20Monitor%20view%20showing%20Risk%20Threshold%20Exceeded%20(Low)%2C%20Payment%20Failure%20(Low)%2C%20and%20Suspicious%20Activity%20alerts..png)
-
-*Low-severity alert view: Risk Threshold Exceeded (Low), Payment Failure (Low), and Suspicious Activity for tracking/audit.*
-
-![Live Monitor — Medium: Risk Thresholds / High Volume / Payment Failures](Screenshots/Live%20Monitor%20view%20showing%20Risk%20Threshold%20Exceeded%2C%20High%20Transaction%20Volume%2C%20and%20Payment%20Failure%20(Medium)%20alerts..png)
-
-*Medium-severity aggregation view: Risk Threshold, High Transaction Volume, and Payment Failure medium-tier alerts.*
-
----
-
-### 36.14 API & Backend Documentation
-
-![Root API Endpoint (Links)](Screenshots/JSON%20output%20from%20the%20root%20API%20endpoint%20listing%20links%20for%20docs%2C%20health%2C%20auth%2C%20and%20websocket%20routes..png)
-
-*JSON response from the root API endpoint (`/`) exposing the HATEOAS-style link collection (docs, health, auth, websocket, etc.).*
-
-![Health Endpoint (Status, Version, DB State)](Screenshots/JSON%20response%20from%20the%20health%20endpoint%20displaying%20status%20(degraded)%2C%20version%2C%20and%20database%20state..png)
-
-*JSON response from the health endpoint showing operational status (`degraded` sample), version, and database connectivity state.*
-
-![OpenAPI 3.1 JSON Schema (API Info & health paths)](Screenshots/OpenAPI%203.1.0%20JSON%20specification%20schema%20showing%20API%20info%20and%20health%20check%20paths..png)
-
-*Raw `openapi.json` response — OpenAPI 3.1.0 schema root with API info block and `/health*` paths enumerated.*
-
-![Swagger UI — API Banner, Authorize, Endpoint List](Screenshots/Swagger%20UI%20documentation%20page%20showing%20the%20OpenAPI%203.1%20title%20banner%2C%20authorize%20button%2C%20and%20endpoint%20lists..png)
-
-*Swagger UI page: OpenAPI 3.1 banner, Authorize button for JWT, and full endpoint list — the default interactive console at `/docs`.*
-
-![Redoc UI — Banking Analytics API Title & Health Section](Screenshots/Top-level%20Redocly%20documentation%20interface%20displaying%20the%20Banking%20Analytics%20API%20title%2C%20version%2C%20and%20initial%20health%20check%20section..png)
-
-*Top-level Redoc UI (`/redoc`) — Banking Analytics API title, semantic version, and the introductory Health Check section layout.*
-
-![Redoc — Sample Responses for Health Ready & Live](Screenshots/Redocly%20UI%20showing%20documentation%20and%20response%20samples%20for%20apiv1healthready%20and%20apiv1healthlive.png)
-
-*Redoc UI detail view showing sample request/response bodies for `/api/v1/health/ready` and `/api/v1/health/live`.*
-
----
-
-### 36.15 Miscellaneous UI Artifact
-
-![Share Screen Browser Prompt](Screenshots/Shows%20the%20browser%20prompt%20asking%20to%20choose%20and%20share%20the%20screen..png)
-
-*Browser share-screen prompt triggered when starting the Streamlit screencast recorder — captured for completeness in documentation around walkthrough capture flows.*
-
----
-
-## 36.16 Screenshot Inventory Summary
-
-| Bucket | Count | Notes |
-|--------|------:|-------|
-| Cover image (GitHub banner) | 1 | `Github Image.png` |
-| Home / Platform Overview | 3 | |
-| Executive Overview Dashboard | 7 | incl. PDF export & screencast modal |
-| Customer 360 Profile | 4 | |
-| Profitability Analytics | 4 | |
-| Credit Risk Analytics | 4 | |
-| Churn Analytics | 5 | |
-| Customer Segmentation | 5 | |
-| Product Analytics | 6 | |
-| Transaction Analytics | 4 | |
-| Decision Intelligence | 3 | |
-| Data Quality Monitoring | 1 | |
-| Model Monitoring | 3 | |
-| Live Monitor / Real-Time Streaming | 8 | |
-| API & Backend Documentation | 6 | |
-| Miscellaneous UI Artifact | 1 | share-screen prompt |
-| **TOTAL** | **65** | 64 application screenshots + 1 cover image |
-
-All 65 PNGs in `Screenshots/` are referenced exactly once in this README (cover image appears at the top; each of the remaining 64 appears in the category above). No duplicates. No references to non-existent files.
-
----
 
 ## Repository
 
@@ -1403,3 +1366,9 @@ All 65 PNGs in `Screenshots/` are referenced exactly once in this README (cover 
 - **Security Guide:** [SECURITY_GUIDE.md](docs/security/SECURITY_GUIDE.md)
 - **Audit Inventory:** `docs/audit/`
 - **Methodologies:** `docs/*.md` (profitability, credit risk, churn, CLV, segmentation, decision intelligence, data quality rules, streaming architecture, etc.)
+
+- ## 37. License
+
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for the full text.
+
+S K Ismail

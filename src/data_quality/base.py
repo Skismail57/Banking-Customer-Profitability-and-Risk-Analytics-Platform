@@ -1,7 +1,7 @@
 """Base classes and utilities for data quality validation."""
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Tuple, Callable
 import logging
 

@@ -1,6 +1,6 @@
 """Customer schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import date
 
@@ -18,11 +18,10 @@ class CustomerBase(BaseModel):
 class Customer(CustomerBase):
     """Customer response schema."""
     
+    model_config = ConfigDict(from_attributes=True)
+    
     customer_age: Optional[int] = Field(None, description="Customer age")
     income_level: Optional[str] = Field(None, description="Income level")
-    
-    class Config:
-        from_attributes = True
 
 
 class CustomerListResponse(BaseModel):

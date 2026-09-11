@@ -1,12 +1,14 @@
 """Recommendation schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List
 from datetime import date
 
 
 class Recommendation(BaseModel):
     """Recommendation schema."""
+    
+    model_config = ConfigDict(from_attributes=True)
     
     recommendation_key: str = Field(..., description="Recommendation unique identifier")
     customer_key: str = Field(..., description="Customer unique identifier")
@@ -17,9 +19,6 @@ class Recommendation(BaseModel):
     reason: str = Field(..., description="Reason for recommendation")
     limitations: Optional[List[str]] = Field(None, description="Limitations")
     generated_at: date = Field(..., description="Generation date")
-    
-    class Config:
-        from_attributes = True
 
 
 class RecommendationListResponse(BaseModel):

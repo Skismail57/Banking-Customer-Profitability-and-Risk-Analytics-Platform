@@ -4,8 +4,10 @@ This module contains SQLAlchemy models for the streaming infrastructure tables.
 These models follow the existing banking analytics architecture and conventions.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from enum import Enum
 
 from sqlalchemy import (
@@ -409,7 +411,7 @@ class FactDecisionAudit(Base, TimestampMixin):
     
     # Decision outcome
     decision_outcome: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
-    reason_codes: Mapped[Optional[list[str]]] = mapped_column(ARRAY(String), nullable=True)
+    reason_codes: Mapped[Optional[List[str]]] = mapped_column(ARRAY(String), nullable=True)
     
     # Performance
     processing_latency_ms: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)

@@ -4,6 +4,7 @@ This module provides data profiling capabilities to understand data
 characteristics and detect quality issues.
 """
 
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 import logging

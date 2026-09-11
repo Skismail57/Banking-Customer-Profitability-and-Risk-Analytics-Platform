@@ -4,6 +4,7 @@ This module provides data validation capabilities to ensure data quality
 in the streaming pipeline.
 """
 
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List, Callable
 from enum import Enum

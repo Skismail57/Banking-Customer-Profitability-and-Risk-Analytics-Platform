@@ -4,6 +4,7 @@ This module provides penetration testing capabilities to identify security
 vulnerabilities through simulated attacks.
 """
 
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 from enum import Enum

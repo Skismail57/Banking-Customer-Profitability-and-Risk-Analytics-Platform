@@ -16,7 +16,8 @@ from api.auth.exceptions import (
     InvalidCredentialsError,
     UserNotFoundError,
     UserDisabledError,
-    PasswordValidationError
+    PasswordValidationError,
+    InvalidTokenError
 )
 from api.config import settings
 

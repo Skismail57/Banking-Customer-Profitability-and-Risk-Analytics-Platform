@@ -106,8 +106,8 @@ class User(BaseModel):
     roles: List[UserRole] = Field(default_factory=list, description="User roles")
     is_active: bool = Field(default=True, description="Whether user is active")
     is_service: bool = Field(default=False, description="Whether this is a service account")
-    created_at: datetime = Field(default_factory=timezone.utcnow, description="Creation timestamp")
-    updated_at: datetime = Field(default_factory=timezone.utcnow, description="Last update timestamp")
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="Creation timestamp")
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="Last update timestamp")
     
     @property
     def permissions(self) -> set[Permission]:

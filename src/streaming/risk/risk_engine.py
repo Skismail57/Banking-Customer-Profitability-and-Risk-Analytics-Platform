@@ -19,12 +19,13 @@ Fairness Considerations:
 - Monitor risk score distribution across customer segments for fairness
 """
 
+from collections import defaultdict, deque
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
-from collections import defaultdict
 import logging
 import uuid
 from dataclasses import dataclass
+import numpy as np
 
 from src.streaming.config import StreamingConfig
 from src.streaming.features.feature_store import FeatureStore

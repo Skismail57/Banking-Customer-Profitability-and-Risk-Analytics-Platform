@@ -35,7 +35,7 @@ class BaseEvent(BaseModel):
     event_type: EventType = Field(..., description="Type of banking event")
     event_timestamp: datetime = Field(..., description="When the event occurred (event-time)")
     ingestion_timestamp: datetime = Field(
-        default_factory=timezone.utcnow,
+        default_factory=lambda: datetime.now(timezone.utc),
         description="When the event was ingested (processing-time)"
     )
     customer_key: Optional[str] = Field(None, description="Customer identifier")

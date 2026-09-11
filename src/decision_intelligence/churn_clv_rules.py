@@ -1,5 +1,6 @@
 """Churn + CLV combination rules."""
 
+from datetime import date
 from typing import Dict, Any, List
 import logging
 

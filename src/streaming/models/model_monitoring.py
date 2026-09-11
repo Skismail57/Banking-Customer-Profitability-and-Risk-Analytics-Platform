@@ -19,9 +19,9 @@ Fairness Considerations:
 - Alert on performance degradation for protected groups
 """
 
+from collections import defaultdict, deque
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, List, Tuple
-from collections import deque
 import logging
 import uuid
 from dataclasses import dataclass

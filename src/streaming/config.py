@@ -257,7 +257,7 @@ class StreamingConfig:
             ValueError: If configuration is invalid
         """
         # Validate broker configuration
-        if not self.broker.bootstrap_servers:
+        if not self.kafka.bootstrap_servers:
             raise ValueError("Broker bootstrap_servers is required")
         
         # Validate Redis configuration

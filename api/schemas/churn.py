@@ -1,6 +1,6 @@
 """Churn schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import date
 
@@ -8,13 +8,12 @@ from datetime import date
 class CustomerChurn(BaseModel):
     """Customer churn schema."""
     
+    model_config = ConfigDict(from_attributes=True)
+    
     customer_key: str = Field(..., description="Customer unique identifier")
     churn_probability: float = Field(..., ge=0, le=1, description="Churn probability")
     clv: Optional[float] = Field(None, description="Customer lifetime value")
     as_of_date: date = Field(..., description="As of date")
-    
-    class Config:
-        from_attributes = True
 
 
 class ChurnAggregate(BaseModel):

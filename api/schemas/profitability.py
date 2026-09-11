@@ -1,6 +1,6 @@
 """Profitability schemas."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import date
 
@@ -8,14 +8,13 @@ from datetime import date
 class CustomerProfitability(BaseModel):
     """Customer profitability schema."""
     
+    model_config = ConfigDict(from_attributes=True)
+    
     customer_key: str = Field(..., description="Customer unique identifier")
     net_profit: float = Field(..., description="Net profit")
     risk_adjusted_profit: Optional[float] = Field(None, description="Risk-adjusted profit")
     profit_margin: Optional[float] = Field(None, description="Profit margin")
     as_of_date: date = Field(..., description="As of date")
-    
-    class Config:
-        from_attributes = True
 
 
 class ProfitabilityAggregate(BaseModel):

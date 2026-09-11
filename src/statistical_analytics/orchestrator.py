@@ -4,6 +4,7 @@ from typing import Dict, Any, List, Optional
 import logging
 
 import pandas as pd
+import numpy as np
 
 from src.statistical_analytics.base import StatisticalBase
 from src.statistical_analytics.descriptive import DescriptiveStatistics
