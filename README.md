@@ -1,4 +1,5 @@
-[Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/Github%20Image.png)
+[Banking Customer Profitability and Risk Analytics Platform - Cover]
+(Screenshots/GithubImage.png)
 
 
 
