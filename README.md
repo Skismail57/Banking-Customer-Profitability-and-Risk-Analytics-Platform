@@ -8,7 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000?style=flat&logo=black)](#)
 
-![Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/Github%20Image.png)
+![Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/GithubImage.png)
 
 > A modular, domain-driven banking analytics platform that unifies customer profitability measurement, credit risk scoring, churn prediction, customer segmentation, real-time transaction monitoring, executive decision intelligence, and model observability into one cohesive FastAPI + Streamlit + PostgreSQL data warehouse application.
 
