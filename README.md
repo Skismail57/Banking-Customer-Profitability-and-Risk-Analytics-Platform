@@ -1,4 +1,6 @@
 # Banking Customer Profitability and Risk Analytics Platform
+(Screenshots/Github%20Image.png)
+
 
 <img src="https://skillicons.dev/icons?i=python" width="24" height="24" /> **Python 3.11 | 3.12 | 3.14**
 <img src="https://skillicons.dev/icons?i=fastapi" width="24" height="24" /> **FastAPI 0.109**
