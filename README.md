@@ -1,12 +1,16 @@
 # Banking Customer Profitability and Risk Analytics Platform
 
-[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.14-blue?style=flat&logo=python&logoColor=white)](#)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-teal?style=flat&logo=fastapi&logoColor=white)](#)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.31-FF4B4B?style=flat&logo=streamlit&logoColor=white)](#)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?style=flat&logo=postgresql&logoColor=white)](#)
-[![Pandera](https://img.shields.io/badge/Pandera-0.18-E94E5C?style=flat)](#)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
-[![Code Style](https://img.shields.io/badge/code%20style-black-000000?style=flat&logo=black)](#)
+<div align="center">
+
+[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](#)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?style=for-the-badge&logo=fastapi&logoColor=white)](#)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.31-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](#)
+
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](#)
+[![Pandera](https://img.shields.io/badge/Pandera-0.18-E94E5C?style=for-the-badge&logoColor=white)](#)
+[![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000?style=for-the-badge&logo=python&logoColor=white)](#)
+
+</div>
 
 ![Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/Github%20Image.png)
 
