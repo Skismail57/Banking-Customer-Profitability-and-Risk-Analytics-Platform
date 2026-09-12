@@ -624,6 +624,8 @@ The platform is built with a modern data engineering, analytics, machine learnin
   <img src="https://skillicons.dev/icons?i=python,fastapi,postgresql,docker,kubernetes,github,githubactions,redis" alt="Core Technology Stack" />
 </p>
 
+### 🎨 Frontend
+
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
 | <img src="https://cdn.simpleicons.org/streamlit" width="28"> | **Streamlit** | 1.31.0 | Used to build interactive banking analytics dashboards and business intelligence interfaces |
@@ -634,12 +636,12 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🐍 | **Python** | 3.11+ | Used for backend development, data processing, analytics, and machine learning |
-| ⚡ | **FastAPI** | 0.109.0 | Used to build REST APIs for serving banking analytics and application services |
-| � | **python-jose** | 3.3.0 | Used for JWT authentication and token management |
-| 🔑 | **Passlib** | 1.7.4 | Used for password hashing |
-| 🔒 | **bcrypt** | 4.0.1 | Used for secure password hashing |
-| 🚦 | **SlowAPI** | 0.1.9 | Used for API rate limiting and abuse protection |
+| <img src="https://cdn.simpleicons.org/python" width="28"> | **Python** | 3.11+ | Core programming language for backend services, data processing, analytics, and machine learning |
+| <img src="https://cdn.simpleicons.org/fastapi" width="28"> | **FastAPI** | 0.109.0 | Used to build high-performance REST APIs for banking analytics and application services |
+| <img src="https://cdn.simpleicons.org/jsonwebtokens" width="28"> | **python-jose** | 3.3.0 | Used for JWT authentication, token creation, validation, and secure API authorization |
+| <img src="https://cdn.simpleicons.org/passport" width="28"> | **Passlib** | 1.7.4 | Used to manage secure password hashing and password verification |
+| <img src="https://cdn.simpleicons.org/letsencrypt" width="28"> | **bcrypt** | 4.0.1 | Used for secure one-way password hashing and credential protection |
+| <img src="https://cdn.simpleicons.org/fastapi" width="28"> | **SlowAPI** | 0.1.9 | Used to implement API rate limiting and protect services against excessive requests and abuse |
 
 ---
 
@@ -647,10 +649,10 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🐘 | **PostgreSQL** | 15 | Used to store customer, account, transaction, profitability, and risk data |
-| 🗄️ | **SQLAlchemy** | 2.0.35 | Used for database access and ORM operations |
-| 🔄 | **Alembic** | 1.13.0 | Used for database schema migrations |
-| 🐘 | **psycopg2-binary** | 2.9.9 | Used to connect Python applications to PostgreSQL |
+| <img src="https://cdn.simpleicons.org/postgresql" width="28"> | **PostgreSQL** | 15 | Primary relational database for customer, account, transaction, profitability, and risk data |
+| <img src="https://cdn.simpleicons.org/sqlalchemy" width="28"> | **SQLAlchemy** | 2.0.35 | Used for database connectivity, ORM operations, query management, and application data access |
+| <img src="https://cdn.simpleicons.org/alembic" width="28"> | **Alembic** | 1.13.0 | Used to manage version-controlled database schema migrations |
+| <img src="https://cdn.simpleicons.org/postgresql" width="28"> | **psycopg2-binary** | 2.9.9 | PostgreSQL database adapter used to connect Python applications with PostgreSQL |
 
 **Data Architecture:** PostgreSQL star schema with **4 dimensions, 9 fact tables, and 10 analytical SQL views**.
 
@@ -660,10 +662,10 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🐼 | **Pandas** | 2.1.4 | Used for data cleaning, transformation, aggregation, and analysis |
-| 🚀 | **Polars** | 0.20.6 | Used for high-performance DataFrame processing |
-| 🔢 | **NumPy** | 1.26.2 | Used for numerical calculations and data processing |
-| 🛡️ | **Pandera** | 0.18.0 | Used to validate data schemas and detect data-quality problems |
+| <img src="https://cdn.simpleicons.org/pandas" width="28"> | **Pandas** | 2.1.4 | Used for data cleaning, transformation, aggregation, feature engineering, and analytical processing |
+| <img src="https://cdn.simpleicons.org/polars" width="28"> | **Polars** | 0.20.6 | Used for high-performance DataFrame processing and large-scale analytical workloads |
+| <img src="https://cdn.simpleicons.org/numpy" width="28"> | **NumPy** | 1.26.2 | Used for numerical computation, mathematical operations, and efficient array processing |
+| <img src="https://cdn.simpleicons.org/pandera" width="28"> | **Pandera** | 0.18.0 | Used for DataFrame schema validation, data-quality checks, and pipeline validation |
 
 ---
 
@@ -671,10 +673,10 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🤖 | **Scikit-learn** | 1.3.2 | Used for customer segmentation, prediction, classification, and clustering |
-| ⚖️ | **Imbalanced-learn** | 0.11.0 | Used to handle imbalanced machine learning datasets |
-| 🧮 | **SciPy** | 1.11.4 | Used for scientific computing and statistical calculations |
-| � | **Statsmodels** | 0.14.0 | Used for statistical modelling and analytical methods |
+| <img src="https://cdn.simpleicons.org/scikitlearn" width="28"> | **Scikit-learn** | 1.3.2 | Used for customer segmentation, classification, prediction, clustering, and machine learning workflows |
+| <img src="https://cdn.simpleicons.org/imblearn" width="28"> | **Imbalanced-learn** | 0.11.0 | Used to handle class imbalance and improve machine learning performance on skewed datasets 
+| <img src="https://cdn.simpleicons.org/scipy" width="28"> | **SciPy** | 1.11.4 | Used for scientific computing, statistical calculations, optimization, and mathematical analysis |
+| <img src="https://cdn.simpleicons.org/statsmodels" width="28"> | **Statsmodels** | 0.14.0 | Used for statistical modelling, regression analysis, hypothesis testing, and time-series analysis |
 
 ---
 
@@ -682,29 +684,18 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 📨 | **Apache Kafka** | — | Used for real-time transaction and event streaming |
-| � | **Confluent Kafka** | 2.0.2 | Used to integrate Python applications with Kafka producers and consumers |
-| �🔴 | **Redis** | 4.3.4 | Used for caching, feature serving, and live-alert state management |
+| <img src="https://cdn.simpleicons.org/apachekafka" width="28"> | **Apache Kafka** | — | Used for real-time transaction event streaming and distributed data pipelines |
+| <img src="https://cdn.simpleicons.org/apachekafka" width="28"> | **Confluent Kafka** | 2.0.2 | Used to integrate Python applications with Kafka producers, consumers, and streaming infrastructure |
+| <img src="https://cdn.simpleicons.org/redis" width="28"> | **Redis** | 4.3.4 | Used for high-speed caching, feature serving, session data, and live-alert state management |
 
 ---
 
-### 🧪 Testing
+### 🛡️ Security & Auditing
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🧪 | **Pytest** | 7.4.4 | Used for automated unit and integration testing |
-| � | **pytest-cov** | 4.1.0 | Used to measure test coverage |
-| � | **pytest-mock** | 3.12.0 | Used for mocking dependencies during tests |
-| ⚡ | **pytest-asyncio** | 0.23.3 | Used for testing asynchronous Python code |
-
----
-
-### 🛡️ Security Auditing
-
-| Icon | Technology | Version | Purpose |
-|---|---|---:|---|
-| 🔍 | **Bandit** | 1.7.5 | Used to scan Python code for security vulnerabilities |
-| 🩺 | **pip-audit** | 2.6.4 | Used to identify vulnerabilities in Python dependencies |
+| <img src="https://cdn.simpleicons.org/bandit" width="28"> | **Bandit** | 1.7.5 | Used for static security analysis of Python source code and detection of common vulnerabilities |
+| <img src="https://cdn.simpleicons.org/pypi" width="28"> | **pip-audit** | 2.6.4 | Used to scan Python dependencies for known security vulnerabilities and vulnerable package versions |
 
 ---
 
@@ -712,29 +703,31 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🐳 | **Docker** | — | Used to containerize the application and its services |
-| 📦 | **Docker Compose** | — | Used to run and manage multiple services locally |
-| ☸️ | **Kubernetes** | — | Used for container orchestration and deployment |
-
+| <img src="https://cdn.simpleicons.org/docker" width="28"> | **Docker** | — | Used to containerize the banking analytics application and its supporting services |
+| <img src="https://cdn.simpleicons.org/docker" width="28"> | **Docker Compose** | — | Used to define, configure, and run multiple application services locally |
+| <img src="https://cdn.simpleicons.org/kubernetes" width="28"> | **Kubernetes** | — | Used for container orchestration, service management, scaling, and deployment automation |
 ---
 
 ### 🔄 CI/CD & Version Control
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| 🐙 | **GitHub** | — | Used for source-code hosting and collaboration |
-| ⚙️ | **GitHub Actions** | — | Used to automate testing, CI/CD, and security checks |
-### 🧪 Testing & Quality
+| <img src="https://cdn.simpleicons.org/github" width="28"> | **GitHub** | — | Used for source-code hosting, collaboration, project management, and repository management |
+| <img src="https://cdn.simpleicons.org/githubactions" width="28"> | **GitHub Actions** | — | Used to automate testing, CI/CD pipelines, security scanning, and deployment workflows |
+| <img src="https://cdn.simpleicons.org/git" width="28"> | **Git** | — | Used for distributed version control, source-code tracking, branching, and collaboration |
 
-| Icon | Technology | Purpose |
-|------|-----------|---------|
-| 🧪 | **pytest 7.4.4** | Test framework with 35 test files |
-| 📊 | **pytest-cov 4.1.0** | Code coverage reporting |
-| 🎭 | **pytest-mock 3.12.0** | Mocking utilities |
-| ⏱️ | **pytest-asyncio 0.23.3** | Async test support |
-| 🕵️ | **bandit 1.7.5** | Security linting (SAST) |
-| 🔍 | **pip-audit 2.6.4** | Dependency vulnerability scanning (SCA) |
-| 🐢 | **slowapi 0.1.9** | API rate limiting |
+
+### 🧪 Testing, Quality & Security
+
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| <img src="https://cdn.simpleicons.org/pytest" width="28"> | **pytest** | 7.4.4 | Test framework used for automated unit, functional, and integration testing across 35 test files |
+| <img src="https://cdn.simpleicons.org/codecov" width="28"> | **pytest-cov** | 4.1.0 | Used to measure code coverage and generate test coverage reports |
+| <img src="https://cdn.simpleicons.org/pytest" width="28"> | **pytest-mock** | 3.12.0 | Used to mock dependencies and isolate components during automated testing |
+| <img src="https://cdn.simpleicons.org/pytest" width="28"> | **pytest-asyncio** | 0.23.3 | Used to test asynchronous Python functions and async API operations |
+| <img src="https://cdn.simpleicons.org/bandit" width="28"> | **Bandit** | 1.7.5 | Used for static application security testing (SAST) and Python vulnerability detection |
+| <img src="https://cdn.simpleicons.org/pypi" width="28"> | **pip-audit** | 2.6.4 | Used to scan Python dependencies for known security vulnerabilities (SCA) |
+| <img src="https://cdn.simpleicons.org/fastapi" width="28"> | **SlowAPI** | 0.1.9 | Used to implement API rate limiting and protect backend services from excessive requests and abuse |
 
 ---
 
