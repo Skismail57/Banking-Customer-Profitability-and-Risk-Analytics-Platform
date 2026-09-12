@@ -624,11 +624,11 @@ The platform is built with a modern data engineering, analytics, machine learnin
   <img src="https://skillicons.dev/icons?i=python,fastapi,postgresql,docker,kubernetes,github,githubactions,redis" alt="Core Technology Stack" />
 </p>
 
-🎨 Frontend
-Icon	Technology	Version	Purpose
-<img src="https://cdn.simpleicons.org/streamlit/FF4B4B" width="24">	Streamlit	1.31.0	Used to build interactive banking analytics dashboards
-<img src="https://cdn.simpleicons.org/plotly/3F4F75" width="24">	Plotly	5.18.0	Used to create interactive charts and risk/profitability visualizations
----
+| Icon | Technology | Version | Purpose |
+|---|---|---:|---|
+| <img src="https://cdn.simpleicons.org/streamlit" width="28"> | **Streamlit** | 1.31.0 | Used to build interactive banking analytics dashboards and business intelligence interfaces |
+| <img src="https://cdn.simpleicons.org/plotly" width="28"> | **Plotly** | 5.18.0 | Used to create interactive charts, financial visualizations, and risk/profitability analytics |
+
 
 ### ⚙️ Backend
 
@@ -648,9 +648,9 @@ Icon	Technology	Version	Purpose
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
 | 🐘 | **PostgreSQL** | 15 | Used to store customer, account, transaction, profitability, and risk data |
-| � | **SQLAlchemy** | 2.0.35 | Used for database access and ORM operations |
+| 🗄️ | **SQLAlchemy** | 2.0.35 | Used for database access and ORM operations |
 | 🔄 | **Alembic** | 1.13.0 | Used for database schema migrations |
-| � | **psycopg2-binary** | 2.9.9 | Used to connect Python applications to PostgreSQL |
+| 🐘 | **psycopg2-binary** | 2.9.9 | Used to connect Python applications to PostgreSQL |
 
 **Data Architecture:** PostgreSQL star schema with **4 dimensions, 9 fact tables, and 10 analytical SQL views**.
 
