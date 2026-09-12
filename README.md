@@ -615,7 +615,7 @@ The platform follows a **layered, domain-driven architecture** with clear owners
 
 ---
 
-## 🛠️ Technology Stack
+
 ## 🛠️ Technology Stack
 
 The platform is built with a modern data engineering, analytics, machine learning, API, security, and deployment stack.
@@ -624,13 +624,10 @@ The platform is built with a modern data engineering, analytics, machine learnin
   <img src="https://skillicons.dev/icons?i=python,fastapi,postgresql,docker,kubernetes,github,githubactions,redis" alt="Core Technology Stack" />
 </p>
 
-### 🎨 Frontend
-
-| Icon | Technology | Version | Purpose |
-|---|---|---:|---|
-| 📊 | **Streamlit** | 1.31.0 | Used to build interactive banking analytics dashboards |
-| 📈 | **Plotly** | 5.18.0 | Used to create interactive charts and risk/profitability visualizations |
-
+🎨 Frontend
+Icon	Technology	Version	Purpose
+<img src="https://cdn.simpleicons.org/streamlit/FF4B4B" width="24">	Streamlit	1.31.0	Used to build interactive banking analytics dashboards
+<img src="https://cdn.simpleicons.org/plotly/3F4F75" width="24">	Plotly	5.18.0	Used to create interactive charts and risk/profitability visualizations
 ---
 
 ### ⚙️ Backend
