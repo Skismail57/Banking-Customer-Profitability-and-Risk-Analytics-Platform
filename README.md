@@ -1,5 +1,5 @@
-# Banking Customer Profitability and Risk Analytics Platform
-(Screenshots/Github%20Image.png)
+[Banking Customer Profitability and Risk Analytics Platform - Cover](Screenshots/Github%20Image.png)
+
 
 
 <img src="https://skillicons.dev/icons?i=python" width="24" height="24" /> **Python 3.11 | 3.12 | 3.14**
