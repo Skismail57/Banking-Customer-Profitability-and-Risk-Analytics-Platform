@@ -649,10 +649,10 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| <img src="https://cdn.simpleicons.org/postgresql" width="28"> | **PostgreSQL** | 15 | Primary relational database for customer, account, transaction, profitability, and risk data |
-| <img src="https://cdn.simpleicons.org/sqlalchemy" width="28"> | **SQLAlchemy** | 2.0.35 | Used for database connectivity, ORM operations, query management, and application data access |
+| <img src="https://cdn.simpleicons.org/postgresql" width="28"> | **PostgreSQL** | 15 | Primary database for customer, account, transaction, profitability, and risk data |
+| <img src="https://cdn.simpleicons.org/sqlalchemy" width="28"> | **SQLAlchemy** | 2.0.35 | Used for database connectivity and ORM operations |
 | <img src="https://cdn.simpleicons.org/alembic" width="28"> | **Alembic** | 1.13.0 | Used to manage version-controlled database schema migrations |
-| <img src="https://cdn.simpleicons.org/postgresql" width="28"> | **psycopg2-binary** | 2.9.9 | PostgreSQL database adapter used to connect Python applications with PostgreSQL |
+| <img src="https://cdn.simpleicons.org/python" width="28"> | **psycopg2-binary** | 2.9.9 | Used to connect Python applications with PostgreSQL |
 
 **Data Architecture:** PostgreSQL star schema with **4 dimensions, 9 fact tables, and 10 analytical SQL views**.
 
@@ -665,8 +665,7 @@ The platform is built with a modern data engineering, analytics, machine learnin
 | <img src="https://cdn.simpleicons.org/pandas" width="28"> | **Pandas** | 2.1.4 | Used for data cleaning, transformation, aggregation, feature engineering, and analytical processing |
 | <img src="https://cdn.simpleicons.org/polars" width="28"> | **Polars** | 0.20.6 | Used for high-performance DataFrame processing and large-scale analytical workloads |
 | <img src="https://cdn.simpleicons.org/numpy" width="28"> | **NumPy** | 1.26.2 | Used for numerical computation, mathematical operations, and efficient array processing |
-| <img src="https://cdn.simpleicons.org/pandera" width="28"> | **Pandera** | 0.18.0 | Used for DataFrame schema validation, data-quality checks, and pipeline validation |
-
+| 📋 | **Pandera** | 0.18.0 | Used for DataFrame schema validation, data-quality checks, and pipeline validation |
 ---
 
 ### 🤖 Machine Learning & Statistics
@@ -674,9 +673,9 @@ The platform is built with a modern data engineering, analytics, machine learnin
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
 | <img src="https://cdn.simpleicons.org/scikitlearn" width="28"> | **Scikit-learn** | 1.3.2 | Used for customer segmentation, classification, prediction, clustering, and machine learning workflows |
-| <img src="https://cdn.simpleicons.org/imblearn" width="28"> | **Imbalanced-learn** | 0.11.0 | Used to handle class imbalance and improve machine learning performance on skewed datasets 
+| ⚖️ | **Imbalanced-learn** | 0.11.0 | Used to handle class imbalance and improve machine learning performance on skewed datasets |
 | <img src="https://cdn.simpleicons.org/scipy" width="28"> | **SciPy** | 1.11.4 | Used for scientific computing, statistical calculations, optimization, and mathematical analysis |
-| <img src="https://cdn.simpleicons.org/statsmodels" width="28"> | **Statsmodels** | 0.14.0 | Used for statistical modelling, regression analysis, hypothesis testing, and time-series analysis |
+| 📈 | **Statsmodels** | 0.14.0 | Used for statistical modelling, regression analysis, hypothesis testing, and time-series analysis |
 
 ---
 
@@ -694,7 +693,7 @@ The platform is built with a modern data engineering, analytics, machine learnin
 
 | Icon | Technology | Version | Purpose |
 |---|---|---:|---|
-| <img src="https://cdn.simpleicons.org/bandit" width="28"> | **Bandit** | 1.7.5 | Used for static security analysis of Python source code and detection of common vulnerabilities |
+| <img src="https://cdn.simpleicons.org/bandit" width="28"> | **Bandit** | 1.7.5 | Used for static application security testing (SAST) and Python vulnerability detection |
 | <img src="https://cdn.simpleicons.org/pypi" width="28"> | **pip-audit** | 2.6.4 | Used to scan Python dependencies for known security vulnerabilities and vulnerable package versions |
 
 ---
